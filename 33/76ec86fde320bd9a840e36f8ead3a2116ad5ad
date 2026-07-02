@@ -1,0 +1,29 @@
+internal/logging/logging_test.go
+  s_97feeb9a3e10a1::t_88283a6c985b95 1-103
+internal/logging/redact_test.go
+  s_97feeb9a3e10a1::t_3f5146a63b97db 45-47,50
+  s_97feeb9a3e10a1::t_9e399c32fab844 130,133-140
+  s_97feeb9a3e10a1::t_1f661415ea233d 1-44,48-49,51-129,131-132,141-224
+internal/logging/logging.go
+  s_97feeb9a3e10a1::t_747c3e1ef5b054 1-49
+internal/logging/redact.go
+  s_97feeb9a3e10a1::t_7ef1392843c943 1-122
+TODO.md
+  s_97feeb9a3e10a1::t_b74968ad9c3663 94,99,105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "3376ec86fde320bd9a840e36f8ead3a2116ad5ad",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
