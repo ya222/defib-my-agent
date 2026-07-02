@@ -91,18 +91,18 @@ Goal: spawn a child, capture output to files, kill the whole tree, redact secret
 
 Depends on: M2.
 
-- [ ] **M3-T1 — `internal/logging`.**
+- [x] **M3-T1 — `internal/logging`.**
   - slog setup (JSON to `daemon.log`, level from config) and a redactor for the secret shapes
     in [docs/architecture.md](docs/architecture.md#security-model).
   - Accept: redactor tests for `sk-…`, `ghp_…`, `Bearer …`, `Authorization:` and
     `*_TOKEN/_KEY/_SECRET` env values; non-secrets pass through unchanged.
-- [ ] **M3-T2 — `internal/process` runner.**
+- [x] **M3-T2 — `internal/process` runner.**
   - Spawn a `Command` (argv + env + cwd) in its own process group (`Setpgid`), stream stdout and
     stderr through the redactor to the attempt log files, enforce a max-output guard, and expose
     `Wait()` returning exit code. `Kill()` terminates the entire process group.
   - Accept: tests using short helper scripts prove: output is captured verbatim (minus
     redaction), exit code is reported, and `Kill()` reaps children. Uses an injectable clock/ctx.
-- [ ] **M3-T3 — Live log tailing.**
+- [x] **M3-T3 — Live log tailing.**
   - Provide a follow-reader so `task.logs --follow` can stream an in-progress attempt file.
   - Accept: a reader receives appended lines while the writer is still open.
 
