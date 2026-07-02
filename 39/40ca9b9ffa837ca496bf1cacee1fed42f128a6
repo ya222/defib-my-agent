@@ -1,0 +1,23 @@
+internal/detect/merge.go
+  s_97feeb9a3e10a1::t_99863c18155fd6 1-40
+internal/detect/merge_test.go
+  s_97feeb9a3e10a1::t_5a58cfd9e98f56 1-124
+TODO.md
+  s_97feeb9a3e10a1::t_81c1c3f89b8a63 133,138,142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "3940ca9b9ffa837ca496bf1cacee1fed42f128a6",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
