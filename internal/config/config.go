@@ -171,10 +171,19 @@ func Default() Config {
 // providers.claude.binary and the copilot/fake entries untouched.
 func Parse(data []byte) (Config, error) {
 	cfg := Default()
-	if err := toml.Unmarshal(data, &cfg); err != nil {
-		return Config{}, fmt.Errorf("parse config: %w", err)
+	if err := parseInto(&cfg, data); err != nil {
+		return Config{}, err
 	}
 	return cfg, nil
+}
+
+// parseInto unmarshals TOML over an existing Config, preserving any field
+// the data does not mention. Layered resolution reuses this to merge files.
+func parseInto(cfg *Config, data []byte) error {
+	if err := toml.Unmarshal(data, cfg); err != nil {
+		return fmt.Errorf("parse config: %w", err)
+	}
+	return nil
 }
 
 // Load reads and parses the TOML file at path. A missing file is not an

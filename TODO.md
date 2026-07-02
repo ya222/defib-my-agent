@@ -50,7 +50,7 @@ Depends on: M0.
     [docs/configuration.md](docs/configuration.md). Parse TOML via `pelletier/go-toml/v2`.
   - Accept: loading an empty file yields all documented defaults; round-trip test of a full
     example config from `testdata/`.
-- [ ] **M1-T3 — Layering + env + precedence.**
+- [x] **M1-T3 — Layering + env + precedence.**
   - Merge built-in < global < project `.defib.toml` (nearest ancestor) < env (`DEFIB_*`
     scalars) < explicit overrides, per
     [docs/configuration.md](docs/configuration.md#precedence-highest-wins).
