@@ -67,7 +67,7 @@ Goal: crash-safe SQLite store and the on-disk task tree.
 
 Depends on: M1.
 
-- [ ] **M2-T1 — Store bootstrap + migrations.**
+- [x] **M2-T1 — Store bootstrap + migrations.**
   - `internal/store` opens `defib.db` with WAL + foreign keys, runs embedded ordered
     migrations, and records `schema_version` in `daemon_meta`, per
     [docs/architecture.md](docs/architecture.md#data-model).
