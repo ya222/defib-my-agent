@@ -112,7 +112,7 @@ Goal: the interface, the registry, and a deterministic provider to test everythi
 
 Depends on: M3.
 
-- [ ] **M4-T1 — Provider interface + registry.**
+- [x] **M4-T1 — Provider interface + registry.**
   - Define `Provider`, `Capabilities`, `Command`, `TaskSpec`, `Availability` exactly as in
     [docs/providers.md](docs/providers.md); add a registry with `Register`/`Get`/`List`.
   - Accept: interface compiles; registry lookup + capability listing tested.

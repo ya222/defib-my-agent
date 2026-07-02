@@ -77,6 +77,14 @@ type Availability struct {
     State   AvailabilityState // Available | Unavailable | Unsupported
     NextAt  *time.Time        // optional hint for when it will be available
 }
+
+// AttemptOutput carries a finished Attempt's exit code and captured output
+// tails (bounded like detection input) for session extraction.
+type AttemptOutput struct {
+    ExitCode int
+    Stdout   []byte
+    Stderr   []byte
+}
 ```
 
 ### Session strategy (important)
