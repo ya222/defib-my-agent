@@ -39,7 +39,7 @@ Goal: resolve directories and load/validate layered config exactly as specified.
 
 Depends on: M0.
 
-- [ ] **M1-T1 — `internal/paths`.**
+- [x] **M1-T1 — `internal/paths`.**
   - Implement Config/State/Runtime dir resolution for Linux (XDG) and macOS, honoring
     `DEFIB_CONFIG_DIR`/`DEFIB_STATE_DIR`/`DEFIB_RUNTIME_DIR`, per
     [docs/architecture.md](docs/architecture.md#on-disk-layout). Create dirs with `0700` when
