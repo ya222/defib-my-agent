@@ -116,7 +116,7 @@ Depends on: M3.
   - Define `Provider`, `Capabilities`, `Command`, `TaskSpec`, `Availability` exactly as in
     [docs/providers.md](docs/providers.md); add a registry with `Register`/`Get`/`List`.
   - Accept: interface compiles; registry lookup + capability listing tested.
-- [ ] **M4-T2 — Fake provider.**
+- [x] **M4-T2 — Fake provider.**
   - Implement `internal/provider/fake` with the script format and built-in detection rules in
     [docs/providers.md](docs/providers.md#the-fake-provider-internalproviderfake--required-for-testing)
     and [docs/detection.md](docs/detection.md#fake-provider-deterministic-for-tests). Supports
