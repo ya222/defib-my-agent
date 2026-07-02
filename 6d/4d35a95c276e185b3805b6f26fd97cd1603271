@@ -1,0 +1,28 @@
+.golangci.yml
+  h_4e2043ce386a40 1-43
+TODO.md
+  s_1de15ecbaec1b2::t_b2f46f080c0ca6 26
+Makefile
+  h_4e2043ce386a40 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "6d4d35a95c276e185b3805b6f26fd97cd1603271",
+  "prompts": {},
+  "humans": {
+    "h_4e2043ce386a40": {
+      "author": "Youssef <y9mohamed@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1de15ecbaec1b2": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "562f5e3f-23ae-43f9-a8c6-da838647e428",
+        "model": "gpt-5-mini"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
