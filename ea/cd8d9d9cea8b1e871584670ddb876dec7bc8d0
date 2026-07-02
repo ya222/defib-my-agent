@@ -1,0 +1,24 @@
+internal/process/process_test.go
+  s_97feeb9a3e10a1::t_22cbbf531ab667 1-217
+internal/process/process.go
+  s_97feeb9a3e10a1::t_3590861bc1ad1e 1-89,94-185
+  s_97feeb9a3e10a1::t_531955ed955d89 90-93
+internal/process/redact_integration_test.go
+  s_97feeb9a3e10a1::t_5269ddb6b46b77 1-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "eacd8d9d9cea8b1e871584670ddb876dec7bc8d0",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
