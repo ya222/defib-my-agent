@@ -130,16 +130,16 @@ Goal: classify Attempts into Outcomes + Reset Times from rules.
 
 Depends on: M4.
 
-- [ ] **M5-T1 — Rule types + engine.**
+- [x] **M5-T1 — Rule types + engine.**
   - Implement `Rule`, `Match`, `Extractor` and the priority-ordered, first-match engine over a
     bounded stream tail (`detect.scan_bytes`), per [docs/detection.md](docs/detection.md).
   - Accept: table tests map fixture outputs to expected `(category, matched_rule)`; AND-semantics
     and priority ordering verified.
-- [ ] **M5-T2 — Reset-time extractors.**
+- [x] **M5-T2 — Reset-time extractors.**
   - Implement all five extractor kinds and the "past reset time is ignored" rule.
   - Accept: tests for each kind, including HTTP-date `Retry-After`, relative durations, and
     `clock_time` next-occurrence, using a fixed injected clock.
-- [ ] **M5-T3 — Rule merging.**
+- [x] **M5-T3 — Rule merging.**
   - Merge provider built-ins with user config rules; same-`name` user rule replaces the built-in.
   - Accept: tests prove replacement and additive merge, ordered by priority.
 
