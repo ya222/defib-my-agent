@@ -1,0 +1,31 @@
+# Go build output
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+
+# Coverage
+coverage.txt
+coverage.html
+*.cover
+
+# Local defib state / config used during development
+/.defib/
+.defib.toml.local
+*.db
+*.db-wal
+*.db-shm
+*.sock
+*.pid
+*.log
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Env files (never commit secrets)
+.env
+.env.*
