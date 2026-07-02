@@ -17,7 +17,7 @@ relevant doc in sync, and never call a real provider in tests.
 
 Goal: a buildable, testable, lintable empty skeleton matching the fixed layout.
 
-- [ ] **M0-T1 — Initialize the module and layout.**
+- [x] **M0-T1 — Initialize the module and layout.**
   - Create `go.mod` (`module github.com/<org>/defib`, Go 1.22), the directory tree from
     [docs/architecture.md](docs/architecture.md#repository-layout), and a `cmd/defib/main.go`
     that prints version and exits.
