@@ -90,9 +90,10 @@ part of the M0 task, then use them.
 
 - **Conventional Commits:** `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`. Scope
   optional, e.g. `feat(scheduler): ...`.
-- **One feature branch per milestone.** Before starting a milestone's first task, branch off the
-  latest `main` as `milestone/m<n>-<slug>` (e.g. `milestone/m0-scaffolding`). Do every task in
-  that milestone on this branch.
+- **One feature branch per milestone.** Before starting a milestone's first task, create the
+  branch `milestone/m<n>-<slug>` (e.g. `milestone/m0-scaffolding`). If the previous milestone's
+  branch has already been merged into `main`, branch off the latest `main`; otherwise branch off
+  the previous milestone's branch. Do every task in that milestone on this branch.
 - **One commit per TODO task,** in order. Each commit references the task id (e.g. `M6-T2`) and
   ticks that task's checkbox in [TODO.md](TODO.md) **in the same commit**.
 - **Finish the milestone with a PR.** When every task in the milestone is done and `make check`
