@@ -1,0 +1,58 @@
+docs/configuration.md
+  s_6cb62b944cc030::t_5ad0eb33b2d4d3 1-148
+docs/architecture.md
+  s_6cb62b944cc030::t_a65c3a965b82ce 1-462
+docs/providers.md
+  s_6cb62b944cc030::t_60a128ed0917dd 1-189
+README.md
+  h_4e2043ce386a40 1-120
+LICENSE
+  h_4e2043ce386a40 1-201
+docs/glossary.md
+  h_4e2043ce386a40 1-32
+docs/cli.md
+  h_4e2043ce386a40 1-167
+.gitignore
+  h_4e2043ce386a40 1-31
+CLAUDE.md
+  h_4e2043ce386a40 1-7
+CONTRIBUTING.md
+  h_4e2043ce386a40 1-10,14-16,21-28,31,34,36-50
+  s_1de15ecbaec1b2::t_81b8f22558fa5a 11-13,17-20,29-30,32-33,35
+docs/detection.md
+  h_4e2043ce386a40 1-134
+AGENTS.md
+  h_4e2043ce386a40 1-121
+TODO.md
+  s_1de15ecbaec1b2::t_7d7d32212114b1 20,26,32
+  h_4e2043ce386a40 1-19,21-25,27-31,33-344
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "fba99eee0ac3d452fe3dd96c25d293e1a44199bf",
+  "prompts": {},
+  "humans": {
+    "h_4e2043ce386a40": {
+      "author": "Youssef <y9mohamed@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1de15ecbaec1b2": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "562f5e3f-23ae-43f9-a8c6-da838647e428",
+        "model": "gpt-5-mini"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_6cb62b944cc030": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "07bd0403-f336-4340-9d97-eb8f38323343",
+        "model": "gpt-5-mini"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
