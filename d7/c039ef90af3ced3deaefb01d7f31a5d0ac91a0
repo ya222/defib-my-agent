@@ -1,0 +1,26 @@
+TODO.md
+  s_1de15ecbaec1b2::t_54036aed18bc47 32
+.github/workflows/ci.yml
+  h_4e2043ce386a40 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "d7c039ef90af3ced3deaefb01d7f31a5d0ac91a0",
+  "prompts": {},
+  "humans": {
+    "h_4e2043ce386a40": {
+      "author": "Youssef <y9mohamed@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1de15ecbaec1b2": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "562f5e3f-23ae-43f9-a8c6-da838647e428",
+        "model": "gpt-5-mini"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
