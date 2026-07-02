@@ -1,0 +1,30 @@
+internal/store/crud_test.go
+  s_97feeb9a3e10a1::t_862a8d9c5d7a17 1-274
+internal/store/models.go
+  s_97feeb9a3e10a1::t_84646a039c80fa 1-88
+internal/store/store.go
+  s_97feeb9a3e10a1::t_a3b59f52382770 23-25,27-28
+  s_97feeb9a3e10a1::t_2b758a64bda879 13
+internal/store/crud.go
+  s_97feeb9a3e10a1::t_e442ffe6b8c532 1-379
+go.mod
+  s_97feeb9a3e10a1::t_e4599f2389f926 6
+TODO.md
+  s_97feeb9a3e10a1::t_12fd474e7872ba 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "fd386116a2dfe621dc98bff2ecfcec77c5c42482",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
