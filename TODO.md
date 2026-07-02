@@ -29,7 +29,7 @@ Goal: a buildable, testable, lintable empty skeleton matching the fixed layout.
     linter set (govet, staticcheck, errcheck, ineffassign, revive).
   - Accept: `make build`, `make fmt`, `make lint`, `make test` all run (tests may be empty) and
     exit `0` on a clean tree.
-- [ ] **M0-T3 — CI workflow.**
+- [x] **M0-T3 — CI workflow.**
   - Add a CI config running `make check` on Linux and macOS with Go 1.22. Cache modules.
   - Accept: CI is green on a no-op PR; race detector enabled in the test step.
 
