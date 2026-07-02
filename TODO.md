@@ -45,7 +45,7 @@ Depends on: M0.
     [docs/architecture.md](docs/architecture.md#on-disk-layout). Create dirs with `0700` when
     missing.
   - Accept: unit tests cover env overrides, XDG defaults, and macOS defaults using a fake HOME.
-- [ ] **M1-T2 — Config structs + defaults.**
+- [x] **M1-T2 — Config structs + defaults.**
   - Implement the full schema structs in `internal/config` with the exact defaults from
     [docs/configuration.md](docs/configuration.md). Parse TOML via `pelletier/go-toml/v2`.
   - Accept: loading an empty file yields all documented defaults; round-trip test of a full
