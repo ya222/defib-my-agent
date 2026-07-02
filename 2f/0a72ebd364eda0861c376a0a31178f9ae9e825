@@ -1,0 +1,25 @@
+internal/provider/fake/fake.go
+  s_97feeb9a3e10a1::t_4b4b2aa2207fef 1-144
+internal/provider/fake/fake_test.go
+  s_97feeb9a3e10a1::t_7c662457606622 1-256
+internal/provider/fake/run.go
+  s_97feeb9a3e10a1::t_03bb1472b6b5ae 1-158
+TODO.md
+  s_97feeb9a3e10a1::t_5f1ad1fb1c33c1 119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "2f0a72ebd364eda0861c376a0a31178f9ae9e825",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
