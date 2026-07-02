@@ -56,7 +56,7 @@ Depends on: M0.
     [docs/configuration.md](docs/configuration.md#precedence-highest-wins).
   - Accept: table tests prove precedence for representative keys, including a `.defib.toml`
     discovered in a parent directory.
-- [ ] **M1-T4 — Validation.**
+- [x] **M1-T4 — Validation.**
   - Implement all validation rules in
     [docs/configuration.md](docs/configuration.md#validation). Errors report the key path.
   - Accept: tests for each failure mode; valid configs pass.

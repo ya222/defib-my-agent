@@ -108,7 +108,7 @@ to Backoff.
 | Name | Category | Priority | Match (illustrative) | Reset extractor |
 | --- | --- | --- | --- | --- |
 | `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)rate limit|429` | `relative_duration` or `clock_time` from message, if present |
-| `claude.usage_limit` | `SESSION_LIMIT` | 80 | any regex `(?i)usage limit reached|limit will reset` | `clock_time` e.g. capture `(\d{1,2}(:\d{2})?\s?(am|pm))` |
+| `claude.usage_limit` | `SESSION_LIMIT` | 80 | any regex `(?i)usage limit reached|limit will reset` | `clock_time` e.g. capture `(\d{1,2}(?::\d{2})?\s?(?:am|pm))` |
 | `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)insufficient credit|quota exceeded|billing` | — |
 | `claude.overloaded` | `TRANSIENT_ERROR` | 70 | any regex `(?i)overloaded_error|529` | — |
 
