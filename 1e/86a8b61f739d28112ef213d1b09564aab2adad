@@ -1,0 +1,26 @@
+docs/architecture.md
+  s_97feeb9a3e10a1::t_36eda5fa51d003 100
+TODO.md
+  s_97feeb9a3e10a1::t_c6b1ff029df539 82
+internal/paths/tasks.go
+  s_97feeb9a3e10a1::t_6102640f43b31f 1-75
+internal/paths/tasks_test.go
+  s_97feeb9a3e10a1::t_0b852f5f894264 1-24,27-144
+  s_97feeb9a3e10a1::t_e203a4794ed5e3 25-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "1e86a8b61f739d28112ef213d1b09564aab2adad",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
