@@ -10,6 +10,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 
 	_ "modernc.org/sqlite" // registers the "sqlite" database/sql driver
 
@@ -19,9 +20,12 @@ import (
 //go:embed migrations/*.sql
 var migrationsFS embed.FS
 
-// Store wraps the SQLite database holding defib's durable state.
+// Store wraps the SQLite database holding defib's durable state. Write
+// transactions are serialized by writeMu — the data model's "single writer
+// connection"; WAL lets readers proceed concurrently.
 type Store struct {
-	db *sql.DB
+	db      *sql.DB
+	writeMu sync.Mutex
 }
 
 // Open opens (creating if needed) the database at path, applies pending

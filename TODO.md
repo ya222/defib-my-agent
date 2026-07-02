@@ -73,7 +73,7 @@ Depends on: M1.
     [docs/architecture.md](docs/architecture.md#data-model).
   - Accept: opening a fresh DB creates all tables; re-opening is a no-op; schema version matches
     `internal/version.SchemaVersion`.
-- [ ] **M2-T2 — Models + CRUD.**
+- [x] **M2-T2 — Models + CRUD.**
   - Implement typed models and transactional CRUD for `tasks`, `attempts`, `events` (single
     writer connection). Provide `CreateTask`, `UpdateTaskTx`, `AddAttempt`, `AppendEvent`,
     `ListTasks`, `GetTask`.
