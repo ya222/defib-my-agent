@@ -1,0 +1,32 @@
+internal/provider/provider.go
+  s_97feeb9a3e10a1::t_547d7e4513ed04 1-59,62-107
+  s_97feeb9a3e10a1::t_652fced5b85a48 60-61
+internal/provider/registry.go
+  s_97feeb9a3e10a1::t_f6bee745f71b22 1-75
+internal/detect/rule.go
+  s_97feeb9a3e10a1::t_6a354154b83eac 1-51
+internal/provider/provider_test.go
+  s_97feeb9a3e10a1::t_9f8d7aad1ecc64 1-22,24-54,56-175
+  s_97feeb9a3e10a1::t_8215ec4e47d670 55
+  s_97feeb9a3e10a1::t_652fced5b85a48 23
+docs/providers.md
+  s_97feeb9a3e10a1::t_bf9417ef653595 80-87
+TODO.md
+  s_97feeb9a3e10a1::t_9d4470015a608f 115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "8df2d1efba518fbc5b6e0aa69703ba3529bd5089",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
