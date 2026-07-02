@@ -1,0 +1,43 @@
+# golangci-lint configuration for defib.
+# Sensible default set plus revive; see AGENTS.md coding conventions.
+
+run:
+  timeout: 5m
+
+linters:
+  # Keep the default set (errcheck, gosimple, govet, ineffassign, staticcheck,
+  # unused) and add revive.
+  enable:
+    - govet
+    - staticcheck
+    - errcheck
+    - ineffassign
+    - revive
+
+linters-settings:
+  revive:
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: increment-decrement
+      - name: var-declaration
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: time-naming
+      - name: unexported-return
+      - name: indent-error-flow
+      - name: errorf
+
+issues:
+  exclude-rules:
+    # Test files may skip error checks on cleanup and use fixtures freely.
+    - path: _test\.go
+      linters:
+        - errcheck

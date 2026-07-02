@@ -23,7 +23,7 @@ Goal: a buildable, testable, lintable empty skeleton matching the fixed layout.
     that prints version and exits.
   - Add `internal/version` with `Version` and `SchemaVersion` constants.
   - Accept: `go build ./...` succeeds; `./cmd/defib` (built) prints a version string.
-- [ ] **M0-T2 — Makefile and lint config.**
+- [x] **M0-T2 — Makefile and lint config.**
   - Add `Makefile` targets `build test lint fmt check e2e tools` (as in
     [AGENTS.md](AGENTS.md#standard-commands)) and a `.golangci.yml` with a sensible default
     linter set (govet, staticcheck, errcheck, ineffassign, revive).
