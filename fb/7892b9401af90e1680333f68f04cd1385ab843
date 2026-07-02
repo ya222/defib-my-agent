@@ -1,0 +1,65 @@
+internal/daemon/doc.go
+  h_4e2043ce386a40 1-4
+internal/supervisor/doc.go
+  h_4e2043ce386a40 1-3
+internal/service/doc.go
+  h_4e2043ce386a40 1-3
+internal/scheduler/doc.go
+  h_4e2043ce386a40 1-3
+internal/store/doc.go
+  h_4e2043ce386a40 1-2
+internal/provider/claude/doc.go
+  h_4e2043ce386a40 1-2
+internal/detect/doc.go
+  h_4e2043ce386a40 1-3
+internal/provider/copilot/doc.go
+  h_4e2043ce386a40 1-2
+cmd/defib/main.go
+  h_4e2043ce386a40 1-13
+internal/ipc/doc.go
+  h_4e2043ce386a40 1-3
+internal/version/version.go
+  h_4e2043ce386a40 1-12
+internal/cli/doc.go
+  h_4e2043ce386a40 1-3
+internal/provider/doc.go
+  h_4e2043ce386a40 1-3
+internal/process/doc.go
+  h_4e2043ce386a40 1-3
+internal/paths/doc.go
+  h_4e2043ce386a40 1-3
+internal/logging/doc.go
+  h_4e2043ce386a40 1-3
+internal/config/doc.go
+  h_4e2043ce386a40 1-3
+testdata/README.md
+  h_4e2043ce386a40 1
+go.mod
+  s_1de15ecbaec1b2::t_540dd60e97859a 1-2
+  s_1de15ecbaec1b2::t_edb0d70542cd15 3
+TODO.md
+  s_1de15ecbaec1b2::t_7c42450713e7d2 20
+internal/provider/fake/doc.go
+  h_4e2043ce386a40 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "fb7892b9401af90e1680333f68f04cd1385ab843",
+  "prompts": {},
+  "humans": {
+    "h_4e2043ce386a40": {
+      "author": "Youssef <y9mohamed@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1de15ecbaec1b2": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "562f5e3f-23ae-43f9-a8c6-da838647e428",
+        "model": "gpt-5-mini"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
