@@ -79,7 +79,7 @@ Depends on: M1.
     `ListTasks`, `GetTask`.
   - Accept: tests cover create/read/update, cascade delete, and that a state change writes
     task+attempt+event atomically (one transaction; rollback on error leaves DB unchanged).
-- [ ] **M2-T3 — Task artifact directories.**
+- [x] **M2-T3 — Task artifact directories.**
   - Helpers to create/resolve `tasks/<id>/attempts/<n>/` with Task-id validation
     (`^[a-f0-9-]{36}$`) and `0700` perms.
   - Accept: path-traversal inputs are rejected; log paths returned match the layout in
