@@ -192,13 +192,13 @@ Goal: the running system a user can drive end-to-end (headless, fake + Claude-sh
 
 Depends on: M7.
 
-- [ ] **M8-T1 — IPC transport.**
+- [x] **M8-T1 — IPC transport.**
   - `internal/ipc`: newline-delimited JSON framing, request/response + streaming envelopes, and
     a Unix-socket server + client, per
     [docs/architecture.md](docs/architecture.md#ipc-protocol). Socket `0600`; refuse unsafe
     socket paths.
   - Accept: round-trip tests for single-shot and streaming methods; error-code mapping tested.
-- [ ] **M8-T2 — Daemon server.**
+- [x] **M8-T2 — Daemon server.**
   - `internal/daemon`: task registry, per-Task goroutine + event channel, event bus for
     subscribers, wiring of store/provider/detect/scheduler/process. Implements all IPC methods
     from [docs/architecture.md](docs/architecture.md#ipc-protocol).

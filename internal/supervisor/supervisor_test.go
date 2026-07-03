@@ -263,12 +263,14 @@ func TestStopSemantics(t *testing.T) {
 		assert.False(t, h.timers.Armed(task.ID))
 	})
 
-	t.Run("stop while PAUSED", func(t *testing.T) {
+	t.Run("stop while PAUSED kills the still-running child", func(t *testing.T) {
 		h := newHarness(t, harnessOpts{})
 		h.handle(Event{Type: EventStart})
 		h.handle(Event{Type: EventUserPause})
+		require.Zero(t, h.killCount())
 		h.handle(Event{Type: EventUserStop})
 		assert.Equal(t, StateStopped, h.dbTask().Status)
+		assert.Equal(t, 1, h.killCount(), "pause left the child alive; stop is the hard kill")
 	})
 }
 
