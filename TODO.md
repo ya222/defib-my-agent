@@ -176,7 +176,7 @@ Depends on: M6.
     consuming events and emitting actions. Persist each transition in one transaction (M2-T2).
   - Accept: table-driven tests drive every transition (including caps-exceeded → FAILED) with a
     fake provider + fake clock; each transition persists task+attempt+event.
-- [ ] **M7-T2 — Session handling.**
+- [x] **M7-T2 — Session handling.**
   - New vs existing Session, pre-generate vs parse (via `ExtractSessionRef`), and Resume path,
     per [docs/providers.md](docs/providers.md#session-strategy-important).
   - Accept: tests prove first Attempt of `session_mode=existing` uses `BuildResume`; a parsed ref
