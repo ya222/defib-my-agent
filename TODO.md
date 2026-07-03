@@ -170,7 +170,7 @@ daemon/IPC yet.
 
 Depends on: M6.
 
-- [ ] **M7-T1 — State machine core.**
+- [x] **M7-T1 — State machine core.**
   - Implement the transition table and supervisor loop from
     [docs/architecture.md](docs/architecture.md#task-lifecycle-state-machine) as pure logic
     consuming events and emitting actions. Persist each transition in one transaction (M2-T2).
