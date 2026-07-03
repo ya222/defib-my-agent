@@ -185,6 +185,10 @@ func (d *Daemon) handleCreate(ctx context.Context, raw json.RawMessage, _ *ipc.S
 	if err != nil {
 		return nil, ipc.Errorf(ipc.CodeProviderUnavailable, "%v", err)
 	}
+	if cfg.Providers[providerName].Unattended {
+		d.logger.Warn("task will run unattended: provider approval prompts are skipped",
+			"provider", providerName)
+	}
 
 	mode := params.Mode
 	if mode == "" {

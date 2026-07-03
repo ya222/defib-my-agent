@@ -82,11 +82,20 @@ func (c *Claude) BuildResume(task provider.TaskSpec, sessionRef string) (provide
 	return provider.Command{Argv: argv}, nil
 }
 
-// appendCommonFlags appends the --model, extra_args, and passthrough
-// arguments shared by BuildStart and BuildResume, in that order.
+// skipPermissionsFlag is claude 2.1.199's skip-approvals flag. It is only
+// ever added on explicit opt-in (providers.claude.unattended / --unattended)
+// and defib prints the security warning when it is; never default-on
+// (docs/architecture.md#security-model).
+const skipPermissionsFlag = "--dangerously-skip-permissions"
+
+// appendCommonFlags appends the --model, unattended, extra_args, and
+// passthrough arguments shared by BuildStart and BuildResume, in that order.
 func appendCommonFlags(argv []string, task provider.TaskSpec) []string {
 	if task.Model != "" {
 		argv = append(argv, "--model", task.Model)
+	}
+	if unattended, ok := task.ProviderConfig["unattended"].(bool); ok && unattended {
+		argv = append(argv, skipPermissionsFlag)
 	}
 	argv = append(argv, extraArgs(task)...)
 	if len(task.Passthrough) > 0 {

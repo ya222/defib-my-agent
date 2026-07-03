@@ -248,7 +248,7 @@ Depends on: M9.
     against captured fixtures.
   - Accept: fixture-based tests classify real rate-limit/usage-limit/credit/overloaded outputs
     into the correct categories with correct Reset Times.
-- [ ] **M10-T3 — Unattended safety.**
+- [x] **M10-T3 — Unattended safety.**
   - Implement `providers.claude.unattended` / `--unattended` → provider skip-approvals flag +
     prominent warning; never default-on.
   - Accept: tests prove the flag is absent by default and present only when opted in, and the
