@@ -1,0 +1,35 @@
+cmd/defib/main.go
+  s_97feeb9a3e10a1::t_134bd1693111ed 2-3,7,9-11,13-20,24-100
+internal/cli/commands.go
+  s_97feeb9a3e10a1::t_20e6041e596510 1-10
+internal/cli/client.go
+  s_97feeb9a3e10a1::t_e50486f60823fc 1-85
+internal/cli/daemon.go
+  s_97feeb9a3e10a1::t_70ce63b72338f0 11
+  s_97feeb9a3e10a1::t_24ba1acc729297 60
+  s_97feeb9a3e10a1::t_8d2f37179b8766 93
+  s_97feeb9a3e10a1::t_93ed5bae8744c4 1-10,12-59,61-92,94-198
+internal/cli/e2e_test.go
+  s_97feeb9a3e10a1::t_3d8119f44f7d29 1-123
+internal/cli/root.go
+  s_97feeb9a3e10a1::t_dd97879c2a4d33 1-66,69-130
+  s_97feeb9a3e10a1::t_e104e1a7572f8e 67-68
+TODO.md
+  s_97feeb9a3e10a1::t_607c1316ef847c 207
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "02fd0a89d6eba7bf859d71df5cf586c189806e61",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
