@@ -222,7 +222,7 @@ Goal: survive daemon restarts and reboots.
 
 Depends on: M8.
 
-- [ ] **M9-T1 — Reconcile on startup.**
+- [x] **M9-T1 — Reconcile on startup.**
   - Implement the idempotent `daemon.Reconcile` for RUNNING/WAITING/PAUSED tasks per
     [docs/architecture.md](docs/architecture.md#recovery), honoring `on_interrupt`.
   - Accept: e2e test starts a fake Task, kills the daemon mid-attempt, restarts it, and the Task

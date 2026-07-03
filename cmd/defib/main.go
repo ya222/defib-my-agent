@@ -60,6 +60,12 @@ func runDaemon(ctx context.Context, dirs paths.Dirs) error {
 	if err != nil {
 		return err
 	}
+	// Recover tasks from a previous daemon before accepting clients
+	// (docs/architecture.md#recovery).
+	if err := d.Reconcile(ctx); err != nil {
+		_ = d.Close()
+		return err
+	}
 
 	sock := filepath.Join(dirs.Runtime, "daemon.sock")
 	l, err := ipc.Listen(sock)
