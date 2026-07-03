@@ -209,11 +209,6 @@ func TestExtractSessionRef(t *testing.T) {
 	})
 }
 
-func TestDetectionRules(t *testing.T) {
-	c := New()
-	assert.Nil(t, c.DetectionRules())
-}
-
 func TestCheckAvailability(t *testing.T) {
 	c := New()
 	avail, err := c.CheckAvailability(context.Background(), provider.TaskSpec{})

@@ -25,7 +25,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ya222/defib/internal/detect"
 	"github.com/ya222/defib/internal/provider"
 )
 
@@ -170,12 +169,6 @@ func (*Claude) ExtractSessionRef(out provider.AttemptOutput) (string, bool) {
 		}
 	}
 	return "", false
-}
-
-// DetectionRules implements provider.Provider. Filled in M10-T2 from
-// captured fixtures.
-func (*Claude) DetectionRules() []detect.Rule {
-	return nil
 }
 
 // CheckAvailability implements provider.Provider. Claude Code exposes reset

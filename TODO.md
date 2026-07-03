@@ -242,7 +242,7 @@ Depends on: M9.
     doc comment and capture real output fixtures in `testdata/claude/`.
   - Accept: unit tests build expected start/resume argv; `ExtractSessionRef` parses the fixture;
     manual smoke-test instructions documented. No live calls in CI.
-- [ ] **M10-T2 — Claude detection rules.**
+- [x] **M10-T2 — Claude detection rules.**
   - Replace the illustrative rules in
     [docs/detection.md](docs/detection.md#claude-code-illustrative--verify) with rules validated
     against captured fixtures.

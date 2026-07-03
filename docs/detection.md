@@ -103,14 +103,26 @@ to Backoff.
 | `generic.auth` | `FATAL_ERROR` | 90 | any regex `(?i)unauthorized|401|invalid api key|authentication failed` |
 | `generic.success` | `SUCCESS` | 1 | exit_code in [0] |
 
-### Claude Code (illustrative — verify)
+### Claude Code (validated against fixtures — `claude 2.1.199`)
 
-| Name | Category | Priority | Match (illustrative) | Reset extractor |
+Validated in M10-T2 against the fixtures in `testdata/claude/` (see its README for which are
+real captures vs documented formats; refreshing is tracked in issue #11). Rules prefer the
+structural `"api_error_status":<code>` field of the headless stream-json result event over
+prose, so message-wording changes don't silently break classification. The authoritative rule
+set is `internal/provider/claude/rules.go`; this table summarizes it.
+
+| Name | Category | Priority | Match | Reset extractor |
 | --- | --- | --- | --- | --- |
-| `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)rate limit|429` | `relative_duration` or `clock_time` from message, if present |
-| `claude.usage_limit` | `SESSION_LIMIT` | 80 | any regex `(?i)usage limit reached|limit will reset` | `clock_time` e.g. capture `(\d{1,2}(?::\d{2})?\s?(?:am|pm))` |
-| `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)insufficient credit|quota exceeded|billing` | — |
-| `claude.overloaded` | `TRANSIENT_ERROR` | 70 | any regex `(?i)overloaded_error|529` | — |
+| `claude.auth` | `FATAL_ERROR` | 95 | any regex `(?i)"api_error_status":40[13]|"error":"authentication_failed"|invalid api key|authentication failed|unauthorized` | — |
+| `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)credit balance is too low|insufficient credit|quota exceeded|billing` | — |
+| `claude.usage_limit` | `SESSION_LIMIT` | 82 | any regex `(?i)usage limit reached|limit will reset` | `unix_seconds` from `usage limit reached\|(\d{9,12})` |
+| `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)"api_error_status":429|rate limit` | — |
+| `claude.overloaded` | `TRANSIENT_ERROR` | 70 | any regex `(?i)"api_error_status":529|overloaded_error|overloaded` | — |
+| `claude.network` | `TRANSIENT_ERROR` | 40 | any regex `(?i)connection reset|connection refused|ETIMEDOUT|ECONNRESET|ENETUNREACH|network error` | — |
+| `claude.success` | `SUCCESS` | 1 | exit_code in [0] | — |
+
+`claude.usage_limit` sits above `claude.rate_limit` so a message mentioning both the usage
+cap and rate limiting classifies as the session cap, which carries the reset epoch.
 
 ### GitHub Copilot CLI (illustrative — verify during its milestone)
 
