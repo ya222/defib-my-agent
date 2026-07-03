@@ -1,0 +1,29 @@
+cmd/defib/main.go
+  s_6490238d2ca91c::t_fcd5dd3f052df6 44-47
+  s_6490238d2ca91c::t_8543c2ed79ded7 20
+internal/provider/claude/claude_test.go
+  s_6490238d2ca91c::t_326cdbbb09e723 1-222
+internal/provider/claude/claude.go
+  s_6490238d2ca91c::t_ba9ebcd173298e 1-16,19-186
+  s_6490238d2ca91c::t_f55cb5fe9b51c8 17-18
+testdata/claude/README.md
+  s_6490238d2ca91c::t_e82278ba61e1b8 1-18
+TODO.md
+  s_6490238d2ca91c::t_0975890e317887 238
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "ff0076868d916a3d977ed113613a5ae3d5c681cd",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
