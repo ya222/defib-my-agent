@@ -208,7 +208,7 @@ Depends on: M7.
   - `defib daemon run|start|stop|status`; client auto-starts a detached daemon unless
     `--no-autostart`; `daemon.pid` + graceful `daemon.shutdown`.
   - Accept: starting a client with no daemon spawns one; `daemon stop` shuts it down cleanly.
-- [ ] **M8-T4 — CLI commands.**
+- [x] **M8-T4 — CLI commands.**
   - `internal/cli`: implement `start, attach, list, status, logs, resume, pause, stop, cancel,
     rm, config, providers, daemon, doctor` per [docs/cli.md](docs/cli.md), including global
     flags, `--json`, and exit codes. Client stays thin.

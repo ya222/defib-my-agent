@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -64,15 +65,39 @@ func Execute(args []string, hooks Hooks) int {
 	pf.CountVarP(&g.verbose, "verbose", "v", "increase client log verbosity")
 	root.Flags().BoolVar(&g.showVersion, "version", false, "print version and schema version")
 
+	// Bad flags produce a plain error from pflag; wrap it so exitCode()
+	// maps it to 2 (invalid usage) instead of the generic 1.
+	root.SetFlagErrorFunc(func(_ *cobra.Command, err error) error {
+		return usageError{err}
+	})
+
 	root.AddCommand(newDaemonCmd(g, hooks))
 	addTaskCommands(root, g, hooks)
 
 	root.SetArgs(args)
-	if err := root.Execute(); err != nil {
+	err := root.Execute()
+	if err != nil {
+		// Cobra's Find() returns "unknown command %q for %q" as a plain
+		// error before any RunE runs, so it can't be wrapped at the
+		// source like a flag or a command's own validation error.
+		if isUnknownCommandErr(err) {
+			err = usageError{err}
+		}
 		printError(g, err)
 		return exitCode(err)
 	}
 	return 0
+}
+
+// usageError marks invalid CLI usage (bad flags, unknown command, wrong
+// argument count, or a command's own input validation failure); it maps to
+// exit code 2 per docs/cli.md#exit-codes.
+type usageError struct{ error }
+
+// isUnknownCommandErr matches cobra's fixed unknown-command message
+// (spf13/cobra args.go's legacyArgs).
+func isUnknownCommandErr(err error) bool {
+	return strings.HasPrefix(err.Error(), "unknown command ")
 }
 
 // errDaemonUnreachable marks failures to reach (or auto-start) the daemon;
@@ -81,6 +106,10 @@ var errDaemonUnreachable = errors.New("daemon unreachable")
 
 // exitCode maps errors to the documented process exit codes.
 func exitCode(err error) int {
+	var ue usageError
+	if errors.As(err, &ue) {
+		return 2
+	}
 	var ipcErr *ipc.Error
 	if errors.As(err, &ipcErr) {
 		switch ipcErr.Code {
@@ -112,6 +141,10 @@ func printError(g *globalOptions, err error) {
 }
 
 func errorCode(err error) string {
+	var ue usageError
+	if errors.As(err, &ue) {
+		return ipc.CodeInvalidParams
+	}
 	var ipcErr *ipc.Error
 	if errors.As(err, &ipcErr) {
 		return ipcErr.Code
