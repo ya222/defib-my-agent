@@ -1,0 +1,27 @@
+internal/ipc/server.go
+  s_97feeb9a3e10a1::t_9447448020c93e 1-247
+internal/ipc/ipc_test.go
+  s_97feeb9a3e10a1::t_63c4e507bbca96 78,93,296
+  s_97feeb9a3e10a1::t_4663551eae288f 1-77,79-92,94-295,297-332,337-351
+  s_97feeb9a3e10a1::t_cd8a4cbb9fda3a 333-336
+internal/ipc/ipc.go
+  s_97feeb9a3e10a1::t_ff33bcdb9d7395 1-56
+internal/ipc/client.go
+  s_97feeb9a3e10a1::t_8dce4614dd5bf3 1-185
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "873b0ecc65bb2a04036264a137455471d5e0671a",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
