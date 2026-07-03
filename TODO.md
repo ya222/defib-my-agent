@@ -157,7 +157,7 @@ Depends on: M5.
 - [x] **M6-T2 — Caps evaluation.**
   - Implement `max_attempts`, `deadline`, `max_total_wait` checks returning which cap was hit.
   - Accept: boundary tests for each cap.
-- [ ] **M6-T3 — Timer management.**
+- [x] **M6-T3 — Timer management.**
   - One timer per waiting Task; firing posts a `timer_fire` event; timers are cancelable and
     re-armable. No polling/sleep loops.
   - Accept: tests using a fake clock verify fire, cancel, re-arm, and immediate-wake for past
