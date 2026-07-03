@@ -17,6 +17,7 @@ import (
 	"github.com/ya222/defib/internal/logging"
 	"github.com/ya222/defib/internal/paths"
 	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib/internal/provider/claude"
 	"github.com/ya222/defib/internal/provider/fake"
 )
 
@@ -37,6 +38,10 @@ func main() {
 // registry (docs/providers.md adding-a-new-provider checklist, step 5).
 func registerProviders() {
 	if err := provider.Register(fake.New()); err != nil {
+		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
+		os.Exit(1)
+	}
+	if err := provider.Register(claude.New()); err != nil {
 		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
 		os.Exit(1)
 	}

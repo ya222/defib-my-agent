@@ -235,7 +235,7 @@ Goal: first real provider.
 
 Depends on: M9.
 
-- [ ] **M10-T1 — Adapter + flag verification.**
+- [x] **M10-T1 — Adapter + flag verification.**
   - Implement `internal/provider/claude` per
     [docs/providers.md](docs/providers.md#claude-code-adapter-internalproviderclaude--first-class).
     **Verify every flag** against a pinned `claude` version; record the version in the package
