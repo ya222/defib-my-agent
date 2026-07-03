@@ -58,6 +58,9 @@ type Daemon struct {
 	runtimes map[string]*taskRuntime
 
 	shutdownCh chan ShutdownParams
+
+	// hookRunner executes notification hooks; overridable in tests.
+	hookRunner func(ctx context.Context, argv []string) error
 }
 
 // taskRuntime is the live half of one task: its supervisor plus the
@@ -122,6 +125,7 @@ func New(opts Options) (*Daemon, error) {
 		runtimes:   make(map[string]*taskRuntime),
 		shutdownCh: make(chan ShutdownParams, 1),
 	}
+	d.hookRunner = execHook
 	d.timers = scheduler.NewTimers(d.clock, d.onTimerFire)
 	return d, nil
 }
@@ -210,7 +214,7 @@ func (d *Daemon) startRuntime(task *store.Task, cfg config.Config, prov provider
 			return stdout, stderr, err
 		},
 		Probe:  d.probeFunc(cfg),
-		Notify: d.notify,
+		Notify: d.notifyFunc(cfg),
 	}
 	rt.sup = supervisor.New(task, spec, policy, deps)
 
@@ -300,20 +304,6 @@ func (d *Daemon) probeFunc(cfg config.Config) func(context.Context) bool {
 		cmd := exec.CommandContext(probeCtx, argv[0], argv[1:]...)
 		return cmd.Run() == nil
 	}
-}
-
-func (d *Daemon) notify(task *store.Task) {
-	ev := TaskEvent{
-		TaskID:     task.ID,
-		Name:       task.Name,
-		Status:     task.Status,
-		Outcome:    deref(task.LastOutcome),
-		ExitReason: deref(task.ExitReason),
-		NextWakeAt: task.NextWakeAt,
-		TS:         task.UpdatedAt,
-	}
-	d.bus.publish(ev)
-	d.logger.Info("task transition", "task", task.ID, "status", task.Status)
 }
 
 // configRules converts user config detection rules into detect rules.

@@ -292,7 +292,7 @@ Goal: user-visible signals and better quota handling.
 
 Depends on: M8.
 
-- [ ] **M13-T1 — Notification hooks.**
+- [x] **M13-T1 — Notification hooks.**
   - Fire `notifications.on_state_change` (argv, no shell) for configured target states with JSON
     context appended, per [docs/configuration.md](docs/configuration.md).
   - Accept: a fake hook receives the expected event JSON on `SUCCEEDED`/`FAILED`.
