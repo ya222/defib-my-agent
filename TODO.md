@@ -149,12 +149,12 @@ Goal: compute next wake time; manage per-task timers.
 
 Depends on: M5.
 
-- [ ] **M6-T1 — Wake-time computation.**
+- [x] **M6-T1 — Wake-time computation.**
   - Implement the exact formula in [docs/architecture.md](docs/architecture.md#scheduling):
     reset-time preference, full-jitter backoff, deadline clamp.
   - Accept: deterministic tests with an injected clock and seeded RNG cover reset-present,
     reset-absent, and deadline-clamped cases.
-- [ ] **M6-T2 — Caps evaluation.**
+- [x] **M6-T2 — Caps evaluation.**
   - Implement `max_attempts`, `deadline`, `max_total_wait` checks returning which cap was hit.
   - Accept: boundary tests for each cap.
 - [ ] **M6-T3 — Timer management.**
