@@ -296,7 +296,7 @@ Depends on: M8.
   - Fire `notifications.on_state_change` (argv, no shell) for configured target states with JSON
     context appended, per [docs/configuration.md](docs/configuration.md).
   - Accept: a fake hook receives the expected event JSON on `SUCCEEDED`/`FAILED`.
-- [ ] **M13-T2 — Availability command polish.**
+- [x] **M13-T2 — Availability command polish.**
   - Harden the external `availability.command` probe: timeout, exit-code handling, backoff on
     probe failure.
   - Accept: tests for available/unavailable/erroring probes.

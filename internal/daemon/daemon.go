@@ -11,7 +11,6 @@ import (
 	"log/slog"
 	"math/rand"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"sync"
 	"time"
@@ -213,7 +212,7 @@ func (d *Daemon) startRuntime(task *store.Task, cfg config.Config, prov provider
 			stdout, stderr, _, err := paths.AttemptFiles(d.dirs.State, taskID, n)
 			return stdout, stderr, err
 		},
-		Probe:  d.probeFunc(cfg),
+		Probe:  d.newProbe(cfg),
 		Notify: d.notifyFunc(cfg),
 	}
 	rt.sup = supervisor.New(task, spec, policy, deps)
@@ -289,21 +288,6 @@ func (d *Daemon) spawn(rt *taskRuntime, taskID string, attemptNo int, cmd provid
 		})
 	}()
 	return proc.PID(), nil
-}
-
-// probeFunc builds the availability probe from config: the external
-// command (argv, no shell) when configured, else nil (pure schedule).
-func (d *Daemon) probeFunc(cfg config.Config) func(context.Context) bool {
-	argv := cfg.Availability.Command
-	if len(argv) == 0 {
-		return nil
-	}
-	return func(ctx context.Context) bool {
-		probeCtx, cancel := context.WithTimeout(ctx, time.Minute)
-		defer cancel()
-		cmd := exec.CommandContext(probeCtx, argv[0], argv[1:]...)
-		return cmd.Run() == nil
-	}
 }
 
 // configRules converts user config detection rules into detect rules.
