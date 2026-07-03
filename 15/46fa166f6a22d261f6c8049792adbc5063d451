@@ -1,0 +1,32 @@
+internal/daemon/reconcile_test.go
+  s_6490238d2ca91c::t_239b7860d18351 1-6,9-50,52-67,70-74,76-102,104-269
+  s_6490238d2ca91c::t_bf0c946d1ce656 8
+  s_6490238d2ca91c::t_825f47a713990a 51
+  s_6490238d2ca91c::t_74afcb30b627a0 7
+  s_6490238d2ca91c::t_5a81a589d90b5d 68-69,75
+  s_6490238d2ca91c::t_a48059b24a63e7 103
+TODO.md
+  s_6490238d2ca91c::t_5150ec3246b72a 225
+internal/cli/e2e_test.go
+  s_6490238d2ca91c::t_75712c9bad2a3b 11,14,355-482
+internal/daemon/reconcile.go
+  s_6490238d2ca91c::t_d9d7e12f0d2c62 1-164
+cmd/defib/main.go
+  s_6490238d2ca91c::t_94beab5cb85b72 63-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "1546fa166f6a22d261f6c8049792adbc5063d451",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
