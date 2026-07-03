@@ -1,0 +1,32 @@
+go.mod
+  s_0d986d31ec7c59::t_50d1fa97be7197 11
+  s_0d986d31ec7c59::t_848410383fe5da 6,9
+TODO.md
+  s_0d986d31ec7c59::t_f745a3af3edb13 310
+internal/process/pty.go
+  s_0d986d31ec7c59::t_653014c227c225 125-129,131-132,134-143
+  s_0d986d31ec7c59::t_f2cc315a7f3b32 1-14,16-124,130,133,144-207
+  s_0d986d31ec7c59::t_e58012a185a413 15
+internal/process/pty_test.go
+  s_0d986d31ec7c59::t_943a721fcae429 54-56,60,68,73-74
+  s_0d986d31ec7c59::t_da7ff99de0d41a 18,106
+  s_0d986d31ec7c59::t_ea516197990de0 1-17,19-53,57-59,61-67,69-72,75-105,107-126
+go.sum
+  s_0d986d31ec7c59::t_0da99a43aa2426 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8ad682e58296ff8375f6010d544ce7fc6a002379",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
