@@ -1,0 +1,31 @@
+internal/cli/commands.go
+  s_0d986d31ec7c59::t_de24bf333c6060 31-32
+internal/cli/service_cmd_test.go
+  s_0d986d31ec7c59::t_a31986a5a96516 1-21
+internal/service/systemd.go
+  s_0d986d31ec7c59::t_2456a04e6a18cd 1-139
+TODO.md
+  s_0d986d31ec7c59::t_0b2c7475b5dda3 263
+internal/service/service.go
+  s_0d986d31ec7c59::t_b45c93aeb3bb28 1-129
+internal/service/systemd_test.go
+  s_0d986d31ec7c59::t_6831fafff1d165 1-141
+internal/cli/service_cmd.go
+  s_0d986d31ec7c59::t_df7e56a242cd27 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "aca07fc75773cf2a8389bea3a519058a476dceb1",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
