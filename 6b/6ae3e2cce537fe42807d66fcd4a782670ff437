@@ -1,0 +1,32 @@
+internal/cli/unattended_test.go
+  s_97feeb9a3e10a1::t_307f74f20e6ab4 1-43
+internal/cli/start.go
+  s_97feeb9a3e10a1::t_6171b32e2be381 97-103
+  s_97feeb9a3e10a1::t_54ab425a8f4c3a 238-273
+  s_97feeb9a3e10a1::t_390cbf58965806 229-231
+internal/daemon/methods.go
+  s_97feeb9a3e10a1::t_034d17311091af 188-191
+internal/provider/claude/claude.go
+  s_97feeb9a3e10a1::t_e4eec232908b74 85-92,97-98
+  s_97feeb9a3e10a1::t_a53407ae6ea165 99
+internal/provider/claude/unattended_test.go
+  s_97feeb9a3e10a1::t_0144ac8abeffc6 1-68
+TODO.md
+  s_97feeb9a3e10a1::t_b4aafd192a3ad5 251
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6b6ae3e2cce537fe42807d66fcd4a782670ff437",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
