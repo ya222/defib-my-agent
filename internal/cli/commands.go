@@ -28,6 +28,8 @@ func addTaskCommands(root *cobra.Command, g *globalOptions, hooks Hooks) {
 	root.AddCommand(newProvidersCmd(g, hooks))
 	root.AddCommand(newConfigCmd(g))
 	root.AddCommand(newDoctorCmd(g, hooks))
+	root.AddCommand(newInstallServiceCmd(g))
+	root.AddCommand(newUninstallServiceCmd(g))
 }
 
 // connect dials the daemon socket, auto-starting the daemon unless

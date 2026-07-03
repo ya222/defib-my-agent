@@ -260,7 +260,7 @@ Goal: machine-restart durability.
 
 Depends on: M9 (M10 recommended).
 
-- [ ] **M11-T1 — systemd user unit (Linux).**
+- [x] **M11-T1 — systemd user unit (Linux).**
   - `internal/service` generates and installs/enables a user unit running `defib daemon run`;
     `install-service`/`uninstall-service` commands.
   - Accept: on a Linux CI/container, install → `systemctl --user` shows the unit; uninstall
