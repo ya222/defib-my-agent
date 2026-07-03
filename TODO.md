@@ -204,7 +204,7 @@ Depends on: M7.
     from [docs/architecture.md](docs/architecture.md#ipc-protocol).
   - Accept: an in-process test creates a Task on the fake provider and observes it run to
     `SUCCEEDED`, and a scripted rate-limit Task waits then resumes to `SUCCEEDED`.
-- [ ] **M8-T3 — Daemon lifecycle + auto-start.**
+- [x] **M8-T3 — Daemon lifecycle + auto-start.**
   - `defib daemon run|start|stop|status`; client auto-starts a detached daemon unless
     `--no-autostart`; `daemon.pid` + graceful `daemon.shutdown`.
   - Accept: starting a client with no daemon spawns one; `daemon stop` shuts it down cleanly.
