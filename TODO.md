@@ -181,7 +181,7 @@ Depends on: M6.
     per [docs/providers.md](docs/providers.md#session-strategy-important).
   - Accept: tests prove first Attempt of `session_mode=existing` uses `BuildResume`; a parsed ref
     is stored before any Resume; pre-generated ids are passed through.
-- [ ] **M7-T3 — Availability probe integration.**
+- [x] **M7-T3 — Availability probe integration.**
   - While waiting on `QUOTA_EXHAUSTED`, run the configured probe at `availability.poll_interval`
     and wake early on success; no probe configured ⇒ pure schedule.
   - Accept: fake-probe tests show early wake on success and normal wake otherwise.

@@ -117,6 +117,7 @@ type Supervisor struct {
 	// currentAttempt is the open attempt row while RUNNING (or while a
 	// paused child is still finishing).
 	currentAttempt *store.Attempt
+	prober         *prober
 }
 
 // New builds a supervisor for task. spec carries the static provider inputs
@@ -274,6 +275,7 @@ func (s *Supervisor) spawnAttempt(ctx context.Context, cause string) error {
 // waiting and disarming the timer and probe.
 func (s *Supervisor) wake(ctx context.Context, cause EventType) error {
 	s.deps.Timers.Cancel(s.task.ID)
+	s.stopProber()
 	if s.task.Status == StateWaiting && !s.waitingSince.IsZero() {
 		s.task.CumulativeWaitMS += s.deps.Clock.Now().Sub(s.waitingSince).Milliseconds()
 		s.waitingSince = time.Time{}
@@ -342,6 +344,9 @@ func (s *Supervisor) attemptExit(ctx context.Context, ev Event) error {
 	}
 	s.waitingSince = now
 	s.deps.Timers.Arm(s.task.ID, nextWake)
+	if result.Category == detect.CategoryQuotaExhausted {
+		s.startProber(ctx)
+	}
 	return nil
 }
 
@@ -374,6 +379,7 @@ func (s *Supervisor) recordPausedExit(ctx context.Context, ev Event) error {
 func (s *Supervisor) pause(ctx context.Context) error {
 	now := s.deps.Clock.Now()
 	s.deps.Timers.Cancel(s.task.ID)
+	s.stopProber()
 
 	next := *s.task
 	if next.Status == StateWaiting && !s.waitingSince.IsZero() {
@@ -397,6 +403,7 @@ func (s *Supervisor) pause(ctx context.Context) error {
 func (s *Supervisor) stop(ctx context.Context) error {
 	now := s.deps.Clock.Now()
 	s.deps.Timers.Cancel(s.task.ID)
+	s.stopProber()
 	if s.task.Status == StateRunning {
 		if err := s.deps.Kill(); err != nil {
 			return fmt.Errorf("supervisor: kill child: %w", err)
