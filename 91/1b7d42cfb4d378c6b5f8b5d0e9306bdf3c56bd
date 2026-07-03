@@ -1,0 +1,21 @@
+internal/scheduler/wake_test.go
+  s_97feeb9a3e10a1::t_36e6fcc537b571 1-155
+internal/scheduler/wake.go
+  s_97feeb9a3e10a1::t_b976da5ac3535a 1-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "911b7d42cfb4d378c6b5f8b5d0e9306bdf3c56bd",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
