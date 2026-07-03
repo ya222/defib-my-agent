@@ -265,7 +265,7 @@ Depends on: M9 (M10 recommended).
     `install-service`/`uninstall-service` commands.
   - Accept: on a Linux CI/container, install → `systemctl --user` shows the unit; uninstall
     removes it. (Actual reboot is manually verified; document the steps.)
-- [ ] **M11-T2 — launchd agent (macOS).**
+- [x] **M11-T2 — launchd agent (macOS).**
   - Generate/install a `LaunchAgent` plist equivalent.
   - Accept: on macOS CI, `launchctl` lists the agent after install; uninstall removes it.
 
