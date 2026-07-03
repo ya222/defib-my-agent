@@ -1,0 +1,29 @@
+internal/daemon/daemon.go
+  s_0d986d31ec7c59::t_f254395a2d3790 61-63
+  s_0d986d31ec7c59::t_3b4991ba7bf2c5 217
+  s_0d986d31ec7c59::t_ea63fd090b07ea 128
+TODO.md
+  s_0d986d31ec7c59::t_c5be2308a1a048 295
+internal/daemon/notify_test.go
+  s_0d986d31ec7c59::t_d240f57c31305e 1-113
+internal/daemon/reconcile.go
+  s_0d986d31ec7c59::t_3ca2d914eba5e5 146
+internal/daemon/notify.go
+  s_0d986d31ec7c59::t_ff21a3142cc4e0 1-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "182a14f9906a14a37da50e088f275b26fe2222ed",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
