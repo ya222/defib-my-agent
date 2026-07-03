@@ -1,0 +1,40 @@
+internal/daemon/daemon.go
+  s_97feeb9a3e10a1::t_ae6bb8871ff6d5 1-387
+internal/supervisor/supervisor_test.go
+  s_97feeb9a3e10a1::t_3b405184f14388 266,270,273
+internal/daemon/bus.go
+  s_97feeb9a3e10a1::t_184e4dbe18a286 1-59
+internal/supervisor/supervisor.go
+  s_97feeb9a3e10a1::t_b8a9c14aa4dcfc 514-516
+  s_97feeb9a3e10a1::t_e139b2e6d4ae01 101-104
+  s_97feeb9a3e10a1::t_e742976b7a6200 411-413
+internal/daemon/daemon_test.go
+  s_97feeb9a3e10a1::t_d779b088ff42d1 1-383
+internal/daemon/methods.go
+  s_97feeb9a3e10a1::t_238dd578e902f1 1-171,174,178-621
+  s_97feeb9a3e10a1::t_0cf3d4884922ac 172-173,175-177
+go.mod
+  s_97feeb9a3e10a1::t_9d90f4e5e7182d 15,20-21
+internal/daemon/policy.go
+  s_97feeb9a3e10a1::t_ec58362f8f639b 1-80
+TODO.md
+  s_97feeb9a3e10a1::t_bdb35de4cdb194 195,201
+go.sum
+  s_97feeb9a3e10a1::t_12bc9b69f737c5 1,10-11,22-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "85efe5828ad6fc17826e7a98275f3d034a35bdbf",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
