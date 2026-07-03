@@ -307,7 +307,7 @@ Goal: support providers/flows that need a terminal.
 
 Depends on: M10.
 
-- [ ] **M14-T1 — PTY runner.**
+- [x] **M14-T1 — PTY runner.**
   - Add a PTY-backed path in `internal/process` using `creack/pty`; capture + tee output;
     resize handling; only used when `mode=interactive` and the provider advertises it.
   - Accept: a PTY test drives an interactive fake and captures output; headless path unchanged.
