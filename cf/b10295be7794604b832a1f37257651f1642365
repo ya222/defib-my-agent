@@ -1,0 +1,33 @@
+internal/provider/claude/rules.go
+  s_6490238d2ca91c::t_3aa7c04b16a55b 1-68
+internal/provider/claude/rules_test.go
+  s_6490238d2ca91c::t_755db1d2deccd2 1-121
+docs/detection.md
+  s_97feeb9a3e10a1::t_70c6deef93b115 106,108-114,116-125
+TODO.md
+  s_97feeb9a3e10a1::t_1f605254d72d36 245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "cfb10295be7794604b832a1f37257651f1642365",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
