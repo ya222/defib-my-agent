@@ -1,0 +1,26 @@
+internal/config/config_test.go
+  s_97feeb9a3e10a1::t_1d11aa1314b768 1-158
+TODO.md
+  s_97feeb9a3e10a1::t_10a1cb952d4f11 48
+testdata/config/full.toml
+  s_97feeb9a3e10a1::t_d4e43092402dfd 1-46,49-66
+  s_97feeb9a3e10a1::t_2ae962e65b1b32 47-48
+internal/config/config.go
+  s_97feeb9a3e10a1::t_f43b4a07b31863 1-196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "13100b65e747e51f341ad35ba83b7ff12b88d44c",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

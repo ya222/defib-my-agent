@@ -1,0 +1,19 @@
+AGENTS.md
+  s_6490238d2ca91c::t_62b2b9e45fc1e8 117-162
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "47e86928da05289bf241252b1e27ba3e0a7873cf",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
