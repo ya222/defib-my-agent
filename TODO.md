@@ -326,7 +326,7 @@ Depends on: M10, M11.
   - Add `goreleaser` config producing Linux/macOS (amd64/arm64) binaries + checksums; wire a
     tag-triggered release workflow.
   - Accept: a dry-run release produces artifacts for all targets.
-- [ ] **M15-T2 — `defib doctor` completeness.**
+- [x] **M15-T2 — `defib doctor` completeness.**
   - Implement all checks in [docs/cli.md](docs/cli.md#defib-doctor--environment-diagnostics).
   - Accept: doctor reports provider presence/versions, dir perms, daemon reachability, and
     service state with actionable messages.

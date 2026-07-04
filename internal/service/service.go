@@ -35,11 +35,19 @@ type Result struct {
 	Actions []string // control commands run, e.g. "systemctl --user enable --now defib.service"
 }
 
+// StatusResult reports whether the per-user service is installed.
+type StatusResult struct {
+	Manager   string // "systemd" or "launchd"
+	Path      string // unit/plist path checked
+	Installed bool   // whether that file exists
+}
+
 // osManager builds and controls the per-OS service definition. Registered by
 // the OS-specific file's init() into managerFactories.
 type osManager interface {
 	install(ctx context.Context) (Result, error)
 	uninstall(ctx context.Context) (Result, error)
+	status() StatusResult
 }
 
 // managerFactories maps a GOOS value to the constructor for that OS's
@@ -65,6 +73,16 @@ func Uninstall(ctx context.Context, opts Options) (Result, error) {
 		return Result{}, err
 	}
 	return mgr.uninstall(ctx)
+}
+
+// Status reports whether the per-user service is currently installed for the
+// resolved OS, without running any control commands.
+func Status(opts Options) (StatusResult, error) {
+	mgr, err := resolveManager(opts)
+	if err != nil {
+		return StatusResult{}, err
+	}
+	return mgr.status(), nil
 }
 
 // resolveManager resolves opts.GOOS (else runtime.GOOS) to a registered

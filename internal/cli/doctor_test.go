@@ -2,6 +2,7 @@ package cli
 
 import (
 	"bytes"
+	"context"
 	"os"
 	"path/filepath"
 	"testing"
@@ -52,7 +53,7 @@ func TestCheckDir(t *testing.T) {
 
 func TestCheckProvider(t *testing.T) {
 	t.Run("fake is built-in", func(t *testing.T) {
-		c := checkProvider(config.Default(), "fake")
+		c := checkProvider(context.Background(), config.Default(), "fake")
 		assert.Equal(t, "ok", c.Status)
 		assert.Contains(t, c.Detail, "built-in")
 	})
@@ -62,17 +63,21 @@ func TestCheckProvider(t *testing.T) {
 		claude := cfg.Providers["claude"]
 		claude.Binary = "definitely-not-a-real-binary-xyz"
 		cfg.Providers["claude"] = claude
-		c := checkProvider(cfg, "claude")
+		c := checkProvider(context.Background(), cfg, "claude")
 		assert.Equal(t, "warn", c.Status)
 		assert.Contains(t, c.Detail, "not found on PATH")
 	})
 
 	t.Run("resolvable binary is ok", func(t *testing.T) {
+		script := filepath.Join(t.TempDir(), "myprov")
+		require.NoError(t, os.WriteFile(script, []byte("#!/bin/sh\necho \"myprov 9.9.9\"\n"), 0o755))
+
 		cfg := config.Default()
 		claude := cfg.Providers["claude"]
-		claude.Binary = "sh"
+		claude.Binary = script
 		cfg.Providers["claude"] = claude
-		c := checkProvider(cfg, "claude")
+		c := checkProvider(context.Background(), cfg, "claude")
 		assert.Equal(t, "ok", c.Status)
+		assert.Contains(t, c.Detail, "9.9.9")
 	})
 }
