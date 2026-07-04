@@ -51,10 +51,22 @@ restarts the daemon and it resumes in-flight tasks. Full design in
 
 ## Install
 
-_Packaged binaries land with the release milestone ([TODO.md](TODO.md))._ From source:
+**Prebuilt binaries.** Each tagged release publishes static (CGO-free) binaries for Linux and
+macOS on `amd64`/`arm64`, plus a `checksums.txt`, on the
+[Releases page](https://github.com/ya222/defib/releases). Download the archive for your
+platform, verify its checksum, and put `defib` on your `PATH`:
 
 ```sh
-go install ./cmd/defib        # from a checkout, once M0 is complete
+tar -xzf defib_<version>_<os>_<arch>.tar.gz
+sudo install defib /usr/local/bin/defib
+defib --version
+```
+
+**From source** (Go 1.22+):
+
+```sh
+git clone https://github.com/ya222/defib && cd defib
+go build -o bin/defib ./cmd/defib        # or: go install ./cmd/defib
 ```
 
 ## Quickstart

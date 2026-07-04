@@ -244,7 +244,7 @@ Depends on: M9.
     manual smoke-test instructions documented. No live calls in CI.
 - [x] **M10-T2 — Claude detection rules.**
   - Replace the illustrative rules in
-    [docs/detection.md](docs/detection.md#claude-code-illustrative--verify) with rules validated
+    [docs/detection.md](docs/detection.md#built-in-rule-sets) with rules validated
     against captured fixtures.
   - Accept: fixture-based tests classify real rate-limit/usage-limit/credit/overloaded outputs
     into the correct categories with correct Reset Times.
@@ -330,7 +330,7 @@ Depends on: M10, M11.
   - Implement all checks in [docs/cli.md](docs/cli.md#defib-doctor--environment-diagnostics).
   - Accept: doctor reports provider presence/versions, dir perms, daemon reachability, and
     service state with actionable messages.
-- [ ] **M15-T3 — Docs pass + install instructions.**
+- [x] **M15-T3 — Docs pass + install instructions.**
   - Finalize install instructions in [README.md](README.md); ensure every doc cross-link
     resolves and no information is duplicated across docs.
   - Accept: link check passes; a reviewer confirms each fact lives in exactly one doc.
