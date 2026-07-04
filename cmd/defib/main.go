@@ -18,6 +18,7 @@ import (
 	"github.com/ya222/defib/internal/paths"
 	"github.com/ya222/defib/internal/provider"
 	"github.com/ya222/defib/internal/provider/claude"
+	"github.com/ya222/defib/internal/provider/copilot"
 	"github.com/ya222/defib/internal/provider/fake"
 )
 
@@ -42,6 +43,10 @@ func registerProviders() {
 		os.Exit(1)
 	}
 	if err := provider.Register(claude.New()); err != nil {
+		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
+		os.Exit(1)
+	}
+	if err := provider.Register(copilot.New()); err != nil {
 		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
 		os.Exit(1)
 	}
