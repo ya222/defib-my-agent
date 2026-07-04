@@ -94,6 +94,13 @@ func newStartCmd(g *globalOptions) *cobra.Command {
 				return err
 			}
 
+			// The warning must fire on ANY opt-in path — flag or config
+			// file — so it is derived from the effective config, before
+			// anything runs (docs/architecture.md#security-model).
+			if unattendedEffective(g, params) {
+				printUnattendedWarning(cmd.ErrOrStderr(), params.Provider)
+			}
+
 			client, err := connect(ctx, g)
 			if err != nil {
 				return err
@@ -219,11 +226,49 @@ func buildCreateParams(opts startFlags, promptText string, passthrough []string,
 			overrides["providers."+providerName+".model"] = opts.Model
 		}
 		if opts.UnattendedSet {
-			overrides["providers."+providerName+".unattended"] = "true"
+			// The explicit value is forwarded, so --unattended=false can
+			// override a config-file opt-in.
+			overrides["providers."+providerName+".unattended"] = strconv.FormatBool(opts.Unattended)
 		}
 	}
 	params.Overrides = overrides
 	return params, nil
+}
+
+// unattendedEffective reports whether the task will run with approvals
+// skipped, resolving the same config layers the daemon will (global file,
+// project file for cwd, env, flag overrides) so a config-file opt-in warns
+// exactly like --unattended does.
+func unattendedEffective(g *globalOptions, params createParams) bool {
+	cfgPath, err := globalConfigPath(g)
+	if err != nil {
+		return false
+	}
+	cfg, err := config.Resolve(config.Options{
+		GlobalPath: cfgPath,
+		WorkDir:    params.Cwd,
+		Overrides:  params.Overrides,
+	})
+	if err != nil {
+		return false
+	}
+	name := params.Provider
+	if name == "" {
+		name = cfg.DefaultProvider
+	}
+	return cfg.Providers[name].Unattended
+}
+
+// printUnattendedWarning is the prominent notice required by the security
+// model whenever skip-approvals is in effect.
+func printUnattendedWarning(w io.Writer, providerName string) {
+	if providerName == "" {
+		providerName = "the provider"
+	}
+	fmt.Fprintf(w, `WARNING: unattended mode is ON — %s will run with approval prompts skipped.
+	The agent can execute arbitrary commands with no human in the loop.
+	Run it in a sandbox or container you are prepared to lose.
+`, providerName)
 }
 
 // resolveDefaultProvider resolves the client-side default provider (used

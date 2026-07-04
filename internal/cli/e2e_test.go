@@ -5,11 +5,14 @@ package cli_test
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"testing"
 	"time"
 
@@ -349,4 +352,236 @@ func TestE2EClientContracts(t *testing.T) {
 	// doctor runs and reports the provider and daemon state.
 	out = e.mustRun("doctor")
 	assert.Contains(t, out, "fake")
+}
+
+// attachProc is a running `defib attach` child we can type into and read
+// from. stdout and stderr are merged into buf (guarded by mu) so failure
+// messages show everything the client emitted.
+type attachProc struct {
+	t     *testing.T
+	cmd   *exec.Cmd
+	stdin io.WriteCloser
+	mu    sync.Mutex
+	buf   bytes.Buffer
+}
+
+func (ap *attachProc) Write(p []byte) (int, error) {
+	ap.mu.Lock()
+	defer ap.mu.Unlock()
+	return ap.buf.Write(p)
+}
+
+func (ap *attachProc) String() string {
+	ap.mu.Lock()
+	defer ap.mu.Unlock()
+	return ap.buf.String()
+}
+
+// startAttach launches `defib attach <selector>` with a pipe on stdin and its
+// output captured. It does not wait for the process.
+func (e *env) startAttach(selector string) *attachProc {
+	e.t.Helper()
+	cmd := exec.Command(e.bin, "attach", selector)
+	cmd.Env = e.env
+	stdin, err := cmd.StdinPipe()
+	require.NoError(e.t, err)
+	stdout, err := cmd.StdoutPipe()
+	require.NoError(e.t, err)
+	ap := &attachProc{t: e.t, cmd: cmd, stdin: stdin}
+	cmd.Stderr = ap
+	require.NoError(e.t, cmd.Start())
+	go func() { _, _ = io.Copy(ap, stdout) }()
+	return ap
+}
+
+// waitFor blocks until the captured output contains substr.
+func (ap *attachProc) waitFor(substr string) {
+	ap.t.Helper()
+	require.Eventually(ap.t, func() bool {
+		return strings.Contains(ap.String(), substr)
+	}, 15*time.Second, 50*time.Millisecond, "attach output never contained %q; got:\n%s", substr, ap)
+}
+
+func (ap *attachProc) write(s string) {
+	ap.t.Helper()
+	_, err := io.WriteString(ap.stdin, s)
+	require.NoError(ap.t, err)
+}
+
+func (ap *attachProc) closeStdin() { _ = ap.stdin.Close() }
+
+// wait waits for the attach process to exit and returns its exit code.
+func (ap *attachProc) wait() int {
+	err := ap.cmd.Wait()
+	if exitErr, ok := err.(*exec.ExitError); ok {
+		return exitErr.ExitCode()
+	}
+	require.NoError(ap.t, err, "attach did not exit cleanly; output:\n%s", ap)
+	return 0
+}
+
+// M14-T2 acceptance: typing into an interactive fake is forwarded to its PTY
+// and the response is observed; detaching leaves the task alive.
+func TestE2EInteractiveAttach(t *testing.T) {
+	e := newEnv(t)
+	e.configure("attempt: emit \"ready\"\nattempt: reply \"ECHO: \"\nattempt: exit 0\n")
+
+	// Round-trip: attach, type a line, observe the echoed reply, task completes.
+	var created taskInfo
+	e.mustJSON(&created, "start", "--json", "--mode", "interactive", "-p", "chat", "--name", "chatA")
+
+	a := e.startAttach("chatA")
+	a.waitFor("ready") // attached to the live PTY, tail replayed
+	a.write("hello\n")
+	a.waitFor("ECHO: hello")
+	assert.Zero(t, a.wait(), "attach exits 0 when the interactive child completes")
+	assert.Equal(t, "SUCCEEDED", e.taskStatus("chatA").Task.Status)
+
+	// Detach (stdin EOF) leaves the task running; a fresh attach still drives it.
+	e.mustJSON(&struct{}{}, "start", "--json", "--mode", "interactive", "-p", "chat", "--name", "chatB")
+	b1 := e.startAttach("chatB")
+	b1.waitFor("ready")
+	b1.closeStdin() // EOF detaches without sending the terminating line
+	assert.Zero(t, b1.wait(), "detach exits 0")
+
+	// The child is still blocked reading input, so the task is not terminal.
+	time.Sleep(300 * time.Millisecond)
+	assert.Equal(t, "RUNNING", e.taskStatus("chatB").Task.Status, "detach keeps the task alive")
+
+	b2 := e.startAttach("chatB")
+	b2.waitFor("ready") // retained tail replays the banner on re-attach
+	b2.write("again\n")
+	b2.waitFor("ECHO: again")
+	assert.Zero(t, b2.wait())
+	require.Eventually(t, func() bool {
+		return e.taskStatus("chatB").Task.Status == "SUCCEEDED"
+	}, 10*time.Second, 100*time.Millisecond, "re-attached task completes")
+}
+
+// runtimeDir returns this environment's DEFIB_RUNTIME_DIR.
+func (e *env) runtimeDir() string {
+	e.t.Helper()
+	for _, kv := range e.env {
+		if strings.HasPrefix(kv, "DEFIB_RUNTIME_DIR=") {
+			return strings.TrimPrefix(kv, "DEFIB_RUNTIME_DIR=")
+		}
+	}
+	e.t.Fatal("no DEFIB_RUNTIME_DIR in env")
+	return ""
+}
+
+// killDaemon SIGKILLs the daemon (simulating a crash: no cleanup, stale
+// socket and pid file left behind) and waits until it is unreachable.
+func (e *env) killDaemon() {
+	e.t.Helper()
+	data, err := os.ReadFile(filepath.Join(e.runtimeDir(), "daemon.pid"))
+	require.NoError(e.t, err)
+	pid, err := strconv.Atoi(strings.TrimSpace(string(data)))
+	require.NoError(e.t, err)
+	require.NoError(e.t, syscall.Kill(pid, syscall.SIGKILL))
+	require.Eventually(e.t, func() bool {
+		_, code := e.run("--no-autostart", "daemon", "status")
+		return code == 5
+	}, 5*time.Second, 50*time.Millisecond, "daemon still reachable after SIGKILL")
+}
+
+// M9-T1 acceptance: a task whose attempt was interrupted by a daemon crash
+// resumes (via the stored session ref) to SUCCEEDED after a restart.
+func TestE2ERecoveryInterruptedAttempt(t *testing.T) {
+	e := newEnv(t)
+	e.configure(`attempt: emit "attempt one"
+attempt: sleep 8s
+attempt: exit 0
+
+attempt: emit "recovered fine"
+attempt: exit 0
+`)
+
+	var created taskInfo
+	e.mustJSON(&created, "start", "--json", "-p", "long job", "--name", "crashme")
+	require.Eventually(t, func() bool {
+		return e.taskStatus("crashme").Task.Status == "RUNNING"
+	}, 10*time.Second, 100*time.Millisecond, "task starts its first attempt")
+
+	e.killDaemon()
+	e.mustRun("daemon", "start") // startup runs Reconcile
+
+	require.Eventually(t, func() bool {
+		return e.taskStatus("crashme").Task.Status == "SUCCEEDED"
+	}, 20*time.Second, 100*time.Millisecond, "interrupted task resumes to SUCCEEDED")
+
+	res := e.taskStatus("crashme")
+	require.Len(t, res.Attempts, 2)
+	assert.Equal(t, "UNKNOWN", res.Attempts[0].Outcome)
+	assert.Equal(t, "daemon_interrupted", res.Attempts[0].MatchedRule)
+	assert.Equal(t, "SUCCESS", res.Attempts[1].Outcome)
+	latest := e.mustRun("logs", "crashme")
+	assert.Contains(t, latest, "recovered fine")
+}
+
+// M9-T1 acceptance: a WAITING task whose next_wake_at passed while the
+// daemon was down wakes immediately on restart.
+func TestE2ERecoveryWaitingPastWake(t *testing.T) {
+	e := newEnv(t)
+	e.configure(`attempt: emit "limited"
+attempt: reset-at +3s
+attempt: exit 1
+
+attempt: emit "woke late"
+attempt: exit 0
+`)
+
+	var created taskInfo
+	e.mustJSON(&created, "start", "--json", "-p", "waiter", "--name", "waiter")
+	require.Eventually(t, func() bool {
+		return e.taskStatus("waiter").Task.Status == "WAITING"
+	}, 10*time.Second, 50*time.Millisecond, "task waits on the reset time")
+
+	e.killDaemon()
+	time.Sleep(4 * time.Second) // let next_wake_at (reset+buffer) pass while "off"
+	e.mustRun("daemon", "start")
+
+	require.Eventually(t, func() bool {
+		return e.taskStatus("waiter").Task.Status == "SUCCEEDED"
+	}, 10*time.Second, 100*time.Millisecond, "past-wake task wakes immediately on restart")
+	assert.Equal(t, 2, e.taskStatus("waiter").Task.TotalAttempts)
+}
+
+// M9-T1 acceptance: a PAUSED task stays paused across a daemon restart and
+// can still be resumed afterwards.
+func TestE2ERecoveryPausedStaysPaused(t *testing.T) {
+	e := newEnv(t)
+	e.configure(`attempt: emit "limited"
+attempt: reset-at +10m
+attempt: exit 1
+
+attempt: emit "resumed after restart"
+attempt: exit 0
+`)
+
+	e.mustJSON(&struct{}{}, "start", "--json", "-p", "pausable", "--name", "pausable")
+	require.Eventually(t, func() bool {
+		return e.taskStatus("pausable").Task.Status == "WAITING"
+	}, 10*time.Second, 50*time.Millisecond)
+	e.mustRun("pause", "pausable")
+	require.Eventually(t, func() bool {
+		return e.taskStatus("pausable").Task.Status == "PAUSED"
+	}, 5*time.Second, 50*time.Millisecond)
+
+	e.mustRun("daemon", "stop")
+	e.mustRun("daemon", "start")
+
+	// Still paused after reconcile, with no wake scheduled.
+	time.Sleep(500 * time.Millisecond)
+	res := e.taskStatus("pausable")
+	assert.Equal(t, "PAUSED", res.Task.Status, "paused task stays paused across restart")
+	assert.Nil(t, res.Task.NextWakeAt)
+
+	// The reconciled task still accepts user actions.
+	e.mustRun("resume", "pausable")
+	require.Eventually(t, func() bool {
+		return e.taskStatus("pausable").Task.Status == "SUCCEEDED"
+	}, 10*time.Second, 100*time.Millisecond, "resume after restart completes the task")
+	latest := e.mustRun("logs", "pausable")
+	assert.Contains(t, latest, "resumed after restart")
 }
