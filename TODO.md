@@ -39,24 +39,24 @@ Goal: resolve directories and load/validate layered config exactly as specified.
 
 Depends on: M0.
 
-- [ ] **M1-T1 — `internal/paths`.**
+- [x] **M1-T1 — `internal/paths`.**
   - Implement Config/State/Runtime dir resolution for Linux (XDG) and macOS, honoring
     `DEFIB_CONFIG_DIR`/`DEFIB_STATE_DIR`/`DEFIB_RUNTIME_DIR`, per
     [docs/architecture.md](docs/architecture.md#on-disk-layout). Create dirs with `0700` when
     missing.
   - Accept: unit tests cover env overrides, XDG defaults, and macOS defaults using a fake HOME.
-- [ ] **M1-T2 — Config structs + defaults.**
+- [x] **M1-T2 — Config structs + defaults.**
   - Implement the full schema structs in `internal/config` with the exact defaults from
     [docs/configuration.md](docs/configuration.md). Parse TOML via `pelletier/go-toml/v2`.
   - Accept: loading an empty file yields all documented defaults; round-trip test of a full
     example config from `testdata/`.
-- [ ] **M1-T3 — Layering + env + precedence.**
+- [x] **M1-T3 — Layering + env + precedence.**
   - Merge built-in < global < project `.defib.toml` (nearest ancestor) < env (`DEFIB_*`
     scalars) < explicit overrides, per
     [docs/configuration.md](docs/configuration.md#precedence-highest-wins).
   - Accept: table tests prove precedence for representative keys, including a `.defib.toml`
     discovered in a parent directory.
-- [ ] **M1-T4 — Validation.**
+- [x] **M1-T4 — Validation.**
   - Implement all validation rules in
     [docs/configuration.md](docs/configuration.md#validation). Errors report the key path.
   - Accept: tests for each failure mode; valid configs pass.
@@ -67,19 +67,19 @@ Goal: crash-safe SQLite store and the on-disk task tree.
 
 Depends on: M1.
 
-- [ ] **M2-T1 — Store bootstrap + migrations.**
+- [x] **M2-T1 — Store bootstrap + migrations.**
   - `internal/store` opens `defib.db` with WAL + foreign keys, runs embedded ordered
     migrations, and records `schema_version` in `daemon_meta`, per
     [docs/architecture.md](docs/architecture.md#data-model).
   - Accept: opening a fresh DB creates all tables; re-opening is a no-op; schema version matches
     `internal/version.SchemaVersion`.
-- [ ] **M2-T2 — Models + CRUD.**
+- [x] **M2-T2 — Models + CRUD.**
   - Implement typed models and transactional CRUD for `tasks`, `attempts`, `events` (single
     writer connection). Provide `CreateTask`, `UpdateTaskTx`, `AddAttempt`, `AppendEvent`,
     `ListTasks`, `GetTask`.
   - Accept: tests cover create/read/update, cascade delete, and that a state change writes
     task+attempt+event atomically (one transaction; rollback on error leaves DB unchanged).
-- [ ] **M2-T3 — Task artifact directories.**
+- [x] **M2-T3 — Task artifact directories.**
   - Helpers to create/resolve `tasks/<id>/attempts/<n>/` with Task-id validation
     (`^[a-f0-9-]{36}$`) and `0700` perms.
   - Accept: path-traversal inputs are rejected; log paths returned match the layout in

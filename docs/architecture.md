@@ -97,7 +97,7 @@ defib-my-agent/
     config/             # layered config loading, schema structs, validation
     logging/            # slog setup + secret redaction
     service/            # systemd/launchd unit generation + install/uninstall
-    paths/              # resolves state/config/runtime dirs (XDG + macOS)
+    paths/              # resolves state/config/runtime dirs (XDG + macOS) + task artifact paths
   docs/                 # design docs (this folder)
   testdata/             # fixtures: sample provider outputs, config files
   Makefile

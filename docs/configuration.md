@@ -119,7 +119,7 @@ any_regex = "(?i)you have run out of credits"
 # Optional reset extractor:
 # [detection.rules.reset_extractor]
 # source = "any"
-# regex  = "resets at (\\d{1,2}(:\\d{2})?\\s?(am|pm))"
+# regex  = "resets at (\\d{1,2}(?::\\d{2})?\\s?(?:am|pm))"   # exactly one capture group
 # kind   = "clock_time"
 # format = "3:04pm"
 ```

@@ -1,0 +1,66 @@
+# full.toml sets every documented key to a non-default value; used by
+# internal/config's round-trip test.
+
+default_provider = "copilot"
+default_mode     = "interactive"
+
+[retry]
+max_attempts   = 5
+deadline       = "48h"
+max_total_wait = "24h"
+backoff_base   = "10s"
+backoff_factor = 3.0
+backoff_max    = "30m"
+backoff_jitter = 0.5
+reset_buffer   = "30s"
+on_unknown     = "fail"
+on_interrupt   = "resume_now"
+
+[availability]
+poll_interval = "5m"
+command       = ["mycli", "credits", "--check"]
+
+[logging]
+level           = "debug"
+retain_attempts = 5
+redact          = false
+
+[notifications]
+on_state_change = ["notify-send", "defib"]
+events          = ["FAILED"]
+
+[providers.claude]
+binary        = "/usr/local/bin/claude"
+model         = "claude-opus"
+resume_prompt = "Keep going."
+unattended    = true
+extra_args    = ["--flag1", "--flag2"]
+
+[providers.copilot]
+binary        = "/usr/local/bin/copilot"
+model         = "gpt-5"
+resume_prompt = "Please continue."
+unattended    = true
+extra_args    = ["--verbose"]
+
+[providers.fake]
+script     = "/tmp/fake-provider.sh"
+extra_args = ["--fake-flag"]
+
+[detect]
+scan_bytes = 4096
+
+[[detection.rules]]
+name     = "example.custom_quota"
+category = "QUOTA_EXHAUSTED"
+priority = 86
+[detection.rules.match]
+exit_code_in = [1, 2]
+stdout_regex = "quota exceeded"
+stderr_regex = "billing error"
+any_regex    = "(?i)you have run out of credits"
+[detection.rules.reset_extractor]
+source = "any"
+regex  = "resets at (\\d{1,2}(?::\\d{2})?\\s?(?:am|pm))"
+kind   = "clock_time"
+format = "3:04pm"

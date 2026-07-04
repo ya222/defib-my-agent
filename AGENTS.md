@@ -114,6 +114,52 @@ part of the M0 task, then use them.
 4. The task's acceptance criteria in [TODO.md](TODO.md) are met and its checkbox is ticked.
 5. No new dependencies, packages, config keys, or IPC methods beyond what the task specifies.
 
+## Model delegation guide (for orchestrating agents)
+
+If your harness can delegate to subagents on cheaper models, use this map. The orchestrator
+(frontier model) always: reads the design docs itself, writes the subagent prompt with exact
+file boundaries and acceptance criteria, reviews the resulting diff, runs `make check`, and
+makes the commit. **Never delegate:** git operations, TODO.md ticks, doc changes, dependency
+changes, or anything requiring a design judgment (open an issue instead).
+
+Tiers:
+
+- **frontier** (e.g. Opus/Fable): cross-package integration, concurrency, state machines,
+  recovery semantics, anything where the docs leave room for interpretation.
+- **mid** (e.g. Sonnet): single-package implementation with a precise spec and testable
+  acceptance criteria. Most tasks in this repo. Real savings; near-zero rework in practice.
+- **small** (e.g. Haiku): purely mechanical work — fixtures, table-test data expansion,
+  link checks. Cheap but needs tight prompts; if the prompt takes longer than the task, do it
+  inline.
+
+Suggested assignment for remaining tasks (orchestrator may override based on observed quality;
+parallelize only tasks that touch disjoint packages):
+
+| Tasks | Tier | Why |
+| --- | --- | --- |
+| M1-T1, M1-T2, M1-T4 | mid | Mechanical transcription of documented paths/schema/rules. |
+| M1-T3 | frontier | Precedence/merge semantics are easy to get subtly wrong. |
+| M2-T1, M2-T3 | mid | Schema DDL + path helpers are fully specified. |
+| M2-T2 | frontier | Transactional atomicity invariants (single writer, rollback). |
+| M3-T1 | mid | Redactor is regex table + slog setup. |
+| M3-T2, M3-T3 | frontier | Process groups, kill-tree, streaming; racy if careless. |
+| M4-T1 | mid | Interface/registry transcription from providers.md. |
+| M4-T2 | frontier | Fake provider semantics underpin all later testing. |
+| M5-T1..T3 | mid | Data-driven engine with exhaustive doc'd semantics + fixtures. |
+| M6-T1, M6-T2 | mid | Pure functions with exact formulas. |
+| M6-T3 | frontier | Timer lifecycle + fake clock. |
+| M7-T1..T3 | frontier | Core state machine; highest correctness stakes. |
+| M8-T1 | mid | Framing protocol is fully specified. |
+| M8-T2, M8-T3 | frontier | Wiring, goroutine ownership, lifecycle. |
+| M8-T4 | mid | Thin cobra commands per cli.md; e2e assembled by orchestrator. |
+| M9-T1 | frontier | Recovery/idempotency. |
+| M10, M12 | mid | Argv building + fixture-driven rules (flag verification is manual). |
+| M11-T1, M11-T2 | mid | Unit/plist generation from templates. |
+| M13-T1, M13-T2 | mid | Hook exec + probe hardening, small surface. |
+| M14-T1, M14-T2 | frontier | PTY + attach passthrough. |
+| M15-T1, M15-T2 | mid | goreleaser config; doctor checks per cli.md. |
+| M15-T3, fixtures/testdata authoring | small | Mechanical docs/link/fixture work. |
+
 ## Guardrails recap (do not violate)
 
 - No real-provider calls anywhere in the automated test path.
