@@ -1,0 +1,38 @@
+internal/cli/doctor.go
+  s_1dc17759a47366::t_ceb6f6ab1c31a7 154-166
+  s_1dc17759a47366::t_360976d4813425 93,98
+  s_1dc17759a47366::t_b626f078a636c6 117,128-152
+  s_1dc17759a47366::t_f5bb15d626c233 10-11,18
+  s_1dc17759a47366::t_a2c0add0498bea 56-58
+  s_1dc17759a47366::t_163d496e0ae7ef 153
+internal/service/launchd.go
+  s_1dc17759a47366::t_41665793bb4efa 87-91
+internal/service/systemd.go
+  s_1dc17759a47366::t_4511769580b51a 101-105
+TODO.md
+  s_1dc17759a47366::t_20416da3261334 329
+internal/service/service.go
+  s_1dc17759a47366::t_f67b182b7085d7 78-87
+  s_1dc17759a47366::t_5e5904e4951faa 38-44,50
+internal/cli/doctor_test.go
+  s_1dc17759a47366::t_b4ddfacf228dfd 56,66,72-74,77,79,81
+  s_1dc17759a47366::t_1b7d5eb45932a6 5
+internal/service/status_test.go
+  s_1dc17759a47366::t_e2fe17aa70a7bc 1-62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "579a81f5080be0abfbd872b484b3cbc7c63cd93a",
+  "prompts": {},
+  "sessions": {
+    "s_1dc17759a47366": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31cc756f-bfbf-4459-8a72-dfd2c964410e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
