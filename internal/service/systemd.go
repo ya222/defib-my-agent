@@ -98,6 +98,11 @@ func (m *systemdManager) install(ctx context.Context) (Result, error) {
 	return res, nil
 }
 
+func (m *systemdManager) status() StatusResult {
+	_, err := os.Stat(m.unitPath)
+	return StatusResult{Manager: "systemd", Path: m.unitPath, Installed: err == nil}
+}
+
 func (m *systemdManager) uninstall(ctx context.Context) (Result, error) {
 	run := m.opts.runner()
 	res := Result{Manager: "systemd", Path: m.unitPath}

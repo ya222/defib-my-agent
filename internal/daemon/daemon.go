@@ -63,13 +63,17 @@ type Daemon struct {
 }
 
 // taskRuntime is the live half of one task: its supervisor plus the
-// currently running child, if any.
+// currently running child, if any. A headless attempt sets proc; an
+// interactive attempt sets pty and bcast (the PTY handle for input/resize
+// and the output fan-out for attach). At most one is set at a time.
 type taskRuntime struct {
 	sup    *supervisor.Supervisor
 	cancel context.CancelFunc
 
-	mu   sync.Mutex
-	proc *process.Proc
+	mu    sync.Mutex
+	proc  *process.Proc
+	pty   *process.PTYProc
+	bcast *ptyBroadcast
 }
 
 func (rt *taskRuntime) setProc(p *process.Proc) {
@@ -78,9 +82,27 @@ func (rt *taskRuntime) setProc(p *process.Proc) {
 	rt.proc = p
 }
 
+func (rt *taskRuntime) setPTY(p *process.PTYProc, b *ptyBroadcast) {
+	rt.mu.Lock()
+	defer rt.mu.Unlock()
+	rt.pty = p
+	rt.bcast = b
+}
+
+// interactive returns the live PTY handle and output fan-out, or nils if the
+// task has no live interactive attempt.
+func (rt *taskRuntime) interactive() (*process.PTYProc, *ptyBroadcast) {
+	rt.mu.Lock()
+	defer rt.mu.Unlock()
+	return rt.pty, rt.bcast
+}
+
 func (rt *taskRuntime) kill() error {
 	rt.mu.Lock()
 	defer rt.mu.Unlock()
+	if rt.pty != nil {
+		return rt.pty.Kill()
+	}
 	if rt.proc == nil {
 		return nil
 	}
@@ -197,6 +219,8 @@ func (d *Daemon) startRuntime(task *store.Task, cfg config.Config, prov provider
 	taskCtx, cancel := context.WithCancel(d.rootCtx)
 	rt.cancel = cancel
 
+	interactive := task.Mode == "interactive" && prov.Capabilities().Interactive
+
 	deps := supervisor.Deps{
 		Store:    d.store,
 		Provider: prov,
@@ -205,6 +229,9 @@ func (d *Daemon) startRuntime(task *store.Task, cfg config.Config, prov provider
 		Clock:    d.clock,
 		RNG:      d.rng,
 		Spawn: func(_ context.Context, attemptNo int, cmd provider.Command) (int, error) {
+			if interactive {
+				return d.spawnPTY(rt, task.ID, attemptNo, cmd, task.Cwd, policy.ScanBytes)
+			}
 			return d.spawn(rt, task.ID, attemptNo, cmd, task.Cwd, policy.ScanBytes)
 		},
 		Kill: rt.kill,
@@ -285,6 +312,55 @@ func (d *Daemon) spawn(rt *taskRuntime, taskID string, attemptNo int, cmd provid
 			ExitCode: code,
 			Stdout:   tailFile(stdoutPath, scanBytes),
 			Stderr:   tailFile(stderrPath, scanBytes),
+		})
+	}()
+	return proc.PID(), nil
+}
+
+// spawnPTY runs an interactive attempt on a pseudo-terminal. The child's
+// combined terminal output is redacted into the attempt's stdout log and,
+// raw, fanned to any attached clients via the runtime's broadcast (see
+// task.attach). As with spawn, the child's lifetime is deliberately not tied
+// to the daemon context: shutdown detaches, it does not kill.
+func (d *Daemon) spawnPTY(rt *taskRuntime, taskID string, attemptNo int, cmd provider.Command, cwd string, scanBytes int) (int, error) {
+	if _, err := paths.EnsureAttemptDir(d.dirs.State, taskID, attemptNo); err != nil {
+		return 0, err
+	}
+	stdoutPath, _, _, err := paths.AttemptFiles(d.dirs.State, taskID, attemptNo)
+	if err != nil {
+		return 0, err
+	}
+	sink, err := newLogSink(d.redactor, stdoutPath)
+	if err != nil {
+		return 0, err
+	}
+	bcast := newPTYBroadcast(scanBytes)
+	out := &teeWriteCloser{bcast: bcast, log: sink}
+
+	proc, err := process.StartPTY(context.Background(), process.PTYSpec{
+		Argv:   cmd.Argv,
+		Env:    cmd.Env,
+		Dir:    cwd,
+		Output: out,
+	})
+	if err != nil {
+		_ = out.Close()
+		return 0, err
+	}
+	rt.setPTY(proc, bcast)
+
+	d.wg.Add(1)
+	go func() {
+		defer d.wg.Done()
+		code, err := proc.Wait()
+		if err != nil {
+			d.logger.Error("wait for interactive attempt", "task", taskID, "attempt", attemptNo, "error", err)
+		}
+		rt.setPTY(nil, nil)
+		d.postEvent(taskID, supervisor.Event{
+			Type:     supervisor.EventAttemptExit,
+			ExitCode: code,
+			Stdout:   tailFile(stdoutPath, scanBytes),
 		})
 	}()
 	return proc.PID(), nil

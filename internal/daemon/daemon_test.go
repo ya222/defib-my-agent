@@ -24,7 +24,7 @@ import (
 // TestMain doubles as the fake-provider child, exactly as cmd/defib does.
 func TestMain(m *testing.M) {
 	if len(os.Args) > 1 && os.Args[1] == fake.RunMode {
-		os.Exit(fake.Main(os.Args[2:], os.Stdout, os.Stderr, time.Now))
+		os.Exit(fake.Main(os.Args[2:], os.Stdin, os.Stdout, os.Stderr, time.Now))
 	}
 	os.Exit(m.Run())
 }

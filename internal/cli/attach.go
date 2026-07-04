@@ -50,6 +50,12 @@ func runAttach(parent context.Context, g *globalOptions, selector string, stdout
 		return nil
 	}
 
+	// Interactive tasks run on a PTY the daemon owns: attach forwards local
+	// input and renders the terminal output (docs/cli.md#defib-attach).
+	if current.Task.Mode == "interactive" {
+		return runInteractiveAttach(ctx, g, selector, stdout)
+	}
+
 	eventsClient, err := connect(ctx, g)
 	if err != nil {
 		return err

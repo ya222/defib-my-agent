@@ -3,6 +3,7 @@ package daemon
 import (
 	"bufio"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -36,6 +37,9 @@ func (d *Daemon) RegisterMethods(srv *ipc.Server) {
 	srv.Handle("task.remove", d.handleRemove)
 	srv.Handle("task.logs", d.handleLogs)
 	srv.Handle("events.subscribe", d.handleSubscribe)
+	srv.Handle("task.attach", d.handleAttach)
+	srv.Handle("task.input", d.handleInput)
+	srv.Handle("task.resize", d.handleResize)
 }
 
 // PingResult is daemon.ping's payload.
@@ -134,6 +138,29 @@ type LogLine struct {
 // SubscribeParams optionally filters events.subscribe to one task.
 type SubscribeParams struct {
 	Task string `json:"task,omitempty"`
+}
+
+// AttachParams selects the interactive task whose PTY output to stream.
+type AttachParams struct {
+	Task string `json:"task"`
+}
+
+// InputParams forwards base64-encoded input bytes to a task's live PTY.
+type InputParams struct {
+	Task string `json:"task"`
+	Data string `json:"data"` // base64-encoded raw bytes
+}
+
+// ResizeParams sets a task's PTY window size.
+type ResizeParams struct {
+	Task string `json:"task"`
+	Rows uint16 `json:"rows"`
+	Cols uint16 `json:"cols"`
+}
+
+// PTYChunk is one task.attach stream event: base64-encoded raw PTY output.
+type PTYChunk struct {
+	Data string `json:"data"`
 }
 
 func (d *Daemon) handlePing(context.Context, json.RawMessage, *ipc.Stream) (any, error) {
@@ -503,6 +530,112 @@ func (d *Daemon) handleSubscribe(ctx context.Context, raw json.RawMessage, strea
 			}
 		}
 	}
+}
+
+// handleAttach streams an interactive task's live PTY output. It first
+// replays the retained tail (current screen state) then forwards live chunks
+// until the attempt's child exits or the client disconnects. Detaching does
+// not disturb the task (docs/architecture.md#interactive-attach).
+func (d *Daemon) handleAttach(ctx context.Context, raw json.RawMessage, stream *ipc.Stream) (any, error) {
+	var params AttachParams
+	if err := unmarshalParams(raw, &params); err != nil {
+		return nil, err
+	}
+	rt, task, err := d.liveInteractive(ctx, params.Task)
+	if err != nil {
+		return nil, err
+	}
+	_, bcast := rt.interactive()
+	if bcast == nil {
+		return nil, ipc.Errorf(ipc.CodeConflict, "task %s has no live interactive session", task.Name)
+	}
+
+	tail, ch, unsubscribe := bcast.subscribe()
+	defer unsubscribe()
+	if len(tail) > 0 {
+		if err := stream.Send(PTYChunk{Data: base64.StdEncoding.EncodeToString(tail)}); err != nil {
+			return nil, err
+		}
+	}
+	if ch == nil {
+		return nil, nil // child already exited; the tail was the last of it
+	}
+	for {
+		select {
+		case <-ctx.Done():
+			return nil, nil
+		case chunk, ok := <-ch:
+			if !ok {
+				return nil, nil // child exited: end of stream
+			}
+			if err := stream.Send(PTYChunk{Data: base64.StdEncoding.EncodeToString(chunk)}); err != nil {
+				return nil, err
+			}
+		}
+	}
+}
+
+// handleInput forwards input bytes to a task's live PTY.
+func (d *Daemon) handleInput(ctx context.Context, raw json.RawMessage, _ *ipc.Stream) (any, error) {
+	var params InputParams
+	if err := unmarshalParams(raw, &params); err != nil {
+		return nil, err
+	}
+	data, err := base64.StdEncoding.DecodeString(params.Data)
+	if err != nil {
+		return nil, ipc.Errorf(ipc.CodeInvalidParams, "decode input: %v", err)
+	}
+	rt, task, err := d.liveInteractive(ctx, params.Task)
+	if err != nil {
+		return nil, err
+	}
+	pty, _ := rt.interactive()
+	if pty == nil {
+		return nil, ipc.Errorf(ipc.CodeConflict, "task %s has no live interactive session", task.Name)
+	}
+	if _, err := pty.WriteInput(data); err != nil {
+		return nil, ipc.Errorf(ipc.CodeInternal, "write input: %v", err)
+	}
+	return map[string]int{"written": len(data)}, nil
+}
+
+// handleResize sets a task's PTY window size.
+func (d *Daemon) handleResize(ctx context.Context, raw json.RawMessage, _ *ipc.Stream) (any, error) {
+	var params ResizeParams
+	if err := unmarshalParams(raw, &params); err != nil {
+		return nil, err
+	}
+	rt, task, err := d.liveInteractive(ctx, params.Task)
+	if err != nil {
+		return nil, err
+	}
+	pty, _ := rt.interactive()
+	if pty == nil {
+		return nil, ipc.Errorf(ipc.CodeConflict, "task %s has no live interactive session", task.Name)
+	}
+	if err := pty.Resize(params.Rows, params.Cols); err != nil {
+		return nil, ipc.Errorf(ipc.CodeInternal, "resize: %v", err)
+	}
+	return map[string]bool{"resized": true}, nil
+}
+
+// liveInteractive resolves an interactive task and its live runtime, mapping
+// "not interactive" and "no live session" to conflict errors.
+func (d *Daemon) liveInteractive(ctx context.Context, selector string) (*taskRuntime, *store.Task, error) {
+	task, err := d.resolveTask(ctx, selector)
+	if err != nil {
+		return nil, nil, err
+	}
+	if task.Mode != "interactive" {
+		return nil, nil, ipc.Errorf(ipc.CodeConflict, "task %s is not interactive", task.Name)
+	}
+	d.mu.Lock()
+	rt := d.runtimes[task.ID]
+	d.mu.Unlock()
+	if rt == nil {
+		return nil, nil, ipc.Errorf(ipc.CodeConflict, "task %s has no live interactive session", task.Name)
+	}
+	return rt, task, nil
 }
 
 // resolveTask finds a task by full id, unambiguous id prefix, or name.
