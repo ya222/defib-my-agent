@@ -1,0 +1,75 @@
+internal/cli/commands.go
+  s_6490238d2ca91c::t_9675e242556e66 4-8,10-12,15-79
+internal/cli/attach.go
+  s_6490238d2ca91c::t_1d46e1c7892599 1-129
+internal/cli/logs_test.go
+  s_6490238d2ca91c::t_639e51d23ff32f 1-25
+internal/cli/config_cmd_test.go
+  s_6490238d2ca91c::t_e632247be080ae 231-237,239,241-258
+  s_6490238d2ca91c::t_bf35b65e352657 1-3,5-6,8-140,142-202,204-216,218-230,238,240,259
+  s_6490238d2ca91c::t_608009da02efd9 4,141,203,217
+  s_6490238d2ca91c::t_afe046c6b22763 7
+internal/cli/start_test.go
+  s_6490238d2ca91c::t_5d9f635e9fed42 1-4,7-15,19-41,43-64,66-202
+  s_6490238d2ca91c::t_688d971db911bb 5-6,16-18,42,65
+internal/cli/start.go
+  s_6490238d2ca91c::t_0b1ae2e3885c70 1-19,30,33-115,119-242
+  s_6490238d2ca91c::t_c899b985cf99d0 116-118
+  s_6490238d2ca91c::t_6c8ea7cf465a4e 20-29,31-32
+internal/config/layer_test.go
+  s_6490238d2ca91c::t_119f08a35740e5 309
+  s_6490238d2ca91c::t_05d2e45b4cca0b 234-308,310-315
+internal/cli/tasks.go
+  s_6490238d2ca91c::t_3e5e2cd39b2e1b 1-218
+internal/cli/providers.go
+  s_6490238d2ca91c::t_c07fc1a32498a0 1-90
+internal/cli/config_cmd.go
+  s_6490238d2ca91c::t_b2e401b44cef27 1-337
+internal/cli/providers_test.go
+  s_6490238d2ca91c::t_c3e28a338f0e92 1-47
+internal/cli/doctor.go
+  s_6490238d2ca91c::t_6eee2dbfc80c64 1-142
+internal/cli/tasks_test.go
+  s_6490238d2ca91c::t_b540feb60344c3 37-38
+  s_6490238d2ca91c::t_9a61dbbb23c4bd 29-30
+  s_6490238d2ca91c::t_5a099ff23c471c 76-78
+  s_6490238d2ca91c::t_916b5919c4a903 1-28,31-36,39-75,79-108
+internal/config/layer.go
+  s_6490238d2ca91c::t_fbbf63ec99784d 135-214
+  s_6490238d2ca91c::t_273e224af62410 106-112
+internal/cli/logs.go
+  s_6490238d2ca91c::t_db957fe7d48940 1-58
+internal/cli/root_test.go
+  s_6490238d2ca91c::t_6ae8b2b84ef7f7 1-52
+internal/cli/doctor_test.go
+  s_6490238d2ca91c::t_25d52aa5290e57 1-78
+internal/cli/types.go
+  s_6490238d2ca91c::t_81bc165679d5d4 1-124
+internal/cli/attach_test.go
+  s_6490238d2ca91c::t_ed15f24148be2b 1-66
+internal/cli/e2e_test.go
+  s_6490238d2ca91c::t_679a910f260b30 6-7
+  s_6490238d2ca91c::t_22f4048daf0314 126-352
+internal/cli/root.go
+  s_6490238d2ca91c::t_0c60a63a599561 68-73,78-85,92-102,109-112
+  s_6490238d2ca91c::t_e66ce0aeb7d1eb 144-147
+  s_6490238d2ca91c::t_9580ace7f352d5 12
+TODO.md
+  s_6490238d2ca91c::t_0ef95729a01fa3 211
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "c75d9479f44e99ea9c1ab678ec7d940fc9b679ac",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
