@@ -1,0 +1,33 @@
+internal/supervisor/harness_test.go
+  s_97feeb9a3e10a1::t_be8ccc14d26f03 6
+  s_97feeb9a3e10a1::t_56db7f5b560d4f 312-315
+  s_97feeb9a3e10a1::t_7510c2ca7efc59 41-43
+  s_97feeb9a3e10a1::t_72a9e52b648681 60-63
+  s_97feeb9a3e10a1::t_2dbbabab6bb3d2 1-5,7-28,32-40,44-59,64-311
+  s_97feeb9a3e10a1::t_1797dffe531f7b 29-31
+internal/supervisor/supervisor_test.go
+  s_97feeb9a3e10a1::t_d6bfb653877b37 336-338
+  s_97feeb9a3e10a1::t_d4ecf54c05b800 1-309,313-320,322-335,339
+  s_97feeb9a3e10a1::t_45701e43f01c76 310-312,321
+internal/supervisor/supervisor.go
+  s_97feeb9a3e10a1::t_bc228bed2555cc 319-320
+  s_97feeb9a3e10a1::t_273555e58f1344 1-318,321-558
+TODO.md
+  s_97feeb9a3e10a1::t_e736658439cada 173
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "2a608dee219002b9fd8d9f51df0e3911aefcc06f",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

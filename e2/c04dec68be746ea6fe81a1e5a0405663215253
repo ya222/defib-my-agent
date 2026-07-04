@@ -1,0 +1,27 @@
+internal/scheduler/timer.go
+  s_97feeb9a3e10a1::t_d0425a9c28e176 26
+  s_97feeb9a3e10a1::t_3d6cdf0e628666 1-25,27-125
+internal/scheduler/timer_test.go
+  s_97feeb9a3e10a1::t_b5fbf131a10b51 53,61-68
+  s_97feeb9a3e10a1::t_66ef50673927d3 76-77
+  s_97feeb9a3e10a1::t_8bc9e343360fa0 1-21,25-27,37-52,54-60,69-75,78-245
+  s_97feeb9a3e10a1::t_7c86759d47d0b2 22-24,28-36
+TODO.md
+  s_97feeb9a3e10a1::t_d31cb46f4f12dc 160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "e2c04dec68be746ea6fe81a1e5a0405663215253",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

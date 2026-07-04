@@ -1,0 +1,24 @@
+internal/scheduler/caps.go
+  s_97feeb9a3e10a1::t_f7db4dcfd0ee44 11-12
+  s_97feeb9a3e10a1::t_3c84585702aad8 1-10,13-48
+internal/scheduler/caps_test.go
+  s_97feeb9a3e10a1::t_f91e166deb0596 1-130
+TODO.md
+  s_97feeb9a3e10a1::t_6441de8cae2afb 152,157
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "b784e745f22c2de96dada1e6ffd407251fd221ab",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

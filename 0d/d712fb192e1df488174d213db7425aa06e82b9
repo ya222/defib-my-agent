@@ -1,0 +1,24 @@
+internal/supervisor/session_test.go
+  s_97feeb9a3e10a1::t_c8006754bfad82 1-4,6-77
+  s_97feeb9a3e10a1::t_a77a750e6a0dad 5
+internal/supervisor/session.go
+  s_97feeb9a3e10a1::t_3d1e5767a6b2e2 1-53
+TODO.md
+  s_97feeb9a3e10a1::t_de8f89d251caa6 179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "0dd712fb192e1df488174d213db7425aa06e82b9",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
