@@ -1,0 +1,26 @@
+internal/daemon/probe_test.go
+  s_0d986d31ec7c59::t_ea69b015e0ec2e 29,32,36-37
+  s_0d986d31ec7c59::t_f98792a5089e5d 1-28,30-31,33-35,38-144
+internal/daemon/probe.go
+  s_0d986d31ec7c59::t_bfa8540c2d0d22 1-120
+internal/daemon/daemon.go
+  s_0d986d31ec7c59::t_889bfbb81cbfed 215
+TODO.md
+  s_0d986d31ec7c59::t_761b59e85c6dd7 299
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6b9a793f67b6b1573204fc690ec611aa18b226c2",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

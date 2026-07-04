@@ -1,0 +1,22 @@
+TODO.md
+  s_1dc17759a47366::t_07fb74ec097da5 247
+  s_1dc17759a47366::t_152292250b2c02 333
+README.md
+  s_1dc17759a47366::t_75cc2b0b1e3e46 54-57,60-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "aadd486b173e6e1a7fbb46340b2c8e8cb4c2507b",
+  "prompts": {},
+  "sessions": {
+    "s_1dc17759a47366": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31cc756f-bfbf-4459-8a72-dfd2c964410e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
