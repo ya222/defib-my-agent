@@ -1,0 +1,32 @@
+testdata/claude/README.md
+  s_0ab37fcd641d73::t_8ff12a4603bb94 11,20-37
+docs/detection.md
+  s_0ab37fcd641d73::t_679adef611a16d 127-129
+  s_0ab37fcd641d73::t_b0e5f281a9a77d 117
+testdata/claude/session-not-found.stderr.log
+  s_0ab37fcd641d73::t_fc0d02a3cd2f9f 1
+testdata/claude/session-not-found.stdout.log
+  s_0ab37fcd641d73::t_fc0d02a3cd2f9f 1
+internal/provider/claude/rules.go
+  s_0ab37fcd641d73::t_96b80f56a8be7d 14-17,26-32
+  s_0ab37fcd641d73::t_db36e1ac3f94ae 33
+internal/provider/claude/rules_test.go
+  s_0ab37fcd641d73::t_09718d22754302 56-61
+  s_0ab37fcd641d73::t_0c5e791573b78c 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2556b90996ddb02c10d2337f9d0f57fc0ef1d94c",
+  "prompts": {},
+  "sessions": {
+    "s_0ab37fcd641d73": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9602f441-d7c8-4864-8510-66c6e5980b61",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
