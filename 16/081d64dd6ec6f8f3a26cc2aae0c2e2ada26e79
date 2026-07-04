@@ -1,0 +1,39 @@
+.gitignore
+  s_1dc17759a47366::t_c5a1f1600a4949 22-23
+testdata/claude/auth-error.stdout.log
+  s_6490238d2ca91c::t_e5fe9f3347e0d4 1-3
+testdata/claude/credit-low.documented.stdout.log
+  s_6490238d2ca91c::t_2daed3e437d8cd 1-2
+testdata/claude/overloaded-529.documented.stdout.log
+  s_6490238d2ca91c::t_81773ca2dc7175 1-2
+testdata/claude/rate-limit-429.documented.stdout.log
+  s_6490238d2ca91c::t_92d6b6a766b625 1-2
+testdata/claude/success.stream-json.stdout.log
+  s_6490238d2ca91c::t_4ea93edc869cc4 1-8
+testdata/claude/usage-limit.documented.stdout.log
+  s_6490238d2ca91c::t_8c7fef68519252 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "16081d64dd6ec6f8f3a26cc2aae0c2e2ada26e79",
+  "prompts": {},
+  "sessions": {
+    "s_1dc17759a47366": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "31cc756f-bfbf-4459-8a72-dfd2c964410e",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
