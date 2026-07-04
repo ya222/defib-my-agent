@@ -1,0 +1,23 @@
+TODO.md
+  s_0d986d31ec7c59::t_a38fa3d9184b35 268
+internal/service/launchd_test.go
+  s_0d986d31ec7c59::t_91fdd8e8cc1d2f 1-68
+internal/service/launchd.go
+  s_0d986d31ec7c59::t_57f2ecfb99af73 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "f263d094be617dcf42b0a2161c887b29971ac5ec",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

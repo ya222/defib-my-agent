@@ -1,0 +1,385 @@
+internal/paths/paths_test.go
+  s_97feeb9a3e10a1::t_4f978fa8842f5b 88-101
+  s_6490238d2ca91c::t_2a29e5e81fbb8b 1-43,47-72,78-87,102-176
+  s_6490238d2ca91c::t_14fbf5e6e23cd9 44-46,73-77
+internal/paths/paths.go
+  s_97feeb9a3e10a1::t_cf5652f6496d19 61-63
+  s_6490238d2ca91c::t_54df4828cb70e3 1-37,40-60,64-84
+  s_97feeb9a3e10a1::t_0e7dd4041191d0 38-39
+go.mod
+  s_6490238d2ca91c::t_3e8d00868b0e57 4,12,27
+  s_97feeb9a3e10a1::t_dcae59b5245609 13,18,23
+  s_97feeb9a3e10a1::t_32f7a8c335d216 14,16,19
+  s_97feeb9a3e10a1::t_af1996c5546f45 7-11,17,22,24-26
+  s_97feeb9a3e10a1::t_b9479c450e7ec5 5
+  s_97feeb9a3e10a1::t_e4599f2389f926 6
+  s_97feeb9a3e10a1::t_9d90f4e5e7182d 15,20-21
+TODO.md
+  s_97feeb9a3e10a1::t_249a22d575c947 42
+  s_97feeb9a3e10a1::t_10a1cb952d4f11 48
+  s_97feeb9a3e10a1::t_53aba0d14254f2 53
+  s_97feeb9a3e10a1::t_9ff94d32c501c8 59
+  s_97feeb9a3e10a1::t_39e652f2e7a959 70
+  s_97feeb9a3e10a1::t_12fd474e7872ba 76
+  s_97feeb9a3e10a1::t_c6b1ff029df539 82
+  s_97feeb9a3e10a1::t_b74968ad9c3663 94,99,105
+  s_97feeb9a3e10a1::t_9d4470015a608f 115
+  s_97feeb9a3e10a1::t_5f1ad1fb1c33c1 119
+  s_97feeb9a3e10a1::t_81c1c3f89b8a63 133,138,142
+  s_97feeb9a3e10a1::t_6441de8cae2afb 152,157
+  s_97feeb9a3e10a1::t_d31cb46f4f12dc 160
+  s_97feeb9a3e10a1::t_e736658439cada 173
+  s_97feeb9a3e10a1::t_de8f89d251caa6 179
+  s_97feeb9a3e10a1::t_d6bab51e49e0a9 184
+  s_97feeb9a3e10a1::t_bdb35de4cdb194 195,201
+  s_97feeb9a3e10a1::t_607c1316ef847c 207
+  s_6490238d2ca91c::t_0ef95729a01fa3 211
+  s_6490238d2ca91c::t_5150ec3246b72a 225
+  s_6490238d2ca91c::t_0975890e317887 238
+  s_97feeb9a3e10a1::t_1f605254d72d36 245
+  s_97feeb9a3e10a1::t_b4aafd192a3ad5 251
+  s_0d986d31ec7c59::t_0b2c7475b5dda3 263
+go.sum
+  s_97feeb9a3e10a1::t_a1f21e0e1c8973 2-3,16-19,27-28,37-39
+  s_97feeb9a3e10a1::t_41f1f81d85af81 4-9,12-15,20-21,29-36,40-63
+  s_97feeb9a3e10a1::t_12bc9b69f737c5 1,10-11,22-26
+internal/config/config_test.go
+  s_97feeb9a3e10a1::t_1d11aa1314b768 1-158
+testdata/config/full.toml
+  s_97feeb9a3e10a1::t_d4e43092402dfd 1-46,49-63,65-66
+  s_97feeb9a3e10a1::t_2ae962e65b1b32 47-48
+  s_97feeb9a3e10a1::t_a77162b4786a17 64
+internal/config/config.go
+  s_97feeb9a3e10a1::t_f43b4a07b31863 1-173,176-179,189-205
+  s_97feeb9a3e10a1::t_9b774007945c10 174-175,180-186
+  s_97feeb9a3e10a1::t_6c3fd5954b7ca4 187-188
+internal/config/layer_test.go
+  s_97feeb9a3e10a1::t_625e8cdb56536b 1-49,52-213,221-233
+  s_97feeb9a3e10a1::t_2f6cdb118f3d7a 50-51,214-220
+  s_6490238d2ca91c::t_119f08a35740e5 309
+  s_6490238d2ca91c::t_05d2e45b4cca0b 234-308,310-315
+internal/config/layer.go
+  s_97feeb9a3e10a1::t_96a9a619234730 225-226,233-235,239
+  s_97feeb9a3e10a1::t_87bd112fda8f59 1-105,113-134,215-224,227-232,236-238,240-316
+  s_6490238d2ca91c::t_fbbf63ec99784d 135-214
+  s_6490238d2ca91c::t_273e224af62410 106-112
+internal/config/validate.go
+  s_97feeb9a3e10a1::t_c68104650c8dab 157
+  s_97feeb9a3e10a1::t_0911e4f22179d6 28-32
+  s_97feeb9a3e10a1::t_22f9a832e6df1a 8
+  s_97feeb9a3e10a1::t_c09cb6e8d4d2b8 1-7,9-27,33-156,158-166
+internal/config/validate_test.go
+  s_97feeb9a3e10a1::t_0911e4f22179d6 41
+  s_97feeb9a3e10a1::t_433b346b1a63ff 1-40,42-436
+docs/configuration.md
+  s_97feeb9a3e10a1::t_30297ac24765ee 122
+AGENTS.md
+  s_6490238d2ca91c::t_62b2b9e45fc1e8 117-162
+internal/store/migrations/0001_init.sql
+  s_97feeb9a3e10a1::t_af01e09f98af91 1-52
+internal/store/store.go
+  s_97feeb9a3e10a1::t_b1359df305654f 1-12,14-22,26,29-217
+  s_97feeb9a3e10a1::t_a3b59f52382770 23-25,27-28
+  s_97feeb9a3e10a1::t_2b758a64bda879 13
+internal/store/store_test.go
+  s_97feeb9a3e10a1::t_10b53870677e46 173,175-177
+  s_97feeb9a3e10a1::t_051cee75d61eaa 170-171,174,183,191
+  s_97feeb9a3e10a1::t_b811a6660f8e2f 1-169,172,178-182,184-190,192
+internal/store/crud_test.go
+  s_97feeb9a3e10a1::t_862a8d9c5d7a17 1-274
+internal/store/models.go
+  s_97feeb9a3e10a1::t_84646a039c80fa 1-88
+internal/store/crud.go
+  s_97feeb9a3e10a1::t_e442ffe6b8c532 1-379
+docs/architecture.md
+  s_97feeb9a3e10a1::t_36eda5fa51d003 100
+internal/paths/tasks.go
+  s_97feeb9a3e10a1::t_6102640f43b31f 1-75
+internal/paths/tasks_test.go
+  s_97feeb9a3e10a1::t_0b852f5f894264 1-24,27-144
+  s_97feeb9a3e10a1::t_e203a4794ed5e3 25-26
+internal/logging/logging_test.go
+  s_97feeb9a3e10a1::t_88283a6c985b95 1-103
+internal/logging/redact_test.go
+  s_97feeb9a3e10a1::t_3f5146a63b97db 45-47,50
+  s_97feeb9a3e10a1::t_9e399c32fab844 130,133-140
+  s_97feeb9a3e10a1::t_1f661415ea233d 1-44,48-49,51-129,131-132,141-224
+internal/logging/logging.go
+  s_97feeb9a3e10a1::t_747c3e1ef5b054 1-49
+internal/logging/redact.go
+  s_97feeb9a3e10a1::t_7ef1392843c943 1-122
+internal/process/process_test.go
+  s_97feeb9a3e10a1::t_22cbbf531ab667 1-217
+internal/process/process.go
+  s_97feeb9a3e10a1::t_3590861bc1ad1e 1-89,94-185
+  s_97feeb9a3e10a1::t_531955ed955d89 90-93
+internal/process/redact_integration_test.go
+  s_97feeb9a3e10a1::t_5269ddb6b46b77 1-37
+internal/process/follow_test.go
+  s_97feeb9a3e10a1::t_4f3b4213bdea78 1-101
+internal/process/follow.go
+  s_97feeb9a3e10a1::t_742c5755ef4759 1-77
+internal/provider/provider.go
+  s_97feeb9a3e10a1::t_547d7e4513ed04 1-59,62-107
+  s_97feeb9a3e10a1::t_652fced5b85a48 60-61
+internal/provider/registry.go
+  s_97feeb9a3e10a1::t_f6bee745f71b22 1-75
+internal/detect/rule.go
+  s_97feeb9a3e10a1::t_6a354154b83eac 1-51
+internal/provider/provider_test.go
+  s_97feeb9a3e10a1::t_9f8d7aad1ecc64 1-22,24-54,56-175
+  s_97feeb9a3e10a1::t_8215ec4e47d670 55
+  s_97feeb9a3e10a1::t_652fced5b85a48 23
+docs/providers.md
+  s_97feeb9a3e10a1::t_bf9417ef653595 80-87
+internal/provider/fake/fake.go
+  s_97feeb9a3e10a1::t_4b4b2aa2207fef 1-144
+internal/provider/fake/fake_test.go
+  s_97feeb9a3e10a1::t_7c662457606622 1-256
+internal/provider/fake/run.go
+  s_97feeb9a3e10a1::t_03bb1472b6b5ae 1-158
+internal/detect/engine.go
+  s_97feeb9a3e10a1::t_11daae2c6a9d77 1-53,61-114,116-134,148-176
+  s_97feeb9a3e10a1::t_87da409197b70f 115
+  s_97feeb9a3e10a1::t_7b6073841e78b7 54-60
+  s_97feeb9a3e10a1::t_cf9fd4ac155bd1 135-147
+testdata/detect/unmatched.stdout.txt
+  s_97feeb9a3e10a1::t_6e6a8ba982d942 1-2
+testdata/detect/rate_limit.stdout.txt
+  s_97feeb9a3e10a1::t_1da36c4d599efe 1-3
+testdata/detect/quota.stdout.txt
+  s_97feeb9a3e10a1::t_b55abd409ada37 1-2
+testdata/detect/clean.stdout.txt
+  s_97feeb9a3e10a1::t_3319586043b579 1-2
+internal/detect/engine_test.go
+  s_97feeb9a3e10a1::t_69b262469f64b6 1-315
+testdata/detect/fatal.stdout.txt
+  s_97feeb9a3e10a1::t_1416826d18d17b 1-2
+internal/detect/extract_test.go
+  s_97feeb9a3e10a1::t_c5e61809389d88 72,80
+  s_97feeb9a3e10a1::t_695158107d3203 5
+  s_97feeb9a3e10a1::t_7a5ec65e439d90 54
+  s_97feeb9a3e10a1::t_0713303d9bfbc2 1-3,6-46,48-53,55-71,73-79,81-195
+  s_97feeb9a3e10a1::t_ea8333ba180856 4
+  s_97feeb9a3e10a1::t_79440fb416007f 47
+internal/detect/extract.go
+  s_97feeb9a3e10a1::t_9e8205b64c0ac3 1-124
+internal/detect/merge.go
+  s_97feeb9a3e10a1::t_99863c18155fd6 1-40
+internal/detect/merge_test.go
+  s_97feeb9a3e10a1::t_5a58cfd9e98f56 1-124
+internal/scheduler/wake_test.go
+  s_97feeb9a3e10a1::t_36e6fcc537b571 1-155
+internal/scheduler/wake.go
+  s_97feeb9a3e10a1::t_b976da5ac3535a 1-97
+internal/scheduler/caps.go
+  s_97feeb9a3e10a1::t_f7db4dcfd0ee44 11-12
+  s_97feeb9a3e10a1::t_3c84585702aad8 1-10,13-48
+internal/scheduler/caps_test.go
+  s_97feeb9a3e10a1::t_f91e166deb0596 1-130
+internal/scheduler/timer.go
+  s_97feeb9a3e10a1::t_d0425a9c28e176 26
+  s_97feeb9a3e10a1::t_3d6cdf0e628666 1-25,27-125
+internal/scheduler/timer_test.go
+  s_97feeb9a3e10a1::t_b5fbf131a10b51 53,61-68
+  s_97feeb9a3e10a1::t_66ef50673927d3 76-77
+  s_97feeb9a3e10a1::t_8bc9e343360fa0 1-21,25-27,37-52,54-60,69-75,78-245
+  s_97feeb9a3e10a1::t_7c86759d47d0b2 22-24,28-36
+internal/supervisor/harness_test.go
+  s_97feeb9a3e10a1::t_be8ccc14d26f03 6
+  s_97feeb9a3e10a1::t_56db7f5b560d4f 312-315
+  s_97feeb9a3e10a1::t_7510c2ca7efc59 41-43
+  s_97feeb9a3e10a1::t_72a9e52b648681 60-63
+  s_97feeb9a3e10a1::t_2dbbabab6bb3d2 1-5,7-28,32-40,44-59,64-311
+  s_97feeb9a3e10a1::t_1797dffe531f7b 29-31
+internal/supervisor/supervisor_test.go
+  s_97feeb9a3e10a1::t_d6bfb653877b37 338-340
+  s_97feeb9a3e10a1::t_d4ecf54c05b800 1-265,267-269,271-272,274-311,315-322,324-337,341
+  s_97feeb9a3e10a1::t_45701e43f01c76 312-314,323
+  s_97feeb9a3e10a1::t_3b405184f14388 266,270,273
+internal/supervisor/supervisor.go
+  s_97feeb9a3e10a1::t_bc228bed2555cc 325-326
+  s_97feeb9a3e10a1::t_273555e58f1344 1-100,105-123,125-281,283-324,327-350,354-385,387-409,414-500,501-513,517-534
+  s_97feeb9a3e10a1::t_510677175b9621 386
+  s_97feeb9a3e10a1::t_b50e2b92d04b29 351-353
+  s_97feeb9a3e10a1::t_6362c39afc7041 282
+  s_97feeb9a3e10a1::t_329d7031f9e1ef 410
+  s_97feeb9a3e10a1::t_4182304a70f24f 124
+  s_97feeb9a3e10a1::t_b8a9c14aa4dcfc 514-516
+  s_97feeb9a3e10a1::t_e139b2e6d4ae01 101-104
+  s_97feeb9a3e10a1::t_e742976b7a6200 411-413
+internal/supervisor/session_test.go
+  s_97feeb9a3e10a1::t_c8006754bfad82 1-4,6-77
+  s_97feeb9a3e10a1::t_a77a750e6a0dad 5
+internal/supervisor/session.go
+  s_97feeb9a3e10a1::t_3d1e5767a6b2e2 1-53
+internal/supervisor/probe.go
+  s_97feeb9a3e10a1::t_2b4e9764df679d 1-57
+internal/supervisor/probe_test.go
+  s_97feeb9a3e10a1::t_06e074e25b52d2 114-116
+  s_97feeb9a3e10a1::t_d773a4f23d4f89 83-87
+  s_97feeb9a3e10a1::t_fcf0d309e46520 1-82,88-113,117-166
+internal/ipc/server.go
+  s_97feeb9a3e10a1::t_9447448020c93e 1-247
+internal/ipc/ipc_test.go
+  s_97feeb9a3e10a1::t_63c4e507bbca96 78,93,296
+  s_97feeb9a3e10a1::t_4663551eae288f 1-77,79-92,94-295,297-332,337-351
+  s_97feeb9a3e10a1::t_cd8a4cbb9fda3a 333-336
+internal/ipc/ipc.go
+  s_97feeb9a3e10a1::t_ff33bcdb9d7395 1-56
+internal/ipc/client.go
+  s_97feeb9a3e10a1::t_8dce4614dd5bf3 1-185
+internal/daemon/daemon.go
+  s_97feeb9a3e10a1::t_ae6bb8871ff6d5 1-387
+internal/daemon/bus.go
+  s_97feeb9a3e10a1::t_184e4dbe18a286 1-59
+internal/daemon/daemon_test.go
+  s_97feeb9a3e10a1::t_d779b088ff42d1 1-383
+internal/daemon/methods.go
+  s_97feeb9a3e10a1::t_238dd578e902f1 1-171,174,178-187,192-625
+  s_97feeb9a3e10a1::t_0cf3d4884922ac 172-173,175-177
+  s_97feeb9a3e10a1::t_034d17311091af 188-191
+internal/daemon/policy.go
+  s_97feeb9a3e10a1::t_ec58362f8f639b 1-80
+cmd/defib/main.go
+  s_97feeb9a3e10a1::t_134bd1693111ed 2-3,7,9-11,13-19,21,25-43,48-67,74-111
+  s_6490238d2ca91c::t_94beab5cb85b72 68-73
+  s_6490238d2ca91c::t_fcd5dd3f052df6 44-47
+  s_6490238d2ca91c::t_8543c2ed79ded7 20
+internal/cli/commands.go
+  s_97feeb9a3e10a1::t_20e6041e596510 1-3,9,13-14
+  s_6490238d2ca91c::t_9675e242556e66 4-8,10-12,15-30,33-81
+  s_0d986d31ec7c59::t_de24bf333c6060 31-32
+internal/cli/client.go
+  s_97feeb9a3e10a1::t_e50486f60823fc 1-85
+internal/cli/daemon.go
+  s_97feeb9a3e10a1::t_70ce63b72338f0 11
+  s_97feeb9a3e10a1::t_24ba1acc729297 60
+  s_97feeb9a3e10a1::t_8d2f37179b8766 93
+  s_97feeb9a3e10a1::t_93ed5bae8744c4 1-10,12-59,61-92,94-198
+internal/cli/e2e_test.go
+  s_97feeb9a3e10a1::t_3d8119f44f7d29 1-5,8-10,12-13,15-127
+  s_6490238d2ca91c::t_679a910f260b30 6-7
+  s_6490238d2ca91c::t_22f4048daf0314 128-354
+  s_6490238d2ca91c::t_75712c9bad2a3b 11,14,355-482
+internal/cli/root.go
+  s_97feeb9a3e10a1::t_dd97879c2a4d33 1-11,13-67,76-77,86-91,103-108,113-143,148-163
+  s_97feeb9a3e10a1::t_e104e1a7572f8e 74-75
+  s_6490238d2ca91c::t_0c60a63a599561 68-73,78-85,92-102,109-112
+  s_6490238d2ca91c::t_e66ce0aeb7d1eb 144-147
+  s_6490238d2ca91c::t_9580ace7f352d5 12
+internal/cli/attach.go
+  s_6490238d2ca91c::t_1d46e1c7892599 1-129
+internal/cli/logs_test.go
+  s_6490238d2ca91c::t_639e51d23ff32f 1-25
+internal/cli/config_cmd_test.go
+  s_6490238d2ca91c::t_e632247be080ae 231-237,239,241-258
+  s_6490238d2ca91c::t_bf35b65e352657 1-3,5-6,8-140,142-202,204-216,218-230,238,240,259
+  s_6490238d2ca91c::t_608009da02efd9 4,141,203,217
+  s_6490238d2ca91c::t_afe046c6b22763 7
+internal/cli/start_test.go
+  s_6490238d2ca91c::t_5d9f635e9fed42 1-4,7-15,19-41,43-64,66-202
+  s_6490238d2ca91c::t_688d971db911bb 5-6,16-18,42,65
+internal/cli/start.go
+  s_6490238d2ca91c::t_0b1ae2e3885c70 1-19,30,33-96,104-122,126-228,232-237,274-287
+  s_6490238d2ca91c::t_c899b985cf99d0 123-125
+  s_6490238d2ca91c::t_6c8ea7cf465a4e 20-29,31-32
+  s_97feeb9a3e10a1::t_6171b32e2be381 97-103
+  s_97feeb9a3e10a1::t_54ab425a8f4c3a 238-273
+  s_97feeb9a3e10a1::t_390cbf58965806 229-231
+internal/cli/tasks.go
+  s_6490238d2ca91c::t_3e5e2cd39b2e1b 1-218
+internal/cli/providers.go
+  s_6490238d2ca91c::t_c07fc1a32498a0 1-90
+internal/cli/config_cmd.go
+  s_6490238d2ca91c::t_b2e401b44cef27 1-337
+internal/cli/providers_test.go
+  s_6490238d2ca91c::t_c3e28a338f0e92 1-47
+internal/cli/doctor.go
+  s_6490238d2ca91c::t_6eee2dbfc80c64 1-142
+internal/cli/tasks_test.go
+  s_6490238d2ca91c::t_b540feb60344c3 37-38
+  s_6490238d2ca91c::t_9a61dbbb23c4bd 29-30
+  s_6490238d2ca91c::t_5a099ff23c471c 76-78
+  s_6490238d2ca91c::t_916b5919c4a903 1-28,31-36,39-75,79-108
+internal/cli/logs.go
+  s_6490238d2ca91c::t_db957fe7d48940 1-58
+internal/cli/root_test.go
+  s_6490238d2ca91c::t_6ae8b2b84ef7f7 1-52
+internal/cli/doctor_test.go
+  s_6490238d2ca91c::t_25d52aa5290e57 1-78
+internal/cli/types.go
+  s_6490238d2ca91c::t_81bc165679d5d4 1-124
+internal/cli/attach_test.go
+  s_6490238d2ca91c::t_ed15f24148be2b 1-66
+internal/daemon/reconcile_test.go
+  s_6490238d2ca91c::t_239b7860d18351 1-6,9-50,52-67,70-74,76-102,104-269
+  s_6490238d2ca91c::t_bf0c946d1ce656 8
+  s_6490238d2ca91c::t_825f47a713990a 51
+  s_6490238d2ca91c::t_74afcb30b627a0 7
+  s_6490238d2ca91c::t_5a81a589d90b5d 68-69,75
+  s_6490238d2ca91c::t_a48059b24a63e7 103
+internal/daemon/reconcile.go
+  s_6490238d2ca91c::t_d9d7e12f0d2c62 1-164
+internal/provider/claude/claude_test.go
+  s_6490238d2ca91c::t_326cdbbb09e723 1-211,212-217
+internal/provider/claude/claude.go
+  s_6490238d2ca91c::t_ba9ebcd173298e 1-16,19-27,28-84,93-96,100-182,183-188
+  s_6490238d2ca91c::t_f55cb5fe9b51c8 17-18
+  s_97feeb9a3e10a1::t_e4eec232908b74 85-92,97-98
+  s_97feeb9a3e10a1::t_a53407ae6ea165 99
+testdata/claude/README.md
+  s_6490238d2ca91c::t_e82278ba61e1b8 1-18
+internal/provider/claude/rules.go
+  s_6490238d2ca91c::t_3aa7c04b16a55b 1-68
+internal/provider/claude/rules_test.go
+  s_6490238d2ca91c::t_755db1d2deccd2 1-121
+docs/detection.md
+  s_97feeb9a3e10a1::t_70c6deef93b115 106,108-114,116-125
+internal/cli/unattended_test.go
+  s_97feeb9a3e10a1::t_307f74f20e6ab4 1-43
+internal/provider/claude/unattended_test.go
+  s_97feeb9a3e10a1::t_0144ac8abeffc6 1-68
+internal/cli/service_cmd_test.go
+  s_0d986d31ec7c59::t_a31986a5a96516 1-21
+internal/service/systemd.go
+  s_0d986d31ec7c59::t_2456a04e6a18cd 1-139
+internal/service/service.go
+  s_0d986d31ec7c59::t_b45c93aeb3bb28 1-129
+internal/service/systemd_test.go
+  s_0d986d31ec7c59::t_6831fafff1d165 1-141
+internal/cli/service_cmd.go
+  s_0d986d31ec7c59::t_df7e56a242cd27 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "1debe08253667419ec57ba4f6e5f9adcf8c2f4dc",
+  "prompts": {},
+  "sessions": {
+    "s_0d986d31ec7c59": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4907f229-f6a3-45f7-816f-2f8329fe7b47",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
