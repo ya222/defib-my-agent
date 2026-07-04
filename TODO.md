@@ -235,20 +235,20 @@ Goal: first real provider.
 
 Depends on: M9.
 
-- [ ] **M10-T1 — Adapter + flag verification.**
+- [x] **M10-T1 — Adapter + flag verification.**
   - Implement `internal/provider/claude` per
     [docs/providers.md](docs/providers.md#claude-code-adapter-internalproviderclaude--first-class).
     **Verify every flag** against a pinned `claude` version; record the version in the package
     doc comment and capture real output fixtures in `testdata/claude/`.
   - Accept: unit tests build expected start/resume argv; `ExtractSessionRef` parses the fixture;
     manual smoke-test instructions documented. No live calls in CI.
-- [ ] **M10-T2 — Claude detection rules.**
+- [x] **M10-T2 — Claude detection rules.**
   - Replace the illustrative rules in
-    [docs/detection.md](docs/detection.md#claude-code-illustrative--verify) with rules validated
+    [docs/detection.md](docs/detection.md#built-in-rule-sets) with rules validated
     against captured fixtures.
   - Accept: fixture-based tests classify real rate-limit/usage-limit/credit/overloaded outputs
     into the correct categories with correct Reset Times.
-- [ ] **M10-T3 — Unattended safety.**
+- [x] **M10-T3 — Unattended safety.**
   - Implement `providers.claude.unattended` / `--unattended` → provider skip-approvals flag +
     prominent warning; never default-on.
   - Accept: tests prove the flag is absent by default and present only when opted in, and the
@@ -260,12 +260,12 @@ Goal: machine-restart durability.
 
 Depends on: M9 (M10 recommended).
 
-- [ ] **M11-T1 — systemd user unit (Linux).**
+- [x] **M11-T1 — systemd user unit (Linux).**
   - `internal/service` generates and installs/enables a user unit running `defib daemon run`;
     `install-service`/`uninstall-service` commands.
   - Accept: on a Linux CI/container, install → `systemctl --user` shows the unit; uninstall
     removes it. (Actual reboot is manually verified; document the steps.)
-- [ ] **M11-T2 — launchd agent (macOS).**
+- [x] **M11-T2 — launchd agent (macOS).**
   - Generate/install a `LaunchAgent` plist equivalent.
   - Accept: on macOS CI, `launchctl` lists the agent after install; uninstall removes it.
 
@@ -275,7 +275,7 @@ Goal: second provider through the same abstraction.
 
 Depends on: M10.
 
-- [ ] **M12-T1 — Adapter + flag verification.**
+- [x] **M12-T1 — Adapter + flag verification.**
   - Implement `internal/provider/copilot` per
     [docs/providers.md](docs/providers.md#github-copilot-cli-adapter-internalprovidercopilot--planned);
     verify flags against a pinned `copilot` version; capture fixtures in `testdata/copilot/`.
@@ -292,11 +292,11 @@ Goal: user-visible signals and better quota handling.
 
 Depends on: M8.
 
-- [ ] **M13-T1 — Notification hooks.**
+- [x] **M13-T1 — Notification hooks.**
   - Fire `notifications.on_state_change` (argv, no shell) for configured target states with JSON
     context appended, per [docs/configuration.md](docs/configuration.md).
   - Accept: a fake hook receives the expected event JSON on `SUCCEEDED`/`FAILED`.
-- [ ] **M13-T2 — Availability command polish.**
+- [x] **M13-T2 — Availability command polish.**
   - Harden the external `availability.command` probe: timeout, exit-code handling, backoff on
     probe failure.
   - Accept: tests for available/unavailable/erroring probes.
@@ -307,11 +307,11 @@ Goal: support providers/flows that need a terminal.
 
 Depends on: M10.
 
-- [ ] **M14-T1 — PTY runner.**
+- [x] **M14-T1 — PTY runner.**
   - Add a PTY-backed path in `internal/process` using `creack/pty`; capture + tee output;
     resize handling; only used when `mode=interactive` and the provider advertises it.
   - Accept: a PTY test drives an interactive fake and captures output; headless path unchanged.
-- [ ] **M14-T2 — Attach passthrough.**
+- [x] **M14-T2 — Attach passthrough.**
   - `defib attach` forwards input to an interactive Task's PTY; detaching leaves it running.
   - Accept: e2e test types into an interactive fake and observes the response; detach keeps the
     Task alive.
@@ -322,15 +322,15 @@ Goal: shippable v1.
 
 Depends on: M10, M11.
 
-- [ ] **M15-T1 — Release build.**
+- [x] **M15-T1 — Release build.**
   - Add `goreleaser` config producing Linux/macOS (amd64/arm64) binaries + checksums; wire a
     tag-triggered release workflow.
   - Accept: a dry-run release produces artifacts for all targets.
-- [ ] **M15-T2 — `defib doctor` completeness.**
+- [x] **M15-T2 — `defib doctor` completeness.**
   - Implement all checks in [docs/cli.md](docs/cli.md#defib-doctor--environment-diagnostics).
   - Accept: doctor reports provider presence/versions, dir perms, daemon reachability, and
     service state with actionable messages.
-- [ ] **M15-T3 — Docs pass + install instructions.**
+- [x] **M15-T3 — Docs pass + install instructions.**
   - Finalize install instructions in [README.md](README.md); ensure every doc cross-link
     resolves and no information is duplicated across docs.
   - Accept: link check passes; a reviewer confirms each fact lives in exactly one doc.

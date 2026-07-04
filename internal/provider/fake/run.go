@@ -1,6 +1,7 @@
 package fake
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -10,11 +11,12 @@ import (
 	"time"
 )
 
-// Main interprets one attempt block of a fake-provider script, writing the
-// scripted output and returning the scripted exit code. Binaries dispatch
-// to it when argv[1] == RunMode (the defib main does; test binaries do the
-// same from TestMain). now is injectable so reset-at output is testable.
-func Main(args []string, stdout, stderr io.Writer, now func() time.Time) int {
+// Main interprets one attempt block of a fake-provider script, reading any
+// forwarded input from stdin, writing the scripted output, and returning the
+// scripted exit code. Binaries dispatch to it when argv[1] == RunMode (the
+// defib main does; test binaries do the same from TestMain). now is
+// injectable so reset-at output is testable.
+func Main(args []string, stdin io.Reader, stdout, stderr io.Writer, now func() time.Time) int {
 	fs := flag.NewFlagSet(RunMode, flag.ContinueOnError)
 	fs.SetOutput(stderr)
 	script := fs.String("script", "", "path to the fake provider script")
@@ -35,7 +37,7 @@ func Main(args []string, stdout, stderr io.Writer, now func() time.Time) int {
 		return 2
 	}
 
-	code, err := runBlock(blocks[*block-1], stdout, stderr, now)
+	code, err := runBlock(blocks[*block-1], bufio.NewReader(stdin), stdout, stderr, now)
 	if err != nil {
 		fmt.Fprintf(stderr, "fake provider: %v\n", err)
 		return 2
@@ -71,7 +73,7 @@ func splitBlocks(script string) [][]string {
 
 // runBlock executes one attempt block's directives in order and returns the
 // attempt's exit code (0 unless an exit directive says otherwise).
-func runBlock(lines []string, stdout, stderr io.Writer, now func() time.Time) (int, error) {
+func runBlock(lines []string, stdin *bufio.Reader, stdout, stderr io.Writer, now func() time.Time) (int, error) {
 	for _, line := range lines {
 		directive, rest, err := parseLine(line)
 		if err != nil {
@@ -90,6 +92,16 @@ func runBlock(lines []string, stdout, stderr io.Writer, now func() time.Time) (i
 				return 0, err
 			}
 			fmt.Fprintln(stderr, text)
+		case "reply":
+			prefix, err := quoted(line, rest)
+			if err != nil {
+				return 0, err
+			}
+			// Interactive-only: block until a line of forwarded input
+			// arrives on the PTY, then echo it back with the prefix. EOF
+			// (e.g. a headless run with no stdin) yields an empty line.
+			in, _ := stdin.ReadString('\n')
+			fmt.Fprintf(stdout, "%s%s\n", prefix, strings.TrimRight(in, "\r\n"))
 		case "sleep":
 			d, err := time.ParseDuration(firstToken(rest))
 			if err != nil {

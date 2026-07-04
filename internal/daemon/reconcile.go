@@ -143,7 +143,7 @@ func (d *Daemon) recoverInterrupted(ctx context.Context, task *store.Task, cfg c
 		return fmt.Errorf("persist interrupted attempt: %w", err)
 	}
 	*task = next
-	d.notify(task)
+	d.notifyFunc(cfg)(task)
 	return nil
 }
 
