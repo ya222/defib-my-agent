@@ -1,0 +1,33 @@
+internal/config/validate.go
+  s_97feeb9a3e10a1::t_c68104650c8dab 157
+  s_97feeb9a3e10a1::t_0911e4f22179d6 28-32
+  s_97feeb9a3e10a1::t_22f9a832e6df1a 8
+  s_97feeb9a3e10a1::t_c09cb6e8d4d2b8 1-7,9-27,33-156,158-166
+internal/config/validate_test.go
+  s_97feeb9a3e10a1::t_0911e4f22179d6 41
+  s_97feeb9a3e10a1::t_433b346b1a63ff 1-40,42-436
+docs/detection.md
+  s_97feeb9a3e10a1::t_746db0323640b2 111
+testdata/config/full.toml
+  s_97feeb9a3e10a1::t_a77162b4786a17 64
+docs/configuration.md
+  s_97feeb9a3e10a1::t_30297ac24765ee 122
+TODO.md
+  s_97feeb9a3e10a1::t_9ff94d32c501c8 59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "81c006a638571afe548edc96627af9678435dfcf",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

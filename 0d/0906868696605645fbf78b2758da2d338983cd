@@ -1,0 +1,38 @@
+internal/config/layer_test.go
+  s_97feeb9a3e10a1::t_625e8cdb56536b 1-49,52-213,221-233
+  s_97feeb9a3e10a1::t_2f6cdb118f3d7a 50-51,214-220
+internal/config/config.go
+  s_97feeb9a3e10a1::t_9b774007945c10 174-175,180-186
+  s_97feeb9a3e10a1::t_6c3fd5954b7ca4 187-188
+internal/config/layer.go
+  s_97feeb9a3e10a1::t_96a9a619234730 138-139,146-148,152
+  s_97feeb9a3e10a1::t_87bd112fda8f59 1-137,140-145,149-151,153-229
+TODO.md
+  s_97feeb9a3e10a1::t_53aba0d14254f2 53
+AGENTS.md
+  s_6490238d2ca91c::t_62b2b9e45fc1e8 117-162
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "0d0906868696605645fbf78b2758da2d338983cd",
+  "prompts": {},
+  "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
