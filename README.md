@@ -27,7 +27,7 @@ works.
 - **Smart waiting:** waits until the provider's own reset time when it can read it, otherwise
   backs off with jitter — and can probe for credit availability.
 - **New or existing sessions:** start fresh, or point `defib` at a session you already have.
-- **Provider-agnostic:** Claude Code is first-class; GitHub Copilot CLI is planned, behind the
+- **Provider-agnostic:** Claude Code is first-class; GitHub Copilot CLI runs behind the
   same abstraction.
 - **Runs unattended, safely:** a background daemon owns your tasks; skip-approval "unattended"
   mode is strictly opt-in with a loud warning.
@@ -51,10 +51,22 @@ restarts the daemon and it resumes in-flight tasks. Full design in
 
 ## Install
 
-_Packaged binaries land with the release milestone ([TODO.md](TODO.md))._ From source:
+**Prebuilt binaries.** Each tagged release publishes static (CGO-free) binaries for Linux and
+macOS on `amd64`/`arm64`, plus a `checksums.txt`, on the
+[Releases page](https://github.com/ya222/defib/releases). Download the archive for your
+platform, verify its checksum, and put `defib` on your `PATH`:
 
 ```sh
-go install ./cmd/defib        # from a checkout, once M0 is complete
+tar -xzf defib_<version>_<os>_<arch>.tar.gz
+sudo install defib /usr/local/bin/defib
+defib --version
+```
+
+**From source** (Go 1.22+):
+
+```sh
+git clone https://github.com/ya222/defib && cd defib
+go build -o bin/defib ./cmd/defib        # or: go install ./cmd/defib
 ```
 
 ## Quickstart
@@ -94,7 +106,7 @@ a container or a sandboxed working copy. Details in
 | Provider | Status | Notes |
 | --- | --- | --- |
 | Claude Code | First-class (v1 target) | Native resume via session id; structured output. |
-| GitHub Copilot CLI | Planned | Same abstraction; implemented after Claude. |
+| GitHub Copilot CLI | Available (v1 target) | Verified against `copilot` 1.0.65; native resume via `--session-id`. Automatic limit detection is pending a real captured fixture ([#18](https://github.com/ya222/defib-my-agent/issues/18)). |
 | `fake` | Built-in (testing) | Deterministic provider for tests and demos — no credits used. |
 
 ## Documentation

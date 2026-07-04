@@ -98,6 +98,10 @@ type Deps struct {
 	// Probe checks provider availability during QUOTA_EXHAUSTED waits;
 	// nil means no probe is configured (pure schedule).
 	Probe func(ctx context.Context) bool
+	// Notify, when set, observes every committed transition (the daemon
+	// fans these out to events.subscribe subscribers). It runs on the
+	// supervisor goroutine and must not block.
+	Notify func(task *store.Task)
 }
 
 // Supervisor owns one Task's mutable state. All state changes happen on the
@@ -404,7 +408,9 @@ func (s *Supervisor) stop(ctx context.Context) error {
 	now := s.deps.Clock.Now()
 	s.deps.Timers.Cancel(s.task.ID)
 	s.stopProber()
-	if s.task.Status == StateRunning {
+	// PAUSED may still have a live child (pause is non-destructive); stop
+	// is the hard kill either way.
+	if s.task.Status == StateRunning || s.task.Status == StatePaused {
 		if err := s.deps.Kill(); err != nil {
 			return fmt.Errorf("supervisor: kill child: %w", err)
 		}
@@ -505,6 +511,9 @@ func (s *Supervisor) persist(ctx context.Context, next *store.Task, fn func(tx *
 		return fmt.Errorf("supervisor: persist transition to %s: %w", next.Status, err)
 	}
 	s.task = next
+	if s.deps.Notify != nil {
+		s.deps.Notify(next)
+	}
 	return nil
 }
 

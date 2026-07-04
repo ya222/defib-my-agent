@@ -53,9 +53,18 @@ On success prints the Task id (and name). Exit code `0`.
 ```
 defib attach <task>
 ```
-Streams state-change events and live log lines until the Task reaches a terminal state or the
-user detaches with `Ctrl-C`. **Detaching does not stop the Task** — the Daemon keeps
-supervising it. Uses IPC `events.subscribe` + `task.logs --follow`.
+For a **headless** Task, streams state-change events and live log lines until the Task reaches a
+terminal state or the user detaches with `Ctrl-C`. Uses IPC `events.subscribe` +
+`task.logs --follow`.
+
+For an **interactive** Task (`--mode interactive`), attaches to the Task's pseudo-terminal:
+local input is forwarded to the provider and its terminal output is rendered locally, a raw
+passthrough. When stdin is a terminal it is put in raw mode and window-size changes are
+forwarded; detach with `Ctrl-]` (so `Ctrl-C` reaches the agent). When stdin is not a terminal
+(piped input), bytes are forwarded until EOF, which detaches. Uses IPC `task.attach` +
+`task.input` + `task.resize`.
+
+**Detaching does not stop the Task** in either mode — the Daemon keeps supervising it.
 
 ### `defib list` — list Tasks
 

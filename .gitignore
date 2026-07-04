@@ -19,6 +19,8 @@ coverage.html
 *.sock
 *.pid
 *.log
+# ...but keep the committed provider output fixtures the detection tests read.
+!testdata/**/*.log
 
 # Editor / OS
 .idea/
