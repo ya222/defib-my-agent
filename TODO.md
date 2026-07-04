@@ -67,19 +67,19 @@ Goal: crash-safe SQLite store and the on-disk task tree.
 
 Depends on: M1.
 
-- [ ] **M2-T1 — Store bootstrap + migrations.**
+- [x] **M2-T1 — Store bootstrap + migrations.**
   - `internal/store` opens `defib.db` with WAL + foreign keys, runs embedded ordered
     migrations, and records `schema_version` in `daemon_meta`, per
     [docs/architecture.md](docs/architecture.md#data-model).
   - Accept: opening a fresh DB creates all tables; re-opening is a no-op; schema version matches
     `internal/version.SchemaVersion`.
-- [ ] **M2-T2 — Models + CRUD.**
+- [x] **M2-T2 — Models + CRUD.**
   - Implement typed models and transactional CRUD for `tasks`, `attempts`, `events` (single
     writer connection). Provide `CreateTask`, `UpdateTaskTx`, `AddAttempt`, `AppendEvent`,
     `ListTasks`, `GetTask`.
   - Accept: tests cover create/read/update, cascade delete, and that a state change writes
     task+attempt+event atomically (one transaction; rollback on error leaves DB unchanged).
-- [ ] **M2-T3 — Task artifact directories.**
+- [x] **M2-T3 — Task artifact directories.**
   - Helpers to create/resolve `tasks/<id>/attempts/<n>/` with Task-id validation
     (`^[a-f0-9-]{36}$`) and `0700` perms.
   - Accept: path-traversal inputs are rejected; log paths returned match the layout in
