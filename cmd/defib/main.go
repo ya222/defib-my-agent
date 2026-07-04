@@ -18,6 +18,7 @@ import (
 	"github.com/ya222/defib/internal/paths"
 	"github.com/ya222/defib/internal/provider"
 	"github.com/ya222/defib/internal/provider/claude"
+	"github.com/ya222/defib/internal/provider/copilot"
 	"github.com/ya222/defib/internal/provider/fake"
 )
 
@@ -25,7 +26,7 @@ func main() {
 	// Hidden child mode: the fake provider re-executes this binary to
 	// replay a script block (see internal/provider/fake).
 	if len(os.Args) > 1 && os.Args[1] == fake.RunMode {
-		os.Exit(fake.Main(os.Args[2:], os.Stdout, os.Stderr, time.Now))
+		os.Exit(fake.Main(os.Args[2:], os.Stdin, os.Stdout, os.Stderr, time.Now))
 	}
 	registerProviders()
 	os.Exit(cli.Execute(os.Args[1:], cli.Hooks{
@@ -42,6 +43,10 @@ func registerProviders() {
 		os.Exit(1)
 	}
 	if err := provider.Register(claude.New()); err != nil {
+		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
+		os.Exit(1)
+	}
+	if err := provider.Register(copilot.New()); err != nil {
 		fmt.Fprintf(os.Stderr, "defib: register providers: %v\n", err)
 		os.Exit(1)
 	}

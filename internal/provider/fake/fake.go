@@ -37,13 +37,14 @@ func New() *Fake {
 // Name implements provider.Provider.
 func (f *Fake) Name() string { return "fake" }
 
-// Capabilities implements provider.Provider: headless with client-supplied
-// session ids and resume; interactive support arrives with the PTY milestone.
+// Capabilities implements provider.Provider: headless and interactive, with
+// client-supplied session ids and resume.
 func (f *Fake) Capabilities() provider.Capabilities {
 	return provider.Capabilities{
 		Resume:           true,
 		ClientSuppliedID: true,
 		Headless:         true,
+		Interactive:      true,
 	}
 }
 

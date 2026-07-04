@@ -11,7 +11,10 @@ import "github.com/ya222/defib/internal/detect"
 // end with a result event carrying "api_error_status":<code> on failure
 // (null on success), which survives message-wording changes. Subscription
 // limits surface as a plain "Claude AI usage limit reached|<unix-epoch>"
-// text line, whose epoch is the Reset Time.
+// text line, whose epoch is the Reset Time. Resuming a session id the CLI
+// does not know ends the result event with "No conversation found with
+// session ID: <id>" (real capture: session-not-found.stdout.log) — a
+// permanent failure, so it is FATAL_ERROR rather than a retryable UNKNOWN.
 func (*Claude) DetectionRules() []detect.Rule {
 	return []detect.Rule{
 		{
@@ -19,6 +22,14 @@ func (*Claude) DetectionRules() []detect.Rule {
 			Category: detect.CategoryFatalError,
 			Priority: 95,
 			Match:    detect.Match{AnyRegex: `(?i)"api_error_status":40[13]|"error":"authentication_failed"|invalid api key|authentication failed|unauthorized`},
+		},
+		{
+			// A bad/expired --resume id can never succeed on retry, so fail
+			// fast instead of looping as UNKNOWN (see issue for provenance).
+			Name:     "claude.session_not_found",
+			Category: detect.CategoryFatalError,
+			Priority: 90,
+			Match:    detect.Match{AnyRegex: `(?i)no conversation found with session id`},
 		},
 		{
 			Name:     "claude.credit",

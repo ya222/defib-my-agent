@@ -22,7 +22,7 @@ import (
 // exactly as cmd/defib will.
 func TestMain(m *testing.M) {
 	if len(os.Args) > 1 && os.Args[1] == RunMode {
-		os.Exit(Main(os.Args[2:], os.Stdout, os.Stderr, time.Now))
+		os.Exit(Main(os.Args[2:], os.Stdin, os.Stdout, os.Stderr, time.Now))
 	}
 	os.Exit(m.Run())
 }
@@ -93,7 +93,7 @@ func TestMainInterpretsBlocks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var stdout, stderr bytes.Buffer
-			code := Main([]string{"--script", script, "--block", tt.block}, &stdout, &stderr, now)
+			code := Main([]string{"--script", script, "--block", tt.block}, strings.NewReader(""), &stdout, &stderr, now)
 			assert.Equal(t, tt.wantCode, code)
 			if tt.wantCode == 2 {
 				assert.Contains(t, stderr.String(), "attempt block")
@@ -103,6 +103,24 @@ func TestMainInterpretsBlocks(t *testing.T) {
 			assert.Equal(t, tt.wantErrOut, stderr.String())
 		})
 	}
+}
+
+// TestMainReplyEchoesInput proves the interactive `reply` directive reads a
+// line of forwarded input and echoes it back with the prefix, and that EOF
+// (no input) yields just the prefix.
+func TestMainReplyEchoesInput(t *testing.T) {
+	script := writeScript(t, "attempt: emit \"ready\"\nattempt: reply \"ECHO: \"\nattempt: exit 0\n")
+
+	var stdout, stderr bytes.Buffer
+	code := Main([]string{"--script", script, "--block", "1"}, strings.NewReader("hello there\n"), &stdout, &stderr, time.Now)
+	assert.Zero(t, code)
+	assert.Equal(t, "ready\nECHO: hello there\n", stdout.String())
+	assert.Empty(t, stderr.String())
+
+	stdout.Reset()
+	code = Main([]string{"--script", script, "--block", "1"}, strings.NewReader(""), &stdout, &stderr, time.Now)
+	assert.Zero(t, code)
+	assert.Equal(t, "ready\nECHO: \n", stdout.String())
 }
 
 func TestMainRejectsBadScripts(t *testing.T) {
@@ -120,7 +138,7 @@ func TestMainRejectsBadScripts(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var stdout, stderr bytes.Buffer
 			code := Main([]string{"--script", writeScript(t, tt.script), "--block", "1"},
-				&stdout, &stderr, time.Now)
+				strings.NewReader(""), &stdout, &stderr, time.Now)
 			assert.Equal(t, 2, code)
 			assert.NotEmpty(t, stderr.String())
 		})
@@ -135,7 +153,7 @@ func TestProviderContract(t *testing.T) {
 	assert.True(t, caps.Resume)
 	assert.True(t, caps.ClientSuppliedID)
 	assert.True(t, caps.Headless)
-	assert.False(t, caps.Interactive)
+	assert.True(t, caps.Interactive)
 
 	ref, ok := f.ExtractSessionRef(provider.AttemptOutput{Stdout: []byte("anything")})
 	assert.False(t, ok)

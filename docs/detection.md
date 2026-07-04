@@ -114,6 +114,7 @@ set is `internal/provider/claude/rules.go`; this table summarizes it.
 | Name | Category | Priority | Match | Reset extractor |
 | --- | --- | --- | --- | --- |
 | `claude.auth` | `FATAL_ERROR` | 95 | any regex `(?i)"api_error_status":40[13]|"error":"authentication_failed"|invalid api key|authentication failed|unauthorized` | — |
+| `claude.session_not_found` | `FATAL_ERROR` | 90 | any regex `(?i)no conversation found with session id` | — |
 | `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)credit balance is too low|insufficient credit|quota exceeded|billing` | — |
 | `claude.usage_limit` | `SESSION_LIMIT` | 82 | any regex `(?i)usage limit reached|limit will reset` | `unix_seconds` from `usage limit reached\|(\d{9,12})` |
 | `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)"api_error_status":429|rate limit` | — |
@@ -123,6 +124,9 @@ set is `internal/provider/claude/rules.go`; this table summarizes it.
 
 `claude.usage_limit` sits above `claude.rate_limit` so a message mentioning both the usage
 cap and rate limiting classifies as the session cap, which carries the reset epoch.
+`claude.session_not_found` is `FATAL_ERROR`, not retryable: resuming a session id the CLI has
+no record of (`"No conversation found with session ID: <id>"`) can never succeed on retry, so
+failing fast beats looping as UNKNOWN.
 
 ### GitHub Copilot CLI (illustrative — verify during its milestone)
 

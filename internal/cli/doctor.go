@@ -7,12 +7,15 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 
 	"github.com/ya222/defib/internal/config"
 	"github.com/ya222/defib/internal/ipc"
 	"github.com/ya222/defib/internal/paths"
+	"github.com/ya222/defib/internal/service"
 )
 
 // doctorCheck is one line of `defib doctor` output/--json entry.
@@ -50,9 +53,9 @@ func renderDoctor(w io.Writer, checks []doctorCheck) {
 	}
 }
 
-// runDoctorChecks performs the M8-T4 checks documented in docs/cli.md's
-// `defib doctor` entry: dirs, config, providers, daemon. (M15-T2 extends
-// this with service-install and version checks.)
+// runDoctorChecks performs the checks documented in docs/cli.md's
+// `defib doctor` entry: dirs, config, provider binaries and versions,
+// daemon reachability, and service-install state.
 func runDoctorChecks(ctx context.Context, g *globalOptions, hooks Hooks) []doctorCheck {
 	var checks []doctorCheck
 
@@ -87,11 +90,12 @@ func runDoctorChecks(ctx context.Context, g *globalOptions, hooks Hooks) []docto
 
 	if hooks.Providers != nil {
 		for _, p := range hooks.Providers() {
-			checks = append(checks, checkProvider(cfg, p.Name()))
+			checks = append(checks, checkProvider(ctx, cfg, p.Name()))
 		}
 	}
 
 	checks = append(checks, checkDaemon(ctx))
+	checks = append(checks, checkService())
 
 	return checks
 }
@@ -110,7 +114,7 @@ func checkDir(name, dir string) doctorCheck {
 	return doctorCheck{Check: "dirs:" + name, Status: "ok", Detail: dir}
 }
 
-func checkProvider(cfg config.Config, name string) doctorCheck {
+func checkProvider(ctx context.Context, cfg config.Config, name string) doctorCheck {
 	if name == "fake" {
 		return doctorCheck{Check: "providers:" + name, Status: "ok", Detail: "fake (built-in)"}
 	}
@@ -121,7 +125,45 @@ func checkProvider(cfg config.Config, name string) doctorCheck {
 	if _, err := exec.LookPath(binary); err != nil {
 		return doctorCheck{Check: "providers:" + name, Status: "warn", Detail: fmt.Sprintf("%s: binary %q not found on PATH", name, binary)}
 	}
-	return doctorCheck{Check: "providers:" + name, Status: "ok", Detail: fmt.Sprintf("%s (%s)", name, binary)}
+
+	version, err := providerVersion(ctx, binary)
+	if err != nil {
+		return doctorCheck{Check: "providers:" + name, Status: "ok", Detail: fmt.Sprintf("%s present at %s (version check failed)", name, binary)}
+	}
+	return doctorCheck{Check: "providers:" + name, Status: "ok", Detail: fmt.Sprintf("%s %s (%s)", name, version, binary)}
+}
+
+// providerVersion runs `<binary> --version` with a short timeout and returns
+// the first non-empty trimmed line of its combined output.
+func providerVersion(ctx context.Context, binary string) (string, error) {
+	pctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
+
+	out, err := exec.CommandContext(pctx, binary, "--version").CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("%s --version: %w", binary, err)
+	}
+	for _, line := range strings.Split(string(out), "\n") {
+		if line = strings.TrimSpace(line); line != "" {
+			return line, nil
+		}
+	}
+	return "", fmt.Errorf("%s --version: empty output", binary)
+}
+
+func checkService() doctorCheck {
+	exe, err := os.Executable()
+	if err != nil {
+		return doctorCheck{Check: "service", Status: "warn", Detail: fmt.Sprintf("resolve executable: %s", err)}
+	}
+	r, err := service.Status(service.Options{ExecPath: exe})
+	if err != nil {
+		return doctorCheck{Check: "service", Status: "warn", Detail: err.Error()}
+	}
+	if r.Installed {
+		return doctorCheck{Check: "service", Status: "ok", Detail: fmt.Sprintf("service installed (%s, %s)", r.Manager, r.Path)}
+	}
+	return doctorCheck{Check: "service", Status: "warn", Detail: fmt.Sprintf("service not installed; run 'defib install-service' to run the daemon on login/boot (%s)", r.Path)}
 }
 
 func checkDaemon(ctx context.Context) doctorCheck {
