@@ -1,0 +1,57 @@
+# goreleaser configuration for defib.
+# Produces static (CGO-disabled, pure-Go SQLite) binaries for Linux and macOS
+# on amd64 and arm64, plus a checksums file. Run a dry run with:
+#   goreleaser release --snapshot --clean
+# Releases are cut by pushing a v* tag (see .github/workflows/release.yml).
+version: 2
+
+project_name: defib
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: defib
+    main: ./cmd/defib
+    binary: defib
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X github.com/ya222/defib/internal/version.Version={{ .Version }}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - id: defib
+    format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
+      - LICENSE
+      - docs/**
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+changelog:
+  use: git
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+
+release:
+  draft: false
+  prerelease: auto

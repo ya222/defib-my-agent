@@ -322,7 +322,7 @@ Goal: shippable v1.
 
 Depends on: M10, M11.
 
-- [ ] **M15-T1 — Release build.**
+- [x] **M15-T1 — Release build.**
   - Add `goreleaser` config producing Linux/macOS (amd64/arm64) binaries + checksums; wire a
     tag-triggered release workflow.
   - Accept: a dry-run release produces artifacts for all targets.
