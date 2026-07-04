@@ -62,6 +62,7 @@ These are fixed decisions. Implementers must not swap these out.
 | UUIDs | **`github.com/google/uuid`** | Task ids and pre-generated Session Refs. |
 | Structured logging | stdlib **`log/slog`** | No extra dep; JSON to file, text to console. |
 | PTY (interactive mode) | **`github.com/creack/pty`** | Only needed for the later interactive milestone. |
+| Terminal control (attach) | **`golang.org/x/term`** | Local terminal raw mode + window size for the interactive `attach` passthrough. |
 | Testing | stdlib `go test` + **`github.com/stretchr/testify`** | Table-driven tests + assertions. |
 | Lint | **`golangci-lint`** | CI gate. |
 
@@ -97,7 +98,7 @@ defib-my-agent/
     config/             # layered config loading, schema structs, validation
     logging/            # slog setup + secret redaction
     service/            # systemd/launchd unit generation + install/uninstall
-    paths/              # resolves state/config/runtime dirs (XDG + macOS)
+    paths/              # resolves state/config/runtime dirs (XDG + macOS) + task artifact paths
   docs/                 # design docs (this folder)
   testdata/             # fixtures: sample provider outputs, config files
   Makefile
@@ -286,10 +287,42 @@ the flags that populate them in [cli.md](cli.md)):
 | `task.remove` | single | Remove a terminal Task and its artifacts. |
 | `task.logs` | stream | Stream stored (and optionally live) log lines. |
 | `events.subscribe` | stream | Stream Task state-change events (used by `attach`). |
+| `task.attach` | stream | Stream an interactive Task's live PTY output (see [Interactive attach](#interactive-attach)). |
+| `task.input` | single | Forward input bytes to an interactive Task's live PTY. |
+| `task.resize` | single | Set an interactive Task's PTY window size. |
 
 **Error codes** (string enum): `not_found`, `invalid_params`, `conflict` (illegal state
 transition), `provider_unavailable`, `internal`. Clients map these to process exit codes per
 [cli.md](cli.md).
+
+### Interactive attach
+
+A Task created with `mode=interactive` (only when the Provider advertises
+`Capabilities.Interactive`) runs its child under a pseudo-terminal (`internal/process`
+PTY runner). The Daemon owns that PTY; a Client `attach`es to drive it and may detach
+without disturbing it — the same terminal-crash-survival guarantee headless Tasks get.
+
+**Protocol decision.** Input forwarding reuses the existing newline-JSON framing rather than
+adding a new transport. It is expressed as three Task-scoped methods, correlated by Task id —
+exactly like the existing multi-connection `attach` (which already spans `events.subscribe` +
+`task.logs`). A Client may open a separate connection per direction; the Daemon routes by Task
+id to the one live PTY:
+
+- **`task.attach`** (stream) — `params {"task": "<selector>"}`. The Daemon first replays the
+  retained output tail (so a late joiner sees current screen state), then streams live chunks
+  `{"data": "<base64>"}`. Bytes are raw terminal output (control sequences included) and are
+  base64-encoded so the one-JSON-object-per-line framing is preserved. The stream ends (`done`)
+  when the current Attempt's child exits or the Client disconnects. It is a `conflict` if the
+  Task has no live PTY (not `mode=interactive`, or currently between Attempts).
+- **`task.input`** (single) — `params {"task": "<selector>", "data": "<base64>"}`. Writes the
+  bytes to the PTY as if typed. `conflict` if there is no live PTY.
+- **`task.resize`** (single) — `params {"task": "<selector>", "rows": N, "cols": N}`. Sets the
+  PTY window size (delivers `SIGWINCH` to the child). `conflict` if there is no live PTY.
+
+**Detach is non-destructive.** Detaching only closes the Client's connections; the Daemon keeps
+the PTY and its child running. The live view is best-effort: per-subscriber output buffers are
+bounded and drop under back-pressure rather than stall the child — the authoritative capture is
+the Attempt log file. The retained tail is bounded by `detect.scan_bytes`.
 
 ## Data model
 
