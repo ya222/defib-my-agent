@@ -1,0 +1,26 @@
+internal/detect/extract_test.go
+  s_97feeb9a3e10a1::t_c5e61809389d88 72,80
+  s_97feeb9a3e10a1::t_695158107d3203 5
+  s_97feeb9a3e10a1::t_7a5ec65e439d90 54
+  s_97feeb9a3e10a1::t_0713303d9bfbc2 1-3,6-46,48-53,55-71,73-79,81-195
+  s_97feeb9a3e10a1::t_ea8333ba180856 4
+  s_97feeb9a3e10a1::t_79440fb416007f 47
+internal/detect/extract.go
+  s_97feeb9a3e10a1::t_9e8205b64c0ac3 1-124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "4c848715aada3a27fc7f2597a16f60da0a381474",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

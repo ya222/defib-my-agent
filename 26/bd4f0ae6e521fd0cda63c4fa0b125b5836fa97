@@ -1,0 +1,21 @@
+internal/process/follow_test.go
+  s_97feeb9a3e10a1::t_4f3b4213bdea78 1-101
+internal/process/follow.go
+  s_97feeb9a3e10a1::t_742c5755ef4759 1-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "26bd4f0ae6e521fd0cda63c4fa0b125b5836fa97",
+  "prompts": {},
+  "sessions": {
+    "s_97feeb9a3e10a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3caf470-6cb4-4c41-9ff6-b47cb52f508d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}

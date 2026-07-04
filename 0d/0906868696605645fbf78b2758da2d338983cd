@@ -11,6 +11,13 @@ TODO.md
   s_97feeb9a3e10a1::t_53aba0d14254f2 53
 AGENTS.md
   s_6490238d2ca91c::t_62b2b9e45fc1e8 117-162
+internal/process/process_test.go
+  s_97feeb9a3e10a1::t_22cbbf531ab667 1-217
+internal/process/process.go
+  s_97feeb9a3e10a1::t_3590861bc1ad1e 1-89,94-185
+  s_97feeb9a3e10a1::t_531955ed955d89 90-93
+internal/process/redact_integration_test.go
+  s_97feeb9a3e10a1::t_5269ddb6b46b77 1-37
 ---
 {
   "schema_version": "authorship/3.0.0",

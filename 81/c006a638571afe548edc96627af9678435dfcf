@@ -10,10 +10,84 @@ docs/detection.md
   s_97feeb9a3e10a1::t_746db0323640b2 111
 testdata/config/full.toml
   s_97feeb9a3e10a1::t_a77162b4786a17 64
+  s_97feeb9a3e10a1::t_d4e43092402dfd 1-46,49-63,65-66
+  s_97feeb9a3e10a1::t_2ae962e65b1b32 47-48
 docs/configuration.md
   s_97feeb9a3e10a1::t_30297ac24765ee 122
 TODO.md
   s_97feeb9a3e10a1::t_9ff94d32c501c8 59
+  s_97feeb9a3e10a1::t_249a22d575c947 42
+  s_97feeb9a3e10a1::t_10a1cb952d4f11 48
+  s_97feeb9a3e10a1::t_53aba0d14254f2 53
+  s_97feeb9a3e10a1::t_39e652f2e7a959 70
+  s_97feeb9a3e10a1::t_12fd474e7872ba 76
+  s_97feeb9a3e10a1::t_c6b1ff029df539 82
+  s_97feeb9a3e10a1::t_b74968ad9c3663 94,99,105
+internal/paths/paths_test.go
+  s_97feeb9a3e10a1::t_4f978fa8842f5b 88-101
+  s_6490238d2ca91c::t_2a29e5e81fbb8b 1-43,47-72,78-87,102-176
+  s_6490238d2ca91c::t_14fbf5e6e23cd9 44-46,73-77
+internal/paths/paths.go
+  s_97feeb9a3e10a1::t_cf5652f6496d19 61-63
+  s_6490238d2ca91c::t_54df4828cb70e3 1-37,40-60,64-84
+  s_97feeb9a3e10a1::t_0e7dd4041191d0 38-39
+go.mod
+  s_6490238d2ca91c::t_3e8d00868b0e57 4,12,24
+  s_97feeb9a3e10a1::t_dcae59b5245609 13,17,20
+  s_97feeb9a3e10a1::t_32f7a8c335d216 14,15,18
+  s_97feeb9a3e10a1::t_af1996c5546f45 7-11,16,19,21-23
+  s_97feeb9a3e10a1::t_b9479c450e7ec5 5
+  s_97feeb9a3e10a1::t_e4599f2389f926 6
+go.sum
+  s_97feeb9a3e10a1::t_a1f21e0e1c8973 1-2,13-16,19-20,29-31
+  s_97feeb9a3e10a1::t_41f1f81d85af81 3-12,17-18,21-28,32-55
+internal/config/config_test.go
+  s_97feeb9a3e10a1::t_1d11aa1314b768 1-158
+internal/config/config.go
+  s_97feeb9a3e10a1::t_f43b4a07b31863 1-173,176-179,189-205
+  s_97feeb9a3e10a1::t_9b774007945c10 174-175,180-186
+  s_97feeb9a3e10a1::t_6c3fd5954b7ca4 187-188
+internal/config/layer_test.go
+  s_97feeb9a3e10a1::t_625e8cdb56536b 1-49,52-213,221-233
+  s_97feeb9a3e10a1::t_2f6cdb118f3d7a 50-51,214-220
+internal/config/layer.go
+  s_97feeb9a3e10a1::t_96a9a619234730 138-139,146-148,152
+  s_97feeb9a3e10a1::t_87bd112fda8f59 1-137,140-145,149-151,153-229
+AGENTS.md
+  s_6490238d2ca91c::t_62b2b9e45fc1e8 117-162
+internal/store/migrations/0001_init.sql
+  s_97feeb9a3e10a1::t_af01e09f98af91 1-52
+internal/store/store.go
+  s_97feeb9a3e10a1::t_b1359df305654f 1-12,14-22,26,29-217
+  s_97feeb9a3e10a1::t_a3b59f52382770 23-25,27-28
+  s_97feeb9a3e10a1::t_2b758a64bda879 13
+internal/store/store_test.go
+  s_97feeb9a3e10a1::t_10b53870677e46 173,175-177
+  s_97feeb9a3e10a1::t_051cee75d61eaa 170-171,174,183,191
+  s_97feeb9a3e10a1::t_b811a6660f8e2f 1-169,172,178-182,184-190,192
+internal/store/crud_test.go
+  s_97feeb9a3e10a1::t_862a8d9c5d7a17 1-274
+internal/store/models.go
+  s_97feeb9a3e10a1::t_84646a039c80fa 1-88
+internal/store/crud.go
+  s_97feeb9a3e10a1::t_e442ffe6b8c532 1-379
+docs/architecture.md
+  s_97feeb9a3e10a1::t_36eda5fa51d003 100
+internal/paths/tasks.go
+  s_97feeb9a3e10a1::t_6102640f43b31f 1-75
+internal/paths/tasks_test.go
+  s_97feeb9a3e10a1::t_0b852f5f894264 1-24,27-144
+  s_97feeb9a3e10a1::t_e203a4794ed5e3 25-26
+internal/logging/logging_test.go
+  s_97feeb9a3e10a1::t_88283a6c985b95 1-103
+internal/logging/redact_test.go
+  s_97feeb9a3e10a1::t_3f5146a63b97db 45-47,50
+  s_97feeb9a3e10a1::t_9e399c32fab844 130,133-140
+  s_97feeb9a3e10a1::t_1f661415ea233d 1-44,48-49,51-129,131-132,141-224
+internal/logging/logging.go
+  s_97feeb9a3e10a1::t_747c3e1ef5b054 1-49
+internal/logging/redact.go
+  s_97feeb9a3e10a1::t_7ef1392843c943 1-122
 ---
 {
   "schema_version": "authorship/3.0.0",
@@ -21,6 +95,14 @@ TODO.md
   "base_commit_sha": "81c006a638571afe548edc96627af9678435dfcf",
   "prompts": {},
   "sessions": {
+    "s_6490238d2ca91c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6686e70b-1190-4cb3-b41e-b87276e5615e",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    },
     "s_97feeb9a3e10a1": {
       "agent_id": {
         "tool": "claude",
