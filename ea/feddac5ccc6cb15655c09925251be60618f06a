@@ -1,0 +1,75 @@
+go.mod
+  s_0ab37fcd641d73::t_9da5cba365474c 12
+internal/daemon/interactive_test.go
+  s_0ab37fcd641d73::t_3ec19aa435f396 1-155
+internal/daemon/broadcast_test.go
+  s_0ab37fcd641d73::t_ca3304a3a51bcf 1-4,6-58,60-61,63
+  s_0ab37fcd641d73::t_3bad5f0ca13dbc 5,59,62
+docs/cli.md
+  s_0ab37fcd641d73::t_66e0ce1bca4007 56-67
+internal/cli/e2e_test.go
+  s_0ab37fcd641d73::t_8e23c344b1b9dd 8
+  s_0ab37fcd641d73::t_82bdfbb8e1e79e 357-460
+internal/daemon/interactive.go
+  s_0ab37fcd641d73::t_8c9da9e744a4ea 1-124
+internal/provider/fake/fake_test.go
+  s_0ab37fcd641d73::t_c83dbb553b6d19 156
+  s_0ab37fcd641d73::t_47e8abb11a0e88 108-125
+  s_0ab37fcd641d73::t_fad23f090723e2 141
+  s_0ab37fcd641d73::t_4b9546ed4af74e 96
+  s_0ab37fcd641d73::t_5ec512cae0a890 25
+internal/daemon/daemon.go
+  s_0ab37fcd641d73::t_728cbe760d595d 66-68,73-76,85-99,103-105
+  s_0ab37fcd641d73::t_0f1bc3ed4aba94 222-223,232-234
+  s_0ab37fcd641d73::t_ae5c0a21e746ac 320-368
+internal/daemon/methods.go
+  s_0ab37fcd641d73::t_ae9de0691fee75 6
+  s_0ab37fcd641d73::t_520be186cb2f8c 40-42
+  s_0ab37fcd641d73::t_cf8491a9503cf0 143-165
+  s_0ab37fcd641d73::t_baa9686ff22ae3 535-640
+docs/providers.md
+  s_0ab37fcd641d73::t_4d3ee133ec9d05 105-108
+  s_0ab37fcd641d73::t_58b19a0b8f7cf7 182,188-191
+cmd/defib/main.go
+  s_0ab37fcd641d73::t_823139f1effa1a 28
+docs/architecture.md
+  s_0ab37fcd641d73::t_7d673ac996c537 65
+  s_0ab37fcd641d73::t_406e0731e9d4c6 290-292,298-325
+  s_0ab37fcd641d73::t_15763114fa1842 326
+internal/provider/fake/fake.go
+  s_0ab37fcd641d73::t_0b153bb2d31c8a 40-41,47
+internal/cli/attach.go
+  s_0ab37fcd641d73::t_57bfef636427be 53-58
+internal/cli/providers_test.go
+  s_0ab37fcd641d73::t_ba085fdb7184bc 46
+  s_0ab37fcd641d73::t_6cd847faaf7427 23
+internal/provider/fake/run.go
+  s_0ab37fcd641d73::t_be7b8274977e30 76,95-104
+  s_0ab37fcd641d73::t_f1b099f0176f30 4,14-19,40
+TODO.md
+  s_0ab37fcd641d73::t_61fd7e7d9106a9 314
+internal/cli/types.go
+  s_0ab37fcd641d73::t_05a7c7cdc0d2f2 96-118
+internal/daemon/daemon_test.go
+  s_0ab37fcd641d73::t_7eafbccdd8f6dc 27
+internal/cli/attach_interactive.go
+  s_0ab37fcd641d73::t_61ce1a4bb9b729 1-174
+go.sum
+  s_0ab37fcd641d73::t_6e81fd14f5c83a 36-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "eafeddac5ccc6cb15655c09925251be60618f06a",
+  "prompts": {},
+  "sessions": {
+    "s_0ab37fcd641d73": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9602f441-d7c8-4864-8510-66c6e5980b61",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
