@@ -311,7 +311,7 @@ Depends on: M10.
   - Add a PTY-backed path in `internal/process` using `creack/pty`; capture + tee output;
     resize handling; only used when `mode=interactive` and the provider advertises it.
   - Accept: a PTY test drives an interactive fake and captures output; headless path unchanged.
-- [ ] **M14-T2 — Attach passthrough.**
+- [x] **M14-T2 — Attach passthrough.**
   - `defib attach` forwards input to an interactive Task's PTY; detaching leaves it running.
   - Accept: e2e test types into an interactive fake and observes the response; detach keeps the
     Task alive.

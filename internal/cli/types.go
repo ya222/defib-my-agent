@@ -93,6 +93,29 @@ type subscribeParams struct {
 	Task string `json:"task,omitempty"`
 }
 
+// attachParams mirrors daemon.AttachParams.
+type attachParams struct {
+	Task string `json:"task"`
+}
+
+// inputParams mirrors daemon.InputParams.
+type inputParams struct {
+	Task string `json:"task"`
+	Data string `json:"data"` // base64-encoded raw bytes
+}
+
+// resizeParams mirrors daemon.ResizeParams.
+type resizeParams struct {
+	Task string `json:"task"`
+	Rows uint16 `json:"rows"`
+	Cols uint16 `json:"cols"`
+}
+
+// ptyChunk mirrors daemon.PTYChunk (a task.attach stream event).
+type ptyChunk struct {
+	Data string `json:"data"` // base64-encoded raw PTY output
+}
+
 // taskEvent mirrors daemon.TaskEvent (internal/daemon/bus.go).
 type taskEvent struct {
 	TaskID     string     `json:"task_id"`

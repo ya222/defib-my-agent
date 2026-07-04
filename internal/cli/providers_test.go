@@ -20,7 +20,7 @@ func TestCapabilitiesString(t *testing.T) {
 		{name: "none set", c: provider.Capabilities{}, want: ""},
 		{name: "all set", c: provider.Capabilities{Resume: true, ClientSuppliedID: true, Headless: true, Interactive: true},
 			want: "resume,client-supplied-id,headless,interactive"},
-		{name: "fake provider's actual capabilities", c: fake.New().Capabilities(), want: "resume,client-supplied-id,headless"},
+		{name: "fake provider's actual capabilities", c: fake.New().Capabilities(), want: "resume,client-supplied-id,headless,interactive"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -43,5 +43,5 @@ func TestProviderInfoList(t *testing.T) {
 	list := providerInfoList([]provider.Provider{fake.New()})
 	require.Len(t, list, 1)
 	assert.Equal(t, "fake", list[0].Name)
-	assert.Equal(t, providerCapabilities{Resume: true, ClientSuppliedID: true, Headless: true}, list[0].Capabilities)
+	assert.Equal(t, providerCapabilities{Resume: true, ClientSuppliedID: true, Headless: true, Interactive: true}, list[0].Capabilities)
 }

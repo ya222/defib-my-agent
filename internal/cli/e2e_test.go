@@ -5,6 +5,7 @@ package cli_test
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -351,6 +352,110 @@ func TestE2EClientContracts(t *testing.T) {
 	// doctor runs and reports the provider and daemon state.
 	out = e.mustRun("doctor")
 	assert.Contains(t, out, "fake")
+}
+
+// attachProc is a running `defib attach` child we can type into and read
+// from. stdout and stderr are merged into buf (guarded by mu) so failure
+// messages show everything the client emitted.
+type attachProc struct {
+	t     *testing.T
+	cmd   *exec.Cmd
+	stdin io.WriteCloser
+	mu    sync.Mutex
+	buf   bytes.Buffer
+}
+
+func (ap *attachProc) Write(p []byte) (int, error) {
+	ap.mu.Lock()
+	defer ap.mu.Unlock()
+	return ap.buf.Write(p)
+}
+
+func (ap *attachProc) String() string {
+	ap.mu.Lock()
+	defer ap.mu.Unlock()
+	return ap.buf.String()
+}
+
+// startAttach launches `defib attach <selector>` with a pipe on stdin and its
+// output captured. It does not wait for the process.
+func (e *env) startAttach(selector string) *attachProc {
+	e.t.Helper()
+	cmd := exec.Command(e.bin, "attach", selector)
+	cmd.Env = e.env
+	stdin, err := cmd.StdinPipe()
+	require.NoError(e.t, err)
+	stdout, err := cmd.StdoutPipe()
+	require.NoError(e.t, err)
+	ap := &attachProc{t: e.t, cmd: cmd, stdin: stdin}
+	cmd.Stderr = ap
+	require.NoError(e.t, cmd.Start())
+	go func() { _, _ = io.Copy(ap, stdout) }()
+	return ap
+}
+
+// waitFor blocks until the captured output contains substr.
+func (ap *attachProc) waitFor(substr string) {
+	ap.t.Helper()
+	require.Eventually(ap.t, func() bool {
+		return strings.Contains(ap.String(), substr)
+	}, 15*time.Second, 50*time.Millisecond, "attach output never contained %q; got:\n%s", substr, ap)
+}
+
+func (ap *attachProc) write(s string) {
+	ap.t.Helper()
+	_, err := io.WriteString(ap.stdin, s)
+	require.NoError(ap.t, err)
+}
+
+func (ap *attachProc) closeStdin() { _ = ap.stdin.Close() }
+
+// wait waits for the attach process to exit and returns its exit code.
+func (ap *attachProc) wait() int {
+	err := ap.cmd.Wait()
+	if exitErr, ok := err.(*exec.ExitError); ok {
+		return exitErr.ExitCode()
+	}
+	require.NoError(ap.t, err, "attach did not exit cleanly; output:\n%s", ap)
+	return 0
+}
+
+// M14-T2 acceptance: typing into an interactive fake is forwarded to its PTY
+// and the response is observed; detaching leaves the task alive.
+func TestE2EInteractiveAttach(t *testing.T) {
+	e := newEnv(t)
+	e.configure("attempt: emit \"ready\"\nattempt: reply \"ECHO: \"\nattempt: exit 0\n")
+
+	// Round-trip: attach, type a line, observe the echoed reply, task completes.
+	var created taskInfo
+	e.mustJSON(&created, "start", "--json", "--mode", "interactive", "-p", "chat", "--name", "chatA")
+
+	a := e.startAttach("chatA")
+	a.waitFor("ready") // attached to the live PTY, tail replayed
+	a.write("hello\n")
+	a.waitFor("ECHO: hello")
+	assert.Zero(t, a.wait(), "attach exits 0 when the interactive child completes")
+	assert.Equal(t, "SUCCEEDED", e.taskStatus("chatA").Task.Status)
+
+	// Detach (stdin EOF) leaves the task running; a fresh attach still drives it.
+	e.mustJSON(&struct{}{}, "start", "--json", "--mode", "interactive", "-p", "chat", "--name", "chatB")
+	b1 := e.startAttach("chatB")
+	b1.waitFor("ready")
+	b1.closeStdin() // EOF detaches without sending the terminating line
+	assert.Zero(t, b1.wait(), "detach exits 0")
+
+	// The child is still blocked reading input, so the task is not terminal.
+	time.Sleep(300 * time.Millisecond)
+	assert.Equal(t, "RUNNING", e.taskStatus("chatB").Task.Status, "detach keeps the task alive")
+
+	b2 := e.startAttach("chatB")
+	b2.waitFor("ready") // retained tail replays the banner on re-attach
+	b2.write("again\n")
+	b2.waitFor("ECHO: again")
+	assert.Zero(t, b2.wait())
+	require.Eventually(t, func() bool {
+		return e.taskStatus("chatB").Task.Status == "SUCCEEDED"
+	}, 10*time.Second, 100*time.Millisecond, "re-attached task completes")
 }
 
 // runtimeDir returns this environment's DEFIB_RUNTIME_DIR.

@@ -102,8 +102,10 @@ type AttemptOutput struct {
 ### Mode selection
 
 - Default mode is **headless** because output is easy to capture and classify, and it runs
-  unattended. Interactive (PTY) mode is a later milestone and only used when the user asks for
-  it and the provider advertises `Capabilities.Interactive`.
+  unattended. **Interactive** (PTY) mode is used only when the user asks for it (`--mode
+  interactive`) and the provider advertises `Capabilities.Interactive`; the child runs on a
+  pseudo-terminal the Daemon owns and a Client drives via `attach` (see
+  [architecture.md](architecture.md#interactive-attach)).
 
 ## Claude Code adapter (`internal/provider/claude`) — first-class
 
@@ -177,12 +179,16 @@ attempt: emit "line to stdout"       # write a line
 attempt: emit-err "line to stderr"
 attempt: sleep 200ms                 # simulate work
 attempt: reset-at +2s                # emit a parseable reset-time hint
+attempt: reply "ECHO: "              # read one line of PTY input, echo it back with a prefix
 attempt: exit 1                      # end this Attempt with exit code
 # blank line separates Attempt scripts; Attempt N uses the Nth block
 ```
 The fake adapter ships built-in detection rules that recognize its own `reset-at` hint and a
 `QUOTA_EXHAUSTED` marker line, enabling deterministic tests of every Outcome path. It supports
-`ClientSuppliedID=true` and `Resume=true` (resume simply advances to the next Attempt block).
+`ClientSuppliedID=true` and `Resume=true` (resume simply advances to the next Attempt block),
+and `Interactive=true`: under `--mode interactive` the child runs on a PTY and the `reply`
+directive blocks reading a line of forwarded input, so `attach` passthrough is testable without
+a real provider.
 
 ## Adding a new provider — checklist
 

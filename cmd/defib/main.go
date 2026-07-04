@@ -25,7 +25,7 @@ func main() {
 	// Hidden child mode: the fake provider re-executes this binary to
 	// replay a script block (see internal/provider/fake).
 	if len(os.Args) > 1 && os.Args[1] == fake.RunMode {
-		os.Exit(fake.Main(os.Args[2:], os.Stdout, os.Stderr, time.Now))
+		os.Exit(fake.Main(os.Args[2:], os.Stdin, os.Stdout, os.Stderr, time.Now))
 	}
 	registerProviders()
 	os.Exit(cli.Execute(os.Args[1:], cli.Hooks{
