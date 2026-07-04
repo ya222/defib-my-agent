@@ -17,19 +17,19 @@ relevant doc in sync, and never call a real provider in tests.
 
 Goal: a buildable, testable, lintable empty skeleton matching the fixed layout.
 
-- [ ] **M0-T1 — Initialize the module and layout.**
+- [x] **M0-T1 — Initialize the module and layout.**
   - Create `go.mod` (`module github.com/<org>/defib`, Go 1.22), the directory tree from
     [docs/architecture.md](docs/architecture.md#repository-layout), and a `cmd/defib/main.go`
     that prints version and exits.
   - Add `internal/version` with `Version` and `SchemaVersion` constants.
   - Accept: `go build ./...` succeeds; `./cmd/defib` (built) prints a version string.
-- [ ] **M0-T2 — Makefile and lint config.**
+- [x] **M0-T2 — Makefile and lint config.**
   - Add `Makefile` targets `build test lint fmt check e2e tools` (as in
     [AGENTS.md](AGENTS.md#standard-commands)) and a `.golangci.yml` with a sensible default
     linter set (govet, staticcheck, errcheck, ineffassign, revive).
   - Accept: `make build`, `make fmt`, `make lint`, `make test` all run (tests may be empty) and
     exit `0` on a clean tree.
-- [ ] **M0-T3 — CI workflow.**
+- [x] **M0-T3 — CI workflow.**
   - Add a CI config running `make check` on Linux and macOS with Go 1.22. Cache modules.
   - Accept: CI is green on a no-op PR; race detector enabled in the test step.
 

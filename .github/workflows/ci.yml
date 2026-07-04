@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: check (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # macos-13 (not macos-latest): the pinned Go 1.22 race runtime produces
+        # binaries the newer macos-14/15 runner linker rejects with
+        # "dyld: missing LC_UUID load command". Revisit when Go is unpinned.
+        os: [ubuntu-latest, macos-13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Install dev tools
+        run: make tools
+
+      - name: Check (fmt, lint, race tests)
+        run: make check
+
+      - name: Verify formatting produced no changes
+        run: git diff --exit-code
