@@ -275,7 +275,7 @@ Goal: second provider through the same abstraction.
 
 Depends on: M10.
 
-- [ ] **M12-T1 — Adapter + flag verification.**
+- [x] **M12-T1 — Adapter + flag verification.**
   - Implement `internal/provider/copilot` per
     [docs/providers.md](docs/providers.md#github-copilot-cli-adapter-internalprovidercopilot--planned);
     verify flags against a pinned `copilot` version; capture fixtures in `testdata/copilot/`.
