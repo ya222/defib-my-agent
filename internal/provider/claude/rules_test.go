@@ -53,6 +53,13 @@ func TestDetectionRulesAgainstFixtures(t *testing.T) {
 			rule:     "claude.auth",
 		},
 		{
+			name:     "captured resume of a non-existent session (fatal, not retried)",
+			fixture:  "session-not-found.stdout.log",
+			exitCode: 1,
+			category: detect.CategoryFatalError,
+			rule:     "claude.session_not_found",
+		},
+		{
 			name:     "rate limited (429 result event)",
 			fixture:  "rate-limit-429.documented.stdout.log",
 			exitCode: 1,

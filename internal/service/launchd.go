@@ -84,6 +84,11 @@ func (m *launchdManager) install(ctx context.Context) (Result, error) {
 	}, nil
 }
 
+func (m *launchdManager) status() StatusResult {
+	_, err := os.Stat(m.plistPath)
+	return StatusResult{Manager: "launchd", Path: m.plistPath, Installed: err == nil}
+}
+
 func (m *launchdManager) uninstall(ctx context.Context) (Result, error) {
 	run := m.opts.runner()
 	res := Result{Manager: "launchd", Path: m.plistPath}
