@@ -231,3 +231,85 @@ func TestEnvVarMapping(t *testing.T) {
 	assert.Equal(t, "/tmp/script", cfg.Providers["fake"].Script)
 	assert.True(t, cfg.Providers["claude"].Unattended)
 }
+
+func TestFindProjectFile(t *testing.T) {
+	root := t.TempDir()
+	nested := filepath.Join(root, "a", "b")
+	require.NoError(t, os.MkdirAll(nested, 0o755))
+
+	t.Run("none found", func(t *testing.T) {
+		path, err := FindProjectFile(nested)
+		require.NoError(t, err)
+		assert.Empty(t, path)
+	})
+
+	t.Run("found in an ancestor", func(t *testing.T) {
+		writeFile(t, filepath.Join(root, ProjectFileName), `default_provider = "outer"`)
+		path, err := FindProjectFile(nested)
+		require.NoError(t, err)
+		assert.Equal(t, filepath.Join(root, ProjectFileName), path)
+	})
+
+	t.Run("nearest ancestor wins", func(t *testing.T) {
+		writeFile(t, filepath.Join(root, "a", ProjectFileName), `default_provider = "inner"`)
+		path, err := FindProjectFile(nested)
+		require.NoError(t, err)
+		assert.Equal(t, filepath.Join(root, "a", ProjectFileName), path)
+	})
+}
+
+func TestGetScalar(t *testing.T) {
+	cfg := Default()
+	cfg.Retry.MaxAttempts = 4
+	cfg.Retry.BackoffFactor = 3.5
+	cfg.Logging.Redact = false
+	claude := cfg.Providers["claude"]
+	claude.Model = "opus"
+	cfg.Providers["claude"] = claude
+
+	tests := []struct {
+		name    string
+		key     string
+		want    string
+		wantErr bool
+	}{
+		{name: "top-level string", key: "default_provider", want: "claude"},
+		{name: "nested int", key: "retry.max_attempts", want: "4"},
+		{name: "nested float", key: "retry.backoff_factor", want: "3.5"},
+		{name: "nested bool", key: "logging.redact", want: "false"},
+		{name: "provider scalar", key: "providers.claude.model", want: "opus"},
+		{name: "unknown top-level key", key: "nope", wantErr: true},
+		{name: "unknown nested key", key: "retry.nope", wantErr: true},
+		{name: "non-scalar key", key: "availability.command", wantErr: true},
+		{name: "unknown provider", key: "providers.nope.model", wantErr: true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := GetScalar(&cfg, tt.key)
+			if tt.wantErr {
+				require.Error(t, err)
+				assert.Contains(t, err.Error(), tt.key)
+				return
+			}
+			require.NoError(t, err)
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+// GetScalar and the Overrides setter accept exactly the same keys, since a
+// value config set writes must be readable back by config get.
+func TestGetScalarSetterParity(t *testing.T) {
+	cfg := Default()
+	setters := scalarSetters(&cfg)
+	getters := scalarGetters(&cfg)
+	assert.ElementsMatch(t, keysOf(setters), keysOf(getters))
+}
+
+func keysOf[V any](m map[string]V) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	return keys
+}

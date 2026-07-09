@@ -75,7 +75,7 @@ type Extractor struct {
 | `unix_seconds` | `1751468645` | Absolute time from a Unix timestamp. |
 | `http_retry_after` | `3600` or an HTTP-date | Seconds-from-now, or an RFC1123 date. |
 | `relative_duration` | `5m`, `2h30m`, `90s` | Added to "now". |
-| `clock_time` | `3:00pm`, `15:00` | Next occurrence of that local wall-clock time; use `Format`. |
+| `clock_time` | `3:00pm`, `4am`, `15:00` | Next occurrence of that local wall-clock time. With an explicit `Format`, parses that layout only; when `Format` is empty, tries `15:04`, `3:04pm`, then `3pm`. |
 
 A Reset Time in the past is ignored (treated as "no reset time"), so the Scheduler falls back
 to Backoff.
@@ -103,14 +103,33 @@ to Backoff.
 | `generic.auth` | `FATAL_ERROR` | 90 | any regex `(?i)unauthorized|401|invalid api key|authentication failed` |
 | `generic.success` | `SUCCESS` | 1 | exit_code in [0] |
 
-### Claude Code (illustrative — verify)
+### Claude Code (validated against fixtures — `claude 2.1.199`)
 
-| Name | Category | Priority | Match (illustrative) | Reset extractor |
+Validated in M10-T2 against the fixtures in `testdata/claude/` (see its README for which are
+real captures vs documented formats; refreshing is tracked in issue #11). Rules prefer the
+structural `"api_error_status":<code>` field of the headless stream-json result event over
+prose, so message-wording changes don't silently break classification. The authoritative rule
+set is `internal/provider/claude/rules.go`; this table summarizes it.
+
+| Name | Category | Priority | Match | Reset extractor |
 | --- | --- | --- | --- | --- |
-| `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)rate limit|429` | `relative_duration` or `clock_time` from message, if present |
-| `claude.usage_limit` | `SESSION_LIMIT` | 80 | any regex `(?i)usage limit reached|limit will reset` | `clock_time` e.g. capture `(\d{1,2}(?::\d{2})?\s?(?:am|pm))` |
-| `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)insufficient credit|quota exceeded|billing` | — |
-| `claude.overloaded` | `TRANSIENT_ERROR` | 70 | any regex `(?i)overloaded_error|529` | — |
+| `claude.auth` | `FATAL_ERROR` | 95 | any regex `(?i)"api_error_status":40[13]|"error":"authentication_failed"|invalid api key|authentication failed|unauthorized` | — |
+| `claude.session_not_found` | `FATAL_ERROR` | 90 | any regex `(?i)no conversation found with session id` | — |
+| `claude.credit` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)credit balance is too low|insufficient credit|quota exceeded|billing` | — |
+| `claude.usage_limit` | `SESSION_LIMIT` | 82 | any regex `(?i)hit your (session|weekly|usage) limit|usage limit reached|limit will reset` | `clock_time` from `resets? (?:at )?(\d{1,2}(?::\d{2})?(?:am|pm))` |
+| `claude.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)"api_error_status":429|rate limit` | — |
+| `claude.overloaded` | `TRANSIENT_ERROR` | 70 | any regex `(?i)"api_error_status":529|overloaded_error|overloaded` | — |
+| `claude.network` | `TRANSIENT_ERROR` | 40 | any regex `(?i)connection reset|connection refused|ETIMEDOUT|ECONNRESET|ENETUNREACH|network error` | — |
+| `claude.success` | `SUCCESS` | 1 | exit_code in [0] | — |
+
+`claude.usage_limit` sits above `claude.rate_limit` because both a subscription session/weekly
+cap and a per-minute rate limit surface as `"api_error_status":429` (real capture, claude
+2.1.201); the distinctive "hit your <session|weekly> limit" text classifies the cap as the
+session limit and carries the reset clock time ("resets 4am (Europe/London)"), anchored to the
+next occurrence of that local wall-clock time.
+`claude.session_not_found` is `FATAL_ERROR`, not retryable: resuming a session id the CLI has
+no record of (`"No conversation found with session ID: <id>"`) can never succeed on retry, so
+failing fast beats looping as UNKNOWN.
 
 ### GitHub Copilot CLI (illustrative — verify during its milestone)
 

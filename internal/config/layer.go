@@ -103,6 +103,13 @@ func mergeFile(cfg *Config, path string) error {
 	return nil
 }
 
+// FindProjectFile is the exported form of findProjectFile, for callers
+// (e.g. `defib config path`) that need to locate the nearest-ancestor
+// project file without running a full Resolve.
+func FindProjectFile(dir string) (string, error) {
+	return findProjectFile(dir)
+}
+
 // findProjectFile walks from dir to the filesystem root and returns the
 // nearest .defib.toml, or "" if none exists.
 func findProjectFile(dir string) (string, error) {
@@ -122,6 +129,86 @@ func findProjectFile(dir string) (string, error) {
 			return "", nil
 		}
 		dir = parent
+	}
+}
+
+// GetScalar reads a single scalar config value (any key accepted by
+// Options.Overrides) out of an already-resolved Config, formatted as a
+// string. It errors on unknown keys and on keys naming a non-scalar field
+// (struct, slice, map), mirroring scalarSetters' notion of a settable key.
+func GetScalar(cfg *Config, key string) (string, error) {
+	get, ok := scalarGetters(cfg)[key]
+	if !ok {
+		return "", fmt.Errorf("get %s: unknown or non-scalar config key", key)
+	}
+	return get(), nil
+}
+
+// scalarGetters mirrors scalarSetters but reads instead of writes; kept
+// structurally parallel so any key accepted by one is accepted by the
+// other.
+func scalarGetters(cfg *Config) map[string]func() string {
+	getters := make(map[string]func() string)
+	root := reflect.ValueOf(cfg).Elem()
+	collectStructGetters(getters, "", root)
+
+	entry := reflect.TypeOf(Provider{})
+	for pname, prov := range cfg.Providers {
+		for i := 0; i < entry.NumField(); i++ {
+			field := entry.Field(i)
+			tag := tomlTag(field)
+			if tag == "" || !isScalarKind(field.Type.Kind()) {
+				continue
+			}
+			pname, idx, prov := pname, i, prov
+			getters["providers."+pname+"."+tag] = func() string {
+				return formatScalar(reflect.ValueOf(prov).Field(idx))
+			}
+		}
+	}
+	return getters
+}
+
+// collectStructGetters recurses through struct fields, registering getters
+// for scalar leaves under their dotted toml-tag path.
+func collectStructGetters(getters map[string]func() string, prefix string, v reflect.Value) {
+	t := v.Type()
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		tag := tomlTag(field)
+		if tag == "" {
+			continue
+		}
+		fv := v.Field(i)
+		path := tag
+		if prefix != "" {
+			path = prefix + "." + tag
+		}
+		switch {
+		case field.Type.Kind() == reflect.Struct:
+			collectStructGetters(getters, path, fv)
+		case isScalarKind(field.Type.Kind()):
+			getters[path] = func() string {
+				return formatScalar(fv)
+			}
+		}
+	}
+}
+
+// formatScalar renders a scalar reflect.Value the same way its raw-string
+// form would have parsed, so GetScalar/set round-trip cleanly.
+func formatScalar(v reflect.Value) string {
+	switch v.Kind() {
+	case reflect.String:
+		return v.String()
+	case reflect.Int:
+		return strconv.FormatInt(v.Int(), 10)
+	case reflect.Float64:
+		return strconv.FormatFloat(v.Float(), 'g', -1, 64)
+	case reflect.Bool:
+		return strconv.FormatBool(v.Bool())
+	default:
+		return ""
 	}
 }
 
