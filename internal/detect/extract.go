@@ -8,9 +8,13 @@ import (
 	"time"
 )
 
-// defaultClockFormat is used for Kind="clock_time" when Extractor.Format is
-// empty (docs/detection.md#reset-time-extractor-kinds).
-const defaultClockFormat = "15:04"
+// defaultClockFormats are tried in order for Kind="clock_time" when
+// Extractor.Format is empty. They cover the 24h form ("15:04") and the 12h
+// forms with and without minutes ("3:04pm", "3pm") that real providers emit
+// (e.g. Claude Code's "resets 10:20pm" / "resets 4am"). A rule that sets an
+// explicit Format keeps single-layout parsing
+// (docs/detection.md#reset-time-extractor-kinds).
+var defaultClockFormats = []string{"15:04", "3:04pm", "3pm"}
 
 // extractReset runs x against the streams selected by x.Source and
 // interprets the first capture group per x.Kind, anchored at now. It
@@ -94,15 +98,19 @@ func parseReset(x *Extractor, raw string, now time.Time) (time.Time, bool) {
 		return now.Add(d), true
 
 	case "clock_time":
-		format := x.Format
-		if format == "" {
-			format = defaultClockFormat
+		if x.Format != "" {
+			parsed, err := time.Parse(x.Format, raw)
+			if err != nil {
+				return time.Time{}, false
+			}
+			return nextClockOccurrence(parsed, now), true
 		}
-		parsed, err := time.Parse(format, raw)
-		if err != nil {
-			return time.Time{}, false
+		for _, format := range defaultClockFormats {
+			if parsed, err := time.Parse(format, raw); err == nil {
+				return nextClockOccurrence(parsed, now), true
+			}
 		}
-		return nextClockOccurrence(parsed, now), true
+		return time.Time{}, false
 
 	default:
 		return time.Time{}, false

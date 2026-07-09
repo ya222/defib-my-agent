@@ -3,17 +3,19 @@ package claude
 import "github.com/ya222/defib/internal/detect"
 
 // Detection rules validated against the fixtures in testdata/claude/ (see
-// its README: success and auth outputs are real captures against claude
-// 2.1.199; the limit-shaped ones follow the captured result-event shape
-// with documented error contents, tracked for replacement in issue #11).
+// its README: success, auth, session-not-found and usage-limit outputs are
+// real captures/real-text; the remaining rate-limit/credit/overloaded ones
+// still follow the captured result-event shape with documented error
+// contents, tracked for replacement in issue #11).
 //
 // Structural signals are preferred over prose: headless stream-json runs
 // end with a result event carrying "api_error_status":<code> on failure
 // (null on success), which survives message-wording changes. Subscription
-// limits surface as a plain "Claude AI usage limit reached|<unix-epoch>"
-// text line, whose epoch is the Reset Time. Resuming a session id the CLI
-// does not know ends the result event with "No conversation found with
-// session ID: <id>" (real capture: session-not-found.stdout.log) — a
+// caps surface as "You've hit your <session|weekly> limit · resets
+// <clock-time> (<zone>)" (real capture, claude 2.1.201) at HTTP 429; the
+// reset is a local wall-clock time, not a unix epoch. Resuming a session id
+// the CLI does not know ends the result event with "No conversation found
+// with session ID: <id>" (real capture: session-not-found.stdout.log) — a
 // permanent failure, so it is FATAL_ERROR rather than a retryable UNKNOWN.
 func (*Claude) DetectionRules() []detect.Rule {
 	return []detect.Rule{
@@ -38,17 +40,19 @@ func (*Claude) DetectionRules() []detect.Rule {
 			Match:    detect.Match{AnyRegex: `(?i)credit balance is too low|insufficient credit|quota exceeded|billing`},
 		},
 		{
-			// Above claude.rate_limit so a message mentioning both the
-			// usage cap and rate limiting classifies as the session cap,
-			// which carries the reset epoch.
+			// Above claude.rate_limit because a subscription session/weekly
+			// cap and a per-minute rate limit both surface as
+			// "api_error_status":429 (real capture, claude 2.1.201); the
+			// distinctive "hit your <session|weekly> limit" text disambiguates
+			// and carries the reset clock time.
 			Name:     "claude.usage_limit",
 			Category: detect.CategorySessionLimit,
 			Priority: 82,
-			Match:    detect.Match{AnyRegex: `(?i)usage limit reached|limit will reset`},
+			Match:    detect.Match{AnyRegex: `(?i)hit your (session|weekly|usage) limit|usage limit reached|limit will reset`},
 			ResetExtractor: &detect.Extractor{
 				Source: "any",
-				Regex:  `(?i)usage limit reached\|(\d{9,12})`,
-				Kind:   "unix_seconds",
+				Regex:  `(?i)resets? (?:at )?(\d{1,2}(?::\d{2})?(?:am|pm))`,
+				Kind:   "clock_time",
 			},
 		},
 		{

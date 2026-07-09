@@ -126,6 +126,24 @@ func TestExtractReset_ClockTime(t *testing.T) {
 		assert.True(t, got.Equal(want))
 	})
 
+	t.Run("default format, 12h with minutes", func(t *testing.T) {
+		x := &Extractor{Source: "stdout", Regex: `resets (\S+)`, Kind: "clock_time"}
+		in := Input{Stdout: []byte("resets 3:30pm")}
+		got := extractReset(x, in, fixedNow)
+		require.NotNil(t, got)
+		want := time.Date(2026, 7, 2, 15, 30, 0, 0, fixedNow.Location())
+		assert.True(t, got.Equal(want))
+	})
+
+	t.Run("default format, 12h without minutes", func(t *testing.T) {
+		x := &Extractor{Source: "stdout", Regex: `resets (\S+)`, Kind: "clock_time"}
+		in := Input{Stdout: []byte("resets 4am")}
+		got := extractReset(x, in, fixedNow)
+		require.NotNil(t, got)
+		want := time.Date(2026, 7, 3, 4, 0, 0, 0, fixedNow.Location()) // 4am already passed today
+		assert.True(t, got.Equal(want))
+	})
+
 	t.Run("default 24h format", func(t *testing.T) {
 		x := &Extractor{Source: "stdout", Regex: `resets at (\S+)`, Kind: "clock_time"}
 		in := Input{Stdout: []byte("resets at 16:00")}

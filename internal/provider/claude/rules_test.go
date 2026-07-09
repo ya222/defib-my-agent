@@ -25,11 +25,8 @@ func fixture(t *testing.T, name string) []byte {
 func TestDetectionRulesAgainstFixtures(t *testing.T) {
 	engine, err := detect.NewEngine(New().DetectionRules())
 	require.NoError(t, err)
-	// Fixed instant before the usage-limit fixture's reset epoch, so the
-	// extracted Reset Time is in the future and therefore kept.
 	now := time.Unix(1751000000, 0).UTC()
 
-	resetEpoch := time.Unix(1751558400, 0).UTC()
 	tests := []struct {
 		name     string
 		fixture  string
@@ -67,14 +64,6 @@ func TestDetectionRulesAgainstFixtures(t *testing.T) {
 			rule:     "claude.rate_limit",
 		},
 		{
-			name:     "subscription usage limit with reset epoch",
-			fixture:  "usage-limit.documented.stdout.log",
-			exitCode: 1,
-			category: detect.CategorySessionLimit,
-			rule:     "claude.usage_limit",
-			resetAt:  &resetEpoch,
-		},
-		{
 			name:     "credit balance too low",
 			fixture:  "credit-low.documented.stdout.log",
 			exitCode: 1,
@@ -104,16 +93,34 @@ func TestDetectionRulesAgainstFixtures(t *testing.T) {
 	}
 }
 
-// A usage-limit message whose reset epoch is already in the past keeps the
-// SESSION_LIMIT category but drops the Reset Time (docs/detection.md).
-func TestUsageLimitPastResetIgnored(t *testing.T) {
+// The captured usage-limit fixture (real text from claude 2.1.201) and both
+// subscription-cap variants classify as SESSION_LIMIT, and the local
+// clock-time reset ("resets 4am" / "resets 10:20pm") is extracted as the
+// next occurrence after now. Both 429s (usage cap vs per-minute rate limit)
+// are disambiguated by the "hit your <session|weekly> limit" text.
+func TestUsageLimitClassification(t *testing.T) {
 	engine, err := detect.NewEngine(New().DetectionRules())
 	require.NoError(t, err)
-	out := fixture(t, "usage-limit.documented.stdout.log")
-	now := time.Unix(1760000000, 0).UTC() // after the fixture's epoch
-	result := engine.Classify(detect.Input{ExitCode: 1, Stdout: out}, now)
-	assert.Equal(t, detect.CategorySessionLimit, result.Category)
-	assert.Nil(t, result.ResetAt)
+	now := time.Unix(1751000000, 0).UTC() // 2025-06-27T06:13:20Z
+
+	t.Run("captured weekly-limit fixture (resets 4am)", func(t *testing.T) {
+		result := engine.Classify(detect.Input{ExitCode: 1, Stdout: fixture(t, "usage-limit.stdout.log")}, now)
+		assert.Equal(t, detect.CategorySessionLimit, result.Category)
+		assert.Equal(t, "claude.usage_limit", result.MatchedRule)
+		require.NotNil(t, result.ResetAt)
+		want := time.Date(2025, 6, 28, 4, 0, 0, 0, now.Location()) // next 4am after now
+		assert.True(t, want.Equal(*result.ResetAt), "reset %v != %v", result.ResetAt, want)
+	})
+
+	t.Run("session-limit variant with minutes (resets 10:20pm)", func(t *testing.T) {
+		out := []byte(`{"type":"result","subtype":"success","is_error":true,"api_error_status":429,"result":"You've hit your session limit · resets 10:20pm (Europe/London)","uuid":"x"}`)
+		result := engine.Classify(detect.Input{ExitCode: 1, Stdout: out}, now)
+		assert.Equal(t, detect.CategorySessionLimit, result.Category)
+		assert.Equal(t, "claude.usage_limit", result.MatchedRule)
+		require.NotNil(t, result.ResetAt)
+		want := time.Date(2025, 6, 27, 22, 20, 0, 0, now.Location()) // next 10:20pm after now
+		assert.True(t, want.Equal(*result.ResetAt), "reset %v != %v", result.ResetAt, want)
+	})
 }
 
 // Failure rules outrank the success rule even on exit code 0 — some
