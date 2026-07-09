@@ -1,0 +1,37 @@
+testdata/claude/README.md
+  s_3253f1454a082f::t_2ef955346503ae 12-13
+  s_3253f1454a082f::t_4abf7f0c420d43 24-28,33-34,39-41
+internal/detect/extract.go
+  s_3253f1454a082f::t_b437570c7df54c 101-106,108-111,113
+  s_3253f1454a082f::t_de89b26fee125d 11-17
+internal/provider/claude/rules_test.go
+  s_3253f1454a082f::t_8b8cac0886d19e 96-101,104-123
+internal/detect/extract_test.go
+  s_3253f1454a082f::t_ea00bca3f55e13 129-146
+docs/detection.md
+  s_3253f1454a082f::t_da28fdec2f37f6 78
+  s_3253f1454a082f::t_d65f6a9bed2824 125-129
+  s_3253f1454a082f::t_4c8474d9c9658e 119
+testdata/claude/usage-limit.stdout.log
+  s_3253f1454a082f::t_b395629111d8b3 1-3
+internal/provider/claude/rules.go
+  s_3253f1454a082f::t_2eb5a1f0473993 6-9
+  s_3253f1454a082f::t_12e110a802f31f 43-47,51,54-55
+  s_3253f1454a082f::t_e1486e14cb92be 14-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ab80ff4df8269ff6c00d612fb81bfcc3680fa838",
+  "prompts": {},
+  "sessions": {
+    "s_3253f1454a082f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "425ac0c9-2818-44f1-9e77-7d42772bb4be",
+        "model": "claude-haiku-4.5"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
