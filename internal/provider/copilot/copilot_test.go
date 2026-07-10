@@ -209,8 +209,12 @@ func TestCheckAvailability(t *testing.T) {
 func TestDetectionRules(t *testing.T) {
 	c := New()
 	rules := c.DetectionRules()
-	require.Len(t, rules, 1)
-	assert.Equal(t, "copilot.success", rules[0].Name)
-	assert.Equal(t, detect.CategorySuccess, rules[0].Category)
-	assert.Equal(t, []int{0}, rules[0].Match.ExitCodeIn)
+
+	// The set compiles and the low-priority success fallback is present and last.
+	_, err := detect.NewEngine(rules)
+	require.NoError(t, err)
+	last := rules[len(rules)-1]
+	assert.Equal(t, "copilot.success", last.Name)
+	assert.Equal(t, detect.CategorySuccess, last.Category)
+	assert.Equal(t, []int{0}, last.Match.ExitCodeIn)
 }
