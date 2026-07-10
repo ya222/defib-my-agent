@@ -32,3 +32,20 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Mark every prior release superseded, pointing at the one just published.
+  # Runs here (not via an `on: release` workflow) because releases created with
+  # the Actions token don't trigger further workflow runs.
+  supersede:
+    name: mark older releases superseded
+    needs: goreleaser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Mark older releases superseded
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: bash .github/scripts/supersede-releases.sh
