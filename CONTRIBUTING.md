@@ -30,6 +30,19 @@ they are not repeated here.
 - No real-provider calls in tests; the `fake` provider is used instead.
 - The PR describes the change and excludes unrelated edits.
 
+## Releasing
+
+Releases are cut by pushing a `v*` tag (e.g. `v1.2.3`). The
+[release workflow](.github/workflows/release.yml) then:
+
+1. builds the cross-platform binaries and publishes the GitHub release with GoReleaser, and
+2. runs [`.github/scripts/supersede-releases.sh`](.github/scripts/supersede-releases.sh), which
+   prepends a **"Superseded"** banner to every older release pointing at the new one — so only
+   the latest release is presented as current. This is automatic; you never mark releases
+   superseded by hand. The step is idempotent (it re-points predecessors and clears the banner
+   from whichever release is now latest), and you can run it manually against the repo with
+   `REPO=<owner>/<name> bash .github/scripts/supersede-releases.sh`.
+
 ## Reporting issues
 
 Open an issue with: what you did, what you expected, what happened, `defib --version`, your OS,
