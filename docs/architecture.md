@@ -61,7 +61,7 @@ These are fixed decisions. Implementers must not swap these out.
 | Persistence | **SQLite** via **`modernc.org/sqlite`** (pure Go, no cgo) using `database/sql` | Crash-safe (WAL), transactional, no external service, no cgo toolchain pain. |
 | UUIDs | **`github.com/google/uuid`** | Task ids and pre-generated Session Refs. |
 | Structured logging | stdlib **`log/slog`** | No extra dep; JSON to file, text to console. |
-| PTY (interactive mode) | **`github.com/creack/pty`** | Only needed for the later interactive milestone. |
+| PTY (interactive mode) | **`github.com/creack/pty`** | Used by interactive mode. |
 | Terminal control (attach) | **`golang.org/x/term`** | Local terminal raw mode + window size for the interactive `attach` passthrough. |
 | Testing | stdlib `go test` + **`github.com/stretchr/testify`** | Table-driven tests + assertions. |
 | Lint | **`golangci-lint`** | CI gate. |
@@ -70,8 +70,8 @@ The IPC transport is a Unix domain socket with newline-delimited JSON — **no g
 server**. Keep dependencies minimal.
 
 > **Windows note:** v1 targets Linux and macOS. Windows support (named pipes instead of a
-> Unix socket, Scheduled Task instead of systemd/launchd) is explicitly deferred; see
-> [TODO.md](../TODO.md). Do not add Windows-specific code paths in v1 unless a task calls for it.
+> Unix socket, Scheduled Task instead of systemd/launchd) is explicitly deferred. Do not add
+> Windows-specific code paths unless a tracked issue calls for it.
 
 ## Repository layout
 

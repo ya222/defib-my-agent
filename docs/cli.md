@@ -35,7 +35,7 @@ defib start [flags] [-- <provider passthrough args>]
 | `-p, --prompt <text>` | — | The instruction for the agent. Use `--prompt-file` for long input. |
 | `--prompt-file <file>` | — | Read the prompt from a file (`-` for stdin). |
 | `--provider <name>` | config `default_provider` | Provider to use (see [providers.md](providers.md)). |
-| `--mode <headless\|interactive>` | config `default_mode` | Execution mode (interactive is a later milestone). |
+| `--mode <headless\|interactive>` | config `default_mode` | Execution mode. |
 | `--session <new\|ID>` | `new` | Start a new Session, or attach to an existing provider Session `ID` (`session_mode=existing`). |
 | `--cwd <dir>` | current dir | Working directory the provider runs in. |
 | `--name <name>` | short id | Human-friendly Task name (must be unique among active Tasks). |

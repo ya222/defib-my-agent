@@ -10,9 +10,8 @@ Guidance for AI agents and contributors working **on** the defib codebase. This 
    [docs/](docs/). If a task seems to require a choice not covered there (a new dependency, a
    new package, a protocol change, a schema change), **stop and open an issue** describing the
    gap. Do not invent a solution.
-2. **Work one milestone at a time on its own feature branch**, completing that milestone's
-   [TODO.md](TODO.md) tasks in order (one commit per task). Do not pull work forward from a
-   later milestone or refactor unrelated code.
+2. **Work one focused change at a time on its own feature branch.** Keep each branch scoped to a
+   single issue or change; do not refactor unrelated code or bundle unrelated work.
 3. **Never call a real provider (Claude Code, Copilot CLI) in code, tests, or CI.** Use the
    `fake` provider (see [docs/providers.md](docs/providers.md)). Real providers cost money and
    are non-deterministic.
@@ -32,7 +31,6 @@ Guidance for AI agents and contributors working **on** the defib codebase. This 
 | What config keys exist? | [docs/configuration.md](docs/configuration.md) |
 | What are the commands/flags/exit codes? | [docs/cli.md](docs/cli.md) |
 | What does a term mean? | [docs/glossary.md](docs/glossary.md) |
-| What do I build next, and when is it done? | [TODO.md](TODO.md) |
 
 The **repository layout** and the **fixed technology choices** are defined once, in
 [docs/architecture.md](docs/architecture.md#repository-layout) and
@@ -90,19 +88,13 @@ part of the M0 task, then use them.
 
 - **Conventional Commits:** `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`. Scope
   optional, e.g. `feat(scheduler): ...`.
-- **One feature branch per milestone.** Before starting a milestone's first task, create the
-  branch `milestone/m<n>-<slug>` (e.g. `milestone/m0-scaffolding`). If the previous milestone's
-  branch has already been merged into `main`, branch off the latest `main`; otherwise branch off
-  the previous milestone's branch. Do every task in that milestone on this branch.
-- **One commit per TODO task,** in order. Each commit references the task id (e.g. `M6-T2`) and
-  ticks that task's checkbox in [TODO.md](TODO.md) **in the same commit**.
-- **Finish the milestone with a PR.** When every task in the milestone is done and `make check`
-  passes, **commit, push the branch, and open a pull request** whose title/description names the
-  milestone (e.g. `M0`) and lists the tasks it completes. The PR — not the individual task — is
-  the review unit.
-- Keep commits small and reviewable. If a task turns out to be too big, split it into multiple
-  commits and note the split in an issue — do not silently expand scope or pull in the next
-  milestone.
+- **One feature branch per change.** Branch off the latest `main` with a descriptive name
+  (e.g. `fix/claude-session-not-found`) and keep the branch scoped to that one change.
+- **Keep commits small and reviewable.** Each commit is a coherent step; reference the issue it
+  addresses where one exists.
+- **Finish the change with a PR.** When the change is complete and `make check` passes,
+  **commit, push the branch, and open a pull request** whose title/description explains the
+  change. If a change turns out to be too big, split it — do not silently expand scope.
 - Do not commit generated binaries, `bin/`, coverage files, or local state. See `.gitignore`.
 - Never use `--no-verify` or bypass CI gates.
 
@@ -111,16 +103,16 @@ part of the M0 task, then use them.
 1. Code compiles; `make check` passes (fmt, lint, race tests).
 2. New/changed behavior is covered by tests using the `fake` provider or fixtures.
 3. Any doc that the change affects is updated in the same PR (no doc/code drift).
-4. The task's acceptance criteria in [TODO.md](TODO.md) are met and its checkbox is ticked.
-5. No new dependencies, packages, config keys, or IPC methods beyond what the task specifies.
+4. The change's acceptance criteria (from its issue) are met.
+5. No new dependencies, packages, config keys, or IPC methods beyond what the change specifies.
 
 ## Model delegation guide (for orchestrating agents)
 
 If your harness can delegate to subagents on cheaper models, use this map. The orchestrator
 (frontier model) always: reads the design docs itself, writes the subagent prompt with exact
 file boundaries and acceptance criteria, reviews the resulting diff, runs `make check`, and
-makes the commit. **Never delegate:** git operations, TODO.md ticks, doc changes, dependency
-changes, or anything requiring a design judgment (open an issue instead).
+makes the commit. **Never delegate:** git operations, doc changes, dependency changes, or
+anything requiring a design judgment (open an issue instead).
 
 Tiers:
 

@@ -8,10 +8,6 @@ the agent, watches for limit/quota/crash failures, waits until the limit resets 
 back, and then **resumes the same task** using the agent's own native session/resume mechanism.
 Close your laptop, lose your terminal, hit your daily cap — the task picks up where it left off.
 
-> **Status:** design phase. This repository currently contains the design and the
-> implementation plan; the binary is being built milestone by milestone (see
-> [TODO.md](TODO.md)). Commands below describe the intended v1 behavior.
-
 ## Why
 
 Coding agents run long. Real runs hit walls: a rate limit at hour two, a monthly credit cap, an
@@ -119,7 +115,6 @@ a container or a sandboxed working copy. Details in
 | [docs/configuration.md](docs/configuration.md) | Configuring defib | Full config schema and precedence. |
 | [docs/cli.md](docs/cli.md) | Using the CLI | Every command, flag, and exit code. |
 | [docs/glossary.md](docs/glossary.md) | Everyone | Definitions of all terms. |
-| [TODO.md](TODO.md) | Contributors | Milestones and tasks. |
 | [AGENTS.md](AGENTS.md) | AI agents & contributors | How to work in this repo. |
 
 ## Contributing

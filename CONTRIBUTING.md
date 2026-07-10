@@ -8,16 +8,13 @@ they are not repeated here.
 
 - Read [README.md](README.md) for what defib is, and [docs/architecture.md](docs/architecture.md)
   for how it is designed. The design is intentionally fixed.
-- Pick the next milestone in [TODO.md](TODO.md). Create a feature branch for it
-  (`milestone/m<n>-<slug>`) off the latest `main`, and work its tasks in order — one commit per
-  task.
+- Pick up an open issue (or open one for the change you want to make). Create a feature branch off
+  the latest `main` and keep it focused on that one change.
 
 ## Proposing changes
 
-- **Milestone and task work:** work a whole milestone on one feature branch, one commit per task
-  (each commit references its task id, e.g. `M6-T2`, and ticks its checkbox). When the milestone
-  is complete and `make check` passes, commit, push the branch, and open a PR that lists the
-  tasks it completes. Standalone bug fixes may use their own branch and PR.
+- **Feature and fix work:** keep each branch focused on one change, and open a PR when
+  `make check` passes. Standalone bug fixes use their own branch and PR.
 - **Design changes:** open an **issue** first. Do not change component boundaries, the IPC
   protocol, the data model, dependencies, or add packages via a PR without an approved issue.
   Implementing agents are explicitly not allowed to make these calls (see [AGENTS.md](AGENTS.md)).
@@ -26,13 +23,12 @@ they are not repeated here.
 
 ## Pull request checklist
 
-- Every task in the milestone meets the Definition of Done in
+- The change meets the Definition of Done in
   [AGENTS.md](AGENTS.md#definition-of-done-every-task).
 - `make check` passes locally (format, lint, race tests).
-- The branch is named `milestone/m<n>-<slug>`; commits use
-  [Conventional Commits](https://www.conventionalcommits.org/), one per task.
+- Commits use [Conventional Commits](https://www.conventionalcommits.org/).
 - No real-provider calls in tests; the `fake` provider is used instead.
-- The PR lists the completed tasks and excludes unrelated changes.
+- The PR describes the change and excludes unrelated edits.
 
 ## Reporting issues
 
