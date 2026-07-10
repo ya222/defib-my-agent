@@ -9,30 +9,15 @@ permissions:
   contents: read
 
 # A re-push to the same ref cancels the older in-flight run instead of letting
-# both queue. Without this the stacked milestone PRs pile runs onto the scarce
-# shared runner pool faster than it drains.
+# both queue.
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   check:
-    name: check (${{ matrix.os }})
-    strategy:
-      fail-fast: false
-      matrix:
-        # ubuntu runs on every push and PR. macOS is a scarce shared runner on
-        # the free tier: spawning a macos-13 job on each of the ~15 stacked
-        # milestone PRs starves the queue (jobs sit ~48min, then get canceled),
-        # so it runs only on push to main — a post-merge gate that still covers
-        # the Darwin-specific paths (launchd, ~/Library paths) without the
-        # per-PR pileup.
-        #
-        # macos-13 (not macos-latest): the pinned Go 1.22 race runtime produces
-        # binaries the newer macos-14/15 runner linker rejects with
-        # "dyld: missing LC_UUID load command". Revisit when Go is unpinned.
-        os: ${{ github.ref == 'refs/heads/main' && fromJSON('["ubuntu-latest", "macos-13"]') || fromJSON('["ubuntu-latest"]') }}
-    runs-on: ${{ matrix.os }}
+    name: check
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,3 +36,27 @@ jobs:
 
       - name: Verify formatting produced no changes
         run: git diff --exit-code
+
+  # The Darwin-specific paths (launchd service, ~/Library dirs) previously ran
+  # on a macos-13 runner. On the free tier that runner starves — jobs queued
+  # for hours and were canceled, blocking the pipeline. Cross-compiling for both
+  # Darwin arches on the Linux runner gives a deterministic gate that these paths
+  # still build, without depending on the scarce macOS runner pool.
+  cross-build-darwin:
+    name: cross-build (darwin)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+          cache: true
+
+      - name: Build darwin/amd64
+        run: GOOS=darwin GOARCH=amd64 go build ./...
+
+      - name: Build darwin/arm64
+        run: GOOS=darwin GOARCH=arm64 go build ./...

@@ -6,9 +6,8 @@ model (see [architecture.md](architecture.md)), the detection rule format (see
 [detection.md](detection.md)), or the config keys (see [configuration.md](configuration.md)).
 
 > **Verification required.** The exact flags below are the *intended* contract but MUST be
-> validated against the installed provider version before the adapter is considered done. Each
-> adapter milestone in [TODO.md](../TODO.md) has a "verify flags" task. Do not assume a flag
-> exists — check `--help` and pin the tested version in the adapter's doc comment.
+> validated against the installed provider version before an adapter is changed. Do not assume a
+> flag exists — check `--help` and pin the tested version in the adapter's doc comment.
 
 ## The Provider interface
 
@@ -151,20 +150,18 @@ the installed version.
 `CheckAvailability` returns `Unsupported` by default and defib relies on the extracted Reset
 Time. A user may configure an `availability.command` probe instead.
 
-## GitHub Copilot CLI adapter (`internal/provider/copilot`) — planned
+## GitHub Copilot CLI adapter (`internal/provider/copilot`)
 
-Same interface, structured identically to the Claude adapter. Marked planned; implement in its
-milestone.
+Same interface, structured identically to the Claude adapter, verified against the installed
+`copilot` version (see the adapter's doc comment for the pinned version).
 
 **Executable:** `providers.copilot.binary` (default `copilot`).
 
-**Intended capabilities:** `Resume=true`, `ClientSuppliedID=` (verify — if the CLI does not
-accept a supplied id, use the parse fallback), `Headless=true`, `Interactive=true`.
+**Capabilities:** `Resume=true`, `ClientSuppliedID=true`, `Headless=true`, `Interactive=true`.
 
-**Start / Resume / Session extraction / Unattended approvals:** fill in during the milestone
-after verifying against the installed `copilot` version. Use the same "pre-generate if
-possible, else parse" rule and the same "never skip approvals implicitly" rule. Add the
-Copilot rule set to [detection.md](detection.md).
+**Start / Resume / Session extraction / Unattended approvals:** follow the same "pre-generate if
+possible, else parse" rule and the same "never skip approvals implicitly" rule as the Claude
+adapter. The Copilot rule set lives in [detection.md](detection.md).
 
 ## The fake provider (`internal/provider/fake`) — required for testing
 
