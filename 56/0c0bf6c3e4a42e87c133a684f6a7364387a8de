@@ -1,0 +1,21 @@
+internal/version/version.go
+  s_935e770865ec91::t_a31490ed72be77 4-15,17-52
+internal/version/version_test.go
+  s_935e770865ec91::t_a97aac61041797 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "560c0bf6c3e4a42e87c133a684f6a7364387a8de",
+  "prompts": {},
+  "sessions": {
+    "s_935e770865ec91": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1afe40c3-656f-4e5b-8ce7-43d2c499b2e1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
