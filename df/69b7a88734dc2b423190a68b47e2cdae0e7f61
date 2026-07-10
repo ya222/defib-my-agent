@@ -1,0 +1,125 @@
+internal/cli/daemon.go
+  s_935e770865ec91::t_76e2f450d834c1 15-16
+internal/provider/copilot/copilot.go
+  s_935e770865ec91::t_76e2f450d834c1 7
+internal/provider/fake/fake_test.go
+  s_935e770865ec91::t_76e2f450d834c1 16-17
+internal/service/systemd.go
+  s_935e770865ec91::t_76e2f450d834c1 21
+internal/store/store_test.go
+  s_935e770865ec91::t_76e2f450d834c1 12
+internal/cli/attach_interactive.go
+  s_935e770865ec91::t_76e2f450d834c1 18
+internal/cli/providers.go
+  s_935e770865ec91::t_76e2f450d834c1 11
+internal/process/redact_integration_test.go
+  s_935e770865ec91::t_76e2f450d834c1 10
+internal/provider/copilot/rules_test.go
+  s_935e770865ec91::t_76e2f450d834c1 12
+internal/daemon/notify.go
+  s_935e770865ec91::t_76e2f450d834c1 11-12
+internal/supervisor/harness_test.go
+  s_935e770865ec91::t_76e2f450d834c1 16-20
+internal/daemon/probe.go
+  s_935e770865ec91::t_76e2f450d834c1 10-11
+internal/supervisor/session.go
+  s_935e770865ec91::t_76e2f450d834c1 4-6
+internal/provider/copilot/copilot_test.go
+  s_935e770865ec91::t_76e2f450d834c1 10-11
+internal/provider/copilot/rules.go
+  s_935e770865ec91::t_76e2f450d834c1 3
+internal/cli/root.go
+  s_935e770865ec91::t_76e2f450d834c1 16-19
+internal/cli/e2e_test.go
+  s_935e770865ec91::t_76e2f450d834c1 40
+internal/cli/commands.go
+  s_935e770865ec91::t_76e2f450d834c1 11-12
+internal/daemon/reconcile.go
+  s_935e770865ec91::t_76e2f450d834c1 9-13
+internal/supervisor/probe_test.go
+  s_935e770865ec91::t_76e2f450d834c1 11
+internal/version/version.go
+  s_935e770865ec91::t_76e2f450d834c1 6
+internal/cli/config_cmd.go
+  s_935e770865ec91::t_76e2f450d834c1 14
+cmd/defib/main.go
+  s_935e770865ec91::t_76e2f450d834c1 13-22
+README.md
+  s_935e770865ec91::t_e18b68c9ab73e5 74-76
+internal/cli/doctor_test.go
+  s_935e770865ec91::t_76e2f450d834c1 13
+internal/daemon/daemon.go
+  s_935e770865ec91::t_76e2f450d834c1 18-26
+internal/ipc/ipc_test.go
+  s_935e770865ec91::t_76e2f450d834c1 18
+internal/provider/provider_test.go
+  s_935e770865ec91::t_76e2f450d834c1 12
+internal/daemon/interactive_test.go
+  s_935e770865ec91::t_76e2f450d834c1 15-16
+internal/provider/claude/rules_test.go
+  s_935e770865ec91::t_76e2f450d834c1 12
+internal/daemon/policy.go
+  s_935e770865ec91::t_76e2f450d834c1 7-9
+internal/provider/claude/claude_test.go
+  s_935e770865ec91::t_76e2f450d834c1 11
+internal/cli/start.go
+  s_935e770865ec91::t_76e2f450d834c1 12
+internal/daemon/daemon_test.go
+  s_935e770865ec91::t_76e2f450d834c1 16-21
+internal/cli/config_cmd_test.go
+  s_935e770865ec91::t_76e2f450d834c1 16
+internal/provider/claude/rules.go
+  s_935e770865ec91::t_76e2f450d834c1 3
+internal/provider/claude/unattended_test.go
+  s_935e770865ec91::t_76e2f450d834c1 9
+internal/cli/client.go
+  s_935e770865ec91::t_76e2f450d834c1 12-13
+internal/provider/provider.go
+  s_935e770865ec91::t_76e2f450d834c1 7
+internal/daemon/probe_test.go
+  s_935e770865ec91::t_76e2f450d834c1 16-19
+.goreleaser.yaml
+  s_935e770865ec91::t_76e2f450d834c1 30
+Makefile
+  s_935e770865ec91::t_76e2f450d834c1 6
+go.mod
+  s_935e770865ec91::t_76e2f450d834c1 1
+internal/provider/claude/claude.go
+  s_935e770865ec91::t_76e2f450d834c1 28
+internal/cli/service_cmd.go
+  s_935e770865ec91::t_76e2f450d834c1 9
+internal/provider/fake/fake.go
+  s_935e770865ec91::t_76e2f450d834c1 14-15
+internal/store/store.go
+  s_935e770865ec91::t_76e2f450d834c1 17
+internal/supervisor/supervisor_test.go
+  s_935e770865ec91::t_76e2f450d834c1 10-11
+internal/cli/doctor.go
+  s_935e770865ec91::t_76e2f450d834c1 15-18
+internal/daemon/reconcile_test.go
+  s_935e770865ec91::t_76e2f450d834c1 15-19
+internal/daemon/methods.go
+  s_935e770865ec91::t_76e2f450d834c1 17-23
+internal/daemon/notify_test.go
+  s_935e770865ec91::t_76e2f450d834c1 14-18
+internal/supervisor/supervisor.go
+  s_935e770865ec91::t_76e2f450d834c1 17-20
+internal/cli/providers_test.go
+  s_935e770865ec91::t_76e2f450d834c1 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "df69b7a88734dc2b423190a68b47e2cdae0e7f61",
+  "prompts": {},
+  "sessions": {
+    "s_935e770865ec91": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1afe40c3-656f-4e5b-8ce7-43d2c499b2e1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
