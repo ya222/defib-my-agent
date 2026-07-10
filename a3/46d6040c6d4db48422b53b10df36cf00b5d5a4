@@ -1,0 +1,37 @@
+docs/architecture.md
+  s_75f68424dc37ff::t_47b9d073c6225a 73-74
+  s_75f68424dc37ff::t_1d8b6372af4935 64
+AGENTS.md
+  s_75f68424dc37ff::t_8fc3397836f93d 106-107
+  s_75f68424dc37ff::t_396b2b820267a5 114-115
+  s_75f68424dc37ff::t_38b6468a43da4d 91-97
+  s_75f68424dc37ff::t_2c91c4da0f31f5 13-14
+.github/workflows/ci.yml
+  s_75f68424dc37ff::t_122d3a3c6bfb0c 12,19-20,39-62
+CONTRIBUTING.md
+  s_75f68424dc37ff::t_cb2d1cb636e895 11-12,16-17
+  s_75f68424dc37ff::t_861fed8dddd4a2 26,29,31
+docs/cli.md
+  s_75f68424dc37ff::t_91c8eaba3b2077 38
+docs/glossary.md
+  s_75f68424dc37ff::t_ae3c544a81112a 24
+docs/providers.md
+  s_75f68424dc37ff::t_6c36563deb8d67 153,155-156,160,162-164
+  s_75f68424dc37ff::t_7d38f285933814 9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a346d6040c6d4db48422b53b10df36cf00b5d5a4",
+  "prompts": {},
+  "sessions": {
+    "s_75f68424dc37ff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b6799346-9660-414e-9221-6e9c23660b46",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
