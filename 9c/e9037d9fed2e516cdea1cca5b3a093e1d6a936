@@ -1,0 +1,35 @@
+README.md
+  s_d1888c8bff739e::t_460a86d38e7344 109
+internal/provider/copilot/rules_test.go
+  s_d1888c8bff739e::t_dac262e475b38b 1-120
+docs/detection.md
+  s_d1888c8bff739e::t_edd44e588dfd65 134,136-165
+testdata/copilot/quota-exceeded.stdout.log
+  s_d1888c8bff739e::t_762aa687727814 1-13
+internal/provider/copilot/copilot_test.go
+  s_d1888c8bff739e::t_946a79f6b9fe44 212-219
+internal/provider/copilot/rules.go
+  s_d1888c8bff739e::t_26a09b0d4eb306 5-31,34-85
+testdata/copilot/README.md
+  s_d1888c8bff739e::t_1e91309763e700 3,7-12,14-15,17,19-27,29-31
+testdata/copilot/invalid-session.stderr.log
+  s_d1888c8bff739e::t_762aa687727814 1-6
+TODO.md
+  s_d1888c8bff739e::t_9cd80cab599d06 284,288-290
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9ce9037d9fed2e516cdea1cca5b3a093e1d6a936",
+  "prompts": {},
+  "sessions": {
+    "s_d1888c8bff739e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "72055d3a-0751-466d-8842-95ef392b90f9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
