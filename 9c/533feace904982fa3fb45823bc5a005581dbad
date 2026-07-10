@@ -1,0 +1,23 @@
+CONTRIBUTING.md
+  s_935e770865ec91::t_1c605b38691161 33-45
+.github/workflows/release.yml
+  s_935e770865ec91::t_33ed0311ee4849 35-51
+.github/scripts/supersede-releases.sh
+  s_935e770865ec91::t_c70bcfc44dccbd 1-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9c533feace904982fa3fb45823bc5a005581dbad",
+  "prompts": {},
+  "sessions": {
+    "s_935e770865ec91": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1afe40c3-656f-4e5b-8ce7-43d2c499b2e1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
