@@ -47,10 +47,20 @@ restarts the daemon and it resumes in-flight tasks. Full design in
 
 ## Install
 
-**Prebuilt binaries.** Each tagged release publishes static (CGO-free) binaries for Linux and
-macOS on `amd64`/`arm64`, plus a `checksums.txt`, on the
-[Releases page](https://github.com/ya222/defib/releases). Download the archive for your
-platform, verify its checksum, and put `defib` on your `PATH`:
+**Quick install (Linux/macOS, `amd64`/`arm64`).** Copy-paste this — it detects your platform,
+grabs the latest release, and installs `defib` to `/usr/local/bin`:
+
+```sh
+REPO=ya222/defib-my-agent
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+ARCH=$(uname -m); case "$ARCH" in x86_64) ARCH=amd64;; aarch64|arm64) ARCH=arm64;; esac
+VER=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" | grep -m1 '"tag_name"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/$REPO/releases/download/$VER/defib_${VER#v}_${OS}_${ARCH}.tar.gz" | tar -xz defib
+sudo install defib /usr/local/bin/defib && defib --version
+```
+
+**Manual download.** Grab the archive for your platform (and `checksums.txt`) from the
+[Releases page](https://github.com/ya222/defib-my-agent/releases), then:
 
 ```sh
 tar -xzf defib_<version>_<os>_<arch>.tar.gz
@@ -61,8 +71,8 @@ defib --version
 **From source** (Go 1.22+):
 
 ```sh
-git clone https://github.com/ya222/defib && cd defib
-go build -o bin/defib ./cmd/defib        # or: go install ./cmd/defib
+git clone https://github.com/ya222/defib-my-agent && cd defib-my-agent
+go build -o bin/defib ./cmd/defib
 ```
 
 ## Quickstart
