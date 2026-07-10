@@ -1,0 +1,21 @@
+.github/workflows/ci.yml
+  s_935e770865ec91::t_7c8caa77538a6a 23,26,50,53
+.github/workflows/release.yml
+  s_935e770865ec91::t_7c8caa77538a6a 17,22,28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5c822fddef7f397191c9b1e9fadf8bb343cef69a",
+  "prompts": {},
+  "sessions": {
+    "s_935e770865ec91": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1afe40c3-656f-4e5b-8ce7-43d2c499b2e1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
