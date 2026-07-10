@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/provider"
 )
 
 func newProvidersCmd(g *globalOptions, hooks Hooks) *cobra.Command {

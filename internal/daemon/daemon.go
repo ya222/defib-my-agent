@@ -15,15 +15,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/detect"
-	"github.com/ya222/defib/internal/logging"
-	"github.com/ya222/defib/internal/paths"
-	"github.com/ya222/defib/internal/process"
-	"github.com/ya222/defib/internal/provider"
-	"github.com/ya222/defib/internal/scheduler"
-	"github.com/ya222/defib/internal/store"
-	"github.com/ya222/defib/internal/supervisor"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/logging"
+	"github.com/ya222/defib-my-agent/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/process"
+	"github.com/ya222/defib-my-agent/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/scheduler"
+	"github.com/ya222/defib-my-agent/internal/store"
+	"github.com/ya222/defib-my-agent/internal/supervisor"
 )
 
 // Options configures a Daemon. Zero fields get production defaults.

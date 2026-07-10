@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/store"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/store"
 )
 
 // notifyHookTimeout bounds how long a notification hook may run.

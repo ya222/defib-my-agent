@@ -3,7 +3,7 @@
 # See AGENTS.md for how these targets are used. Run `make check` before every PR.
 
 GO ?= go
-MODULE := github.com/ya222/defib
+MODULE := github.com/ya222/defib-my-agent
 BIN_DIR := bin
 BINARY := $(BIN_DIR)/defib
 

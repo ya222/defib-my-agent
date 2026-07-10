@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/scheduler"
+	"github.com/ya222/defib-my-agent/internal/scheduler"
 )
 
 // probePolicy makes the probe interval much shorter than the backoff so an

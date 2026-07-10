@@ -15,7 +15,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/ipc"
 )
 
 // echoParams/echoResult are used for the typed single-shot round trip test.

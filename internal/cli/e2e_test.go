@@ -37,7 +37,7 @@ func defibBinary(t *testing.T) string {
 			buildErr = err
 		} else {
 			binPath = filepath.Join(dir, "defib")
-			out, err := exec.Command("go", "build", "-o", binPath, "github.com/ya222/defib/cmd/defib").CombinedOutput()
+			out, err := exec.Command("go", "build", "-o", binPath, "github.com/ya222/defib-my-agent/cmd/defib").CombinedOutput()
 			if err != nil {
 				buildErr = err
 				t.Logf("build output: %s", out)

@@ -27,7 +27,7 @@ builds:
       - -trimpath
     ldflags:
       - -s -w
-      - -X github.com/ya222/defib/internal/version.Version={{ .Version }}
+      - -X github.com/ya222/defib-my-agent/internal/version.Version={{ .Version }}
     mod_timestamp: "{{ .CommitTimestamp }}"
 
 archives:

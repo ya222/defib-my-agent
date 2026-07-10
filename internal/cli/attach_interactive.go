@@ -15,7 +15,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/ya222/defib/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/ipc"
 )
 
 // detachKey (Ctrl-]) detaches an interactive attach when stdin is a terminal,

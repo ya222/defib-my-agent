@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/config"
+	"github.com/ya222/defib-my-agent/internal/config"
 )
 
 // startFlags collects start's parsed flag values, before resolving the

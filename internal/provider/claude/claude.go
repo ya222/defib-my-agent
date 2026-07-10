@@ -25,7 +25,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/provider"
 )
 
 // defaultResumePrompt is sent on resume when providers.claude.resume_prompt

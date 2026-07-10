@@ -14,10 +14,10 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/ya222/defib/internal/detect"
-	"github.com/ya222/defib/internal/provider"
-	"github.com/ya222/defib/internal/scheduler"
-	"github.com/ya222/defib/internal/store"
+	"github.com/ya222/defib-my-agent/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/scheduler"
+	"github.com/ya222/defib-my-agent/internal/store"
 )
 
 // Task states, exactly the tasks.status values in the data model.

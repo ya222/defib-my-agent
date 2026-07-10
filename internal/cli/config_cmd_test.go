@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/config"
+	"github.com/ya222/defib-my-agent/internal/config"
 )
 
 func TestWriteConfigValueOnMissingFile(t *testing.T) {

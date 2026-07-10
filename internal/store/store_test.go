@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/version"
+	"github.com/ya222/defib-my-agent/internal/version"
 )
 
 func TestOpen_FreshDatabase(t *testing.T) {

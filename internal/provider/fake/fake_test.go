@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/process"
-	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/process"
+	"github.com/ya222/defib-my-agent/internal/provider"
 )
 
 // TestMain doubles as the fake-provider child: when the test binary is

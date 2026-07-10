@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/provider"
 )
 
 // M10-T3: the skip-approvals flag is never present by default and appears

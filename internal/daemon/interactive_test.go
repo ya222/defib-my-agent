@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/supervisor"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/supervisor"
 )
 
 // interactiveScript: print a banner, block reading one line of forwarded

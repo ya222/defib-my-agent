@@ -18,7 +18,7 @@ const SystemdUnitName = "defib.service"
 
 const systemdUnitTemplate = `[Unit]
 Description=defib task supervisor daemon
-Documentation=https://github.com/ya222/defib
+Documentation=https://github.com/ya222/defib-my-agent
 After=default.target
 
 [Service]
