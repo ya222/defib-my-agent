@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/scheduler"
-	"github.com/ya222/defib/internal/supervisor"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/scheduler"
+	"github.com/ya222/defib-my-agent/internal/supervisor"
 )
 
 // buildPolicy converts the resolved (already validated) config into the

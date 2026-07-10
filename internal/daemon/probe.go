@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/scheduler"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/scheduler"
 )
 
 // probeTimeout bounds a single availability-probe execution.

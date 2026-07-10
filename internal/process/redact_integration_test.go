@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/logging"
+	"github.com/ya222/defib-my-agent/internal/logging"
 )
 
 // Attempt logs are the redactor's Writer wrapped over the log file; child

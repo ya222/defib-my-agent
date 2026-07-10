@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/ya222/defib/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/detect"
 )
 
 // Provider drives one external agent CLI. Adapters implement this and register themselves.

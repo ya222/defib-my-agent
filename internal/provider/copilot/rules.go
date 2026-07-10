@@ -1,6 +1,6 @@
 package copilot
 
-import "github.com/ya222/defib/internal/detect"
+import "github.com/ya222/defib-my-agent/internal/detect"
 
 // DetectionRules returns Copilot's built-in rules, validated against the
 // fixtures in testdata/copilot/ (see its README for provenance).

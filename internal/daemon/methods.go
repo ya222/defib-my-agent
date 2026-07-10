@@ -14,13 +14,13 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/paths"
-	"github.com/ya222/defib/internal/process"
-	"github.com/ya222/defib/internal/store"
-	"github.com/ya222/defib/internal/supervisor"
-	"github.com/ya222/defib/internal/version"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/process"
+	"github.com/ya222/defib-my-agent/internal/store"
+	"github.com/ya222/defib-my-agent/internal/supervisor"
+	"github.com/ya222/defib-my-agent/internal/version"
 )
 
 // RegisterMethods wires every IPC method from

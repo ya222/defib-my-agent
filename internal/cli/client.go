@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/paths"
 )
 
 // socketPath resolves the daemon socket location.

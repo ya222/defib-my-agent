@@ -1,6 +1,6 @@
 package claude
 
-import "github.com/ya222/defib/internal/detect"
+import "github.com/ya222/defib-my-agent/internal/detect"
 
 // Detection rules validated against the fixtures in testdata/claude/ (see
 // its README: success, auth, session-not-found and usage-limit outputs are

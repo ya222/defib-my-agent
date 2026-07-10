@@ -8,8 +8,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/paths"
 )
 
 // addTaskCommands registers the task-facing commands: start, attach, list,

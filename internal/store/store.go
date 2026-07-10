@@ -14,7 +14,7 @@ import (
 
 	_ "modernc.org/sqlite" // registers the "sqlite" database/sql driver
 
-	"github.com/ya222/defib/internal/version"
+	"github.com/ya222/defib-my-agent/internal/version"
 )
 
 //go:embed migrations/*.sql

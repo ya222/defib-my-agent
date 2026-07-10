@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/ya222/defib/internal/detect"
-	"github.com/ya222/defib/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/provider"
 )
 
 // RunMode is the hidden argv[1] marker that switches a defib (or test)

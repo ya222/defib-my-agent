@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/detect"
 )
 
 func fixture(t *testing.T, name string) []byte {

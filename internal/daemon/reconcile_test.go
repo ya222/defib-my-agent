@@ -12,11 +12,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/ya222/defib/internal/paths"
-	"github.com/ya222/defib/internal/provider"
-	"github.com/ya222/defib/internal/provider/fake"
-	"github.com/ya222/defib/internal/store"
-	"github.com/ya222/defib/internal/supervisor"
+	"github.com/ya222/defib-my-agent/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/provider/fake"
+	"github.com/ya222/defib-my-agent/internal/store"
+	"github.com/ya222/defib-my-agent/internal/supervisor"
 )
 
 // recoveryRig drives two daemon generations over one state dir, calling

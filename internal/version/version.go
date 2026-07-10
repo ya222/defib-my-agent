@@ -3,7 +3,7 @@ package version
 
 // Version is the human-readable release version of defib. It defaults to a
 // dev marker and is overridden at release build time via
-// -ldflags "-X github.com/ya222/defib/internal/version.Version=<tag>"
+// -ldflags "-X github.com/ya222/defib-my-agent/internal/version.Version=<tag>"
 // (see .goreleaser.yaml).
 var Version = "0.0.0-dev"
 

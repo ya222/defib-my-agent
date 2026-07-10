@@ -71,6 +71,9 @@ defib --version
 **From source** (Go 1.22+):
 
 ```sh
+go install github.com/ya222/defib-my-agent/cmd/defib@latest   # installs to $(go env GOPATH)/bin
+
+# ...or build from a clone:
 git clone https://github.com/ya222/defib-my-agent && cd defib-my-agent
 go build -o bin/defib ./cmd/defib
 ```

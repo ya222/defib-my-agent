@@ -11,7 +11,7 @@ import (
 	"github.com/pelletier/go-toml/v2"
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/config"
+	"github.com/ya222/defib-my-agent/internal/config"
 )
 
 func newConfigCmd(g *globalOptions) *cobra.Command {

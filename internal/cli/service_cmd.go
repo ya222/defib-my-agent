@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/service"
+	"github.com/ya222/defib-my-agent/internal/service"
 )
 
 // newInstallServiceCmd builds `defib install-service`, which writes and

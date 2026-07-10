@@ -10,16 +10,16 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ya222/defib/internal/cli"
-	"github.com/ya222/defib/internal/config"
-	"github.com/ya222/defib/internal/daemon"
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/logging"
-	"github.com/ya222/defib/internal/paths"
-	"github.com/ya222/defib/internal/provider"
-	"github.com/ya222/defib/internal/provider/claude"
-	"github.com/ya222/defib/internal/provider/copilot"
-	"github.com/ya222/defib/internal/provider/fake"
+	"github.com/ya222/defib-my-agent/internal/cli"
+	"github.com/ya222/defib-my-agent/internal/config"
+	"github.com/ya222/defib-my-agent/internal/daemon"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/logging"
+	"github.com/ya222/defib-my-agent/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/provider/claude"
+	"github.com/ya222/defib-my-agent/internal/provider/copilot"
+	"github.com/ya222/defib-my-agent/internal/provider/fake"
 )
 
 func main() {

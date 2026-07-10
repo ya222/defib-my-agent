@@ -1,9 +1,9 @@
 package supervisor
 
 import (
-	"github.com/ya222/defib/internal/detect"
-	"github.com/ya222/defib/internal/provider"
-	"github.com/ya222/defib/internal/store"
+	"github.com/ya222/defib-my-agent/internal/detect"
+	"github.com/ya222/defib-my-agent/internal/provider"
+	"github.com/ya222/defib-my-agent/internal/store"
 )
 
 // Session strategy, per docs/providers.md#session-strategy-important:

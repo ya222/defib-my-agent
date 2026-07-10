@@ -1,4 +1,4 @@
-module github.com/ya222/defib
+module github.com/ya222/defib-my-agent
 
 go 1.22
 

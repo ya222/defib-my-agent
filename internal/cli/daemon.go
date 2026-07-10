@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ya222/defib/internal/ipc"
-	"github.com/ya222/defib/internal/paths"
+	"github.com/ya222/defib-my-agent/internal/ipc"
+	"github.com/ya222/defib-my-agent/internal/paths"
 )
 
 // pingResult mirrors the daemon.ping payload (kept local: the cli package
