@@ -281,10 +281,13 @@ Depends on: M10.
     verify flags against a pinned `copilot` version; capture fixtures in `testdata/copilot/`.
   - Accept: start/resume argv tests; session strategy chosen from real capabilities; no live CI
     calls.
-- [ ] **M12-T2 — Copilot detection rules + docs.**
+- [x] **M12-T2 — Copilot detection rules + docs.**
   - Add the Copilot rule set to [docs/detection.md](docs/detection.md) from fixtures; update the
     provider table in [README.md](README.md).
   - Accept: fixture-based classification tests pass.
+  - Done: real quota/session captures in `testdata/copilot/` drive `copilot.quota`
+    (QUOTA_EXHAUSTED + rfc3339 reset) and `copilot.session_not_found` (FATAL); auth/rate-limit/
+    transient key on the confirmed `statusCode` schema. Closes issue #18.
 
 ## M13 — Notifications & richer availability
 

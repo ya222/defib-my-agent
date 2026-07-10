@@ -131,9 +131,38 @@ next occurrence of that local wall-clock time.
 no record of (`"No conversation found with session ID: <id>"`) can never succeed on retry, so
 failing fast beats looping as UNKNOWN.
 
-### GitHub Copilot CLI (illustrative — verify during its milestone)
+### GitHub Copilot CLI (validated against fixtures — `copilot 1.0.70`)
 
-Add the analogous rows once real output is captured. Follow the same category mapping.
+Validated in M12-T2 against the captures in `testdata/copilot/` (see its README for which are
+real captures vs structural inferences). The headless `--output-format json` stream is
+line-delimited events; a failed model call surfaces as `model.call_failure` and terminal
+`session.error` events, both carrying an HTTP `"statusCode":<int>` plus `"errorType"`/
+`"errorCode"`. Rules prefer these structural fields over prose. The authoritative rule set is
+`internal/provider/copilot/rules.go`; this table summarizes it.
+
+| Name | Category | Priority | Match | Reset extractor |
+| --- | --- | --- | --- | --- |
+| `copilot.auth` | `FATAL_ERROR` | 95 | any regex `(?i)"statuscode":40[13]|invalid api key|authentication failed|unauthorized|not logged in` | — |
+| `copilot.session_not_found` | `FATAL_ERROR` | 90 | any regex `(?i)no session or task matched|not a valid uuid` | — |
+| `copilot.quota` | `QUOTA_EXHAUSTED` | 85 | any regex `(?i)"errortype":"quota"|"?quota_exceeded"?|exceeded your monthly quota|"statuscode":402` | `rfc3339` from `"resetDate":"([^"]+)"` |
+| `copilot.rate_limit` | `RATE_LIMIT` | 80 | any regex `(?i)"statuscode":429|rate limit` | `rfc3339` from `"resetDate":"([^"]+)"` |
+| `copilot.transient` | `TRANSIENT_ERROR` | 70 | any regex `(?i)"statuscode":5\d\d|overloaded|temporarily unavailable|service unavailable` | — |
+| `copilot.network` | `TRANSIENT_ERROR` | 40 | any regex `(?i)connection reset|connection refused|ETIMEDOUT|ECONNRESET|ENETUNREACH|network error` | — |
+| `copilot.success` | `SUCCESS` | 1 | exit_code in [0] | — |
+
+`copilot.quota` is a **real capture**: exhausting the monthly premium-request budget yields
+`"statusCode":402` / `"errorType":"quota"` / `"errorCode":"quota_exceeded"` and a
+`quotaSnapshots` block whose `"resetDate"` (RFC3339) is the budget reset, used as the Reset
+Time. The run's `result` event carries `"exitCode":1`, so the `copilot.success` (exit 0) rule
+stays safe — but the quota rule outranks it regardless, in case a future headless build exits 0
+on a limit. `copilot.session_not_found` is a **real capture** (`No session or task matched
+'<id>'` on stderr) and, like `claude.session_not_found`, is `FATAL_ERROR`: an unknown session id
+can never succeed on retry.
+
+`copilot.auth` / `copilot.rate_limit` / `copilot.transient` key on the **confirmed**
+`"statusCode":<int>` schema using standard HTTP semantics; those specific non-402 codes are
+structural inferences, not yet observed from a real copilot limit (replacement tracked in issue
+#18). Copilot exposes no distinct session/weekly cap, so no `SESSION_LIMIT` rule is shipped.
 
 ### Fake provider (deterministic, for tests)
 

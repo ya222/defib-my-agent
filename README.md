@@ -106,7 +106,7 @@ a container or a sandboxed working copy. Details in
 | Provider | Status | Notes |
 | --- | --- | --- |
 | Claude Code | First-class (v1 target) | Native resume via session id; structured output. |
-| GitHub Copilot CLI | Available (v1 target) | Verified against `copilot` 1.0.65; native resume via `--session-id`. Automatic limit detection is pending a real captured fixture ([#18](https://github.com/ya222/defib-my-agent/issues/18)). |
+| GitHub Copilot CLI | Available (v1 target) | Verified against `copilot` 1.0.65; native resume via `--session-id`. Quota-exhaustion detection validated against a real capture (`copilot` 1.0.70); rate-limit/transient rules key on the confirmed `statusCode` schema. |
 | `fake` | Built-in (testing) | Deterministic provider for tests and demos — no credits used. |
 
 ## Documentation
