@@ -1,0 +1,19 @@
+docs/blog/introducing-defib.md
+  s_57aaa9bc63a4ab::t_bc804b5044241e 1-110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "69a65fda9ac982abefe321765fb66c113d85a401",
+  "prompts": {},
+  "sessions": {
+    "s_57aaa9bc63a4ab": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a83a4d16-36b9-49d2-93ae-f2b69757dfd1",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Youssef <y9mohamed@gmail.com>"
+    }
+  }
+}
