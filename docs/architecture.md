@@ -55,7 +55,7 @@ These are fixed decisions. Implementers must not swap these out.
 
 | Concern | Choice | Rationale |
 | --- | --- | --- |
-| Language | **Go 1.22+** | Single static binary, first-class process control, easy cross-compilation, simple for contributors. |
+| Language | **Go 1.26+** | Single static binary, first-class process control, easy cross-compilation, simple for contributors. |
 | CLI framework | **`spf13/cobra`** (+ `spf13/pflag`) | Standard for Go CLIs; subcommands, help, flags. |
 | Config format | **TOML** via **`github.com/pelletier/go-toml/v2`** | Human-friendly, comments, unambiguous types. |
 | Persistence | **SQLite** via **`modernc.org/sqlite`** (pure Go, no cgo) using `database/sql` | Crash-safe (WAL), transactional, no external service, no cgo toolchain pain. |

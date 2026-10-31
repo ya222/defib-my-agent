@@ -55,20 +55,25 @@ REPO=ya222/defib-my-agent
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m); case "$ARCH" in x86_64) ARCH=amd64;; aarch64|arm64) ARCH=arm64;; esac
 VER=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" | grep -m1 '"tag_name"' | cut -d'"' -f4)
-curl -fsSL "https://github.com/$REPO/releases/download/$VER/defib_${VER#v}_${OS}_${ARCH}.tar.gz" | tar -xz defib
+TAR="defib_${VER#v}_${OS}_${ARCH}.tar.gz"
+curl -fsSLO "https://github.com/$REPO/releases/download/$VER/$TAR"
+curl -fsSLO "https://github.com/$REPO/releases/download/$VER/checksums.txt"
+sha256sum -c --ignore-missing checksums.txt
+tar -xzf "$TAR" defib
 sudo install defib /usr/local/bin/defib && defib --version
 ```
 
 **Manual download.** Grab the archive for your platform (and `checksums.txt`) from the
-[Releases page](https://github.com/ya222/defib-my-agent/releases), then:
+[Releases page](https://github.com/ya222/defib-my-agent/releases), then verify and extract:
 
 ```sh
+sha256sum -c --ignore-missing checksums.txt
 tar -xzf defib_<version>_<os>_<arch>.tar.gz
 sudo install defib /usr/local/bin/defib
 defib --version
 ```
 
-**From source** (Go 1.22+):
+**From source** (Go 1.26+):
 
 ```sh
 go install github.com/ya222/defib-my-agent/cmd/defib@latest   # installs to $(go env GOPATH)/bin

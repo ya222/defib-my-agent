@@ -39,7 +39,7 @@ top-level packages or swap libraries.
 
 ## Environment setup
 
-- Go 1.22+ (`go version`). No cgo — the SQLite driver is pure Go
+- Go 1.26+ (`go version`). No cgo — the SQLite driver is pure Go
   (`modernc.org/sqlite`). Do **not** introduce a cgo dependency.
 - Install dev tools: `make tools` (installs `golangci-lint`).
 
